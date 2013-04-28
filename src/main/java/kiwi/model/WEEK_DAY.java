@@ -1,0 +1,5 @@
+package kiwi.model;
+
+public enum WEEK_DAY {
+	MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+}
