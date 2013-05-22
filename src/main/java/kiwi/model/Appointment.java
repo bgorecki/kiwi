@@ -1,5 +1,5 @@
 package kiwi.model;
 
-public enum APPOINTMENT {
+public enum Appointment {
     
 }

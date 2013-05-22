@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Flight {
-	private WEEK_DAY WEEK_DAY;
+	private WeekDay WEEK_DAY;
 	private Airport depAirport;
 	private Airport arrAirport;
 	private double staticPrice;
@@ -16,11 +16,11 @@ public class Flight {
 	
 	public Flight() {}
 
-	public WEEK_DAY getWEEK_DAY() {
+	public WeekDay getWEEK_DAY() {
 		return WEEK_DAY;
 	}
 
-	public void setWEEK_DAY(WEEK_DAY wEEK_DAY) {
+	public void setWEEK_DAY(WeekDay wEEK_DAY) {
 		WEEK_DAY = wEEK_DAY;
 	}
 

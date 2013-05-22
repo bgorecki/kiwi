@@ -1,5 +1,5 @@
 package kiwi.model;
 
-public enum CLASS_TYPE {
+public enum ClassType {
     BUSINESS, ECONOMIC, FIRST
 }

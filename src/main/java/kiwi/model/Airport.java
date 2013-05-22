@@ -2,14 +2,25 @@ package kiwi.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
 
-
-public class Airport {
-	private String name;
+@Entity
+@Table(name = "AIRPORT")
+public class Airport implements java.io.Serializable {
+        @Id
+        @GeneratedValue
+        @Column(name = "id")
+        private Long airportId;
+        @Column(name = "name")
+        private String name;
+        @Column(name = "country")
 	private String country;
+        @Column(name = "city")
 	private String city;
+        
 	private List<Flight> departures = new ArrayList<Flight>();
 	private List<Flight> arrivals = new ArrayList<Flight>();
+    
 	
 	public Airport() {}
 	
@@ -18,6 +29,14 @@ public class Airport {
 		this.country = country;
 		this.city = city;
 	}
+        
+        public Long getAirportId() {
+            return airportId;
+        }
+
+        public void setAirportId(Long airportId) {
+            this.airportId = airportId;
+        }
 	
 	public List<Flight> getDepartureFlightByDate() {
 		
