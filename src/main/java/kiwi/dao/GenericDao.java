@@ -5,7 +5,6 @@ import java.io.Serializable;
 import kiwi.utils.HibernateUtil;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 /**
  * Klasa implementująca operacje CRUD dla wszystkich DAO, które z niej będą dziedziczyć.
@@ -15,57 +14,30 @@ import org.hibernate.SessionFactory;
  * @param <PK> Typ klucza prywatnego.
  */
 public class GenericDao <T, PK extends Serializable>{
-	private SessionFactory sessionFactory;
 	private Class<?> type;
 	
 	public GenericDao(Class<?> type) {
 		this.type = type;
-		
-		sessionFactory = HibernateUtil.getSessionFactory();
 	}
 	
-	protected Session getSession() {
-		return sessionFactory.openSession();
+	public Session getSession() {
+		return HibernateUtil.getSessionFactory().getCurrentSession();
 	}
 	
 	public PK create(T object) {
-		PK id;
-		
-		Session session = getSession();
-		session.beginTransaction();
-		id = (PK) session.save(object);
-		session.getTransaction().commit();
-		session.close();
-		
-		return id;
+		return (PK) getSession().save(object);
 	}
 	
 	public T read(PK id) {
-		T object;
-		
-		Session session = getSession();
-		session.beginTransaction();
-		object = (T) session.get(type, id);
-		session.getTransaction().commit();
-		session.close();
-		
-		return object;
+		return (T) getSession().get(type, id);
 	}
 	
 	public void update(T object) {
-		Session session = getSession();
-		session.beginTransaction();
-		session.update(object);
-		session.getTransaction().commit();
-		session.close();
+		getSession().update(object);
 	}
 	
 	public void delete(T object) {
-		Session session = getSession();
-		session.beginTransaction();
-		session.delete(object);
-		session.getTransaction().commit();
-		session.close();
+		getSession().delete(object);
 	}
 
 }
