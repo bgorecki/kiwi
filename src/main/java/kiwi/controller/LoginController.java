@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kiwi.dao.UserDao;
-import kiwi.model.UserPrzewoźnik;
+import kiwi.model.UserPrzewoznik;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
@@ -17,7 +17,7 @@ public class LoginController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// NA RAZIE TYLKO TEST HIBERNATE
-		UserPrzewoźnik user = new UserPrzewoźnik();
+		UserPrzewoznik user = new UserPrzewoznik();
 		user.setPassword("hasło");
 		user.setUsername("użytszkodnik:)");
 		new UserDao().create(user);
