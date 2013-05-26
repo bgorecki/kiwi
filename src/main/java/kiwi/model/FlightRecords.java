@@ -1,5 +1,7 @@
 package kiwi.model;
 
-public class FlightRecords {
+import java.util.List;
 
+public class FlightRecords {
+	List<Reservation> reservations;
 }
