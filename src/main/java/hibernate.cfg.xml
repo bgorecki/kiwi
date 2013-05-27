@@ -37,8 +37,8 @@
         <property name="current_session_context_class">thread</property>
         
         <mapping class="kiwi.model.User"/> 
-        <mapping class="kiwi.model.UserPrzewoźnik"/> 
-        <mapping class="kiwi.model.UserAdministrator"/> 
+        <mapping class="kiwi.model.AirlineCompanyUser"/> 
+        <mapping class="kiwi.model.AdminUser"/> 
 
     </session-factory>
 
