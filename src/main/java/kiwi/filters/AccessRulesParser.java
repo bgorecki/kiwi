@@ -60,7 +60,6 @@ public class AccessRulesParser {
 				String elementType = event.asEndElement().getName().getLocalPart();
 				if(elementType.equals(PATH)) {
 					if(path != null && !users.isEmpty()) {
-						System.out.println("Dodaję regułę: path=" + path + " users=" + users);
 						rules.put(path, users);
 						
 						path = null;

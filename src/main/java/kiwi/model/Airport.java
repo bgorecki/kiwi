@@ -3,29 +3,33 @@ package kiwi.model;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
-
+import java.io.Serializable;
+/**
+ * Lotnisko
+ * @author bartek
+ * TO DO : implementacja metod getDepartureFlightByDate(), getArrivalFlightsByDate()
+ */
 @Entity
-@Table(name = "AIRPORT")
-public class Airport implements java.io.Serializable {
-        @Id
-        @GeneratedValue
-        @Column(name = "id")
-        private Long airportId;
-        @Column(name = "name")
-        private String name;
-        @Column(name = "country")
+@Table(name = "Airport")
+public class Airport implements Serializable {
+    @Id @GeneratedValue
+    @Column(name = "airportId")
+    private Long airportId;
+
+    private String code; // 3-literowy kod lotniska
 	private String country;
-        @Column(name = "city")
 	private String city;
         
+    @OneToMany(mappedBy="depAirport", cascade=CascadeType.ALL)
 	private List<Flight> departures = new ArrayList<Flight>();
+        
+    @OneToMany(mappedBy="arrAirport", cascade=CascadeType.ALL)
 	private List<Flight> arrivals = new ArrayList<Flight>();
     
-	
 	public Airport() {}
 	
-	public Airport(String name, String country, String city) {
-		this.name = name;
+	public Airport(String code, String country, String city) {
+		this.code = code;
 		this.country = country;
 		this.city = city;
 	}
@@ -39,20 +43,18 @@ public class Airport implements java.io.Serializable {
         }
 	
 	public List<Flight> getDepartureFlightByDate() {
-		
 		return null;
 	}
 	
 	public List<Flight> getArrivalFlightsByDate() {
-		
 		return null;
 	}
 	
-	public String getName() {
-		return name;
+	public String getCode() {
+		return code;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setCode(String code) {
+		this.code = code;
 	}
 	public String getCountry() {
 		return country;
@@ -73,7 +75,6 @@ public class Airport implements java.io.Serializable {
 	}
 	
 	public boolean deleteDeparture(Flight departure) {
-		
 		return true;
 	}
 	
@@ -102,4 +103,18 @@ public class Airport implements java.io.Serializable {
 	public void setArrivals(List<Flight> arrivals) {
 		this.arrivals = arrivals;
 	}
+        
+	/**
+	 * Metoda sprawdzająca, czy wszystkie pola z formularza są uzupełnione
+	 * @return true, jeśli wszystkie pola są poprawnie uzupełnione, false jeśli czegoś brakuje
+	 */
+    public boolean isFullyFilled() {
+    	if(this.city==null || this.city.equals(""))
+        	return false;
+        if(this.country==null || this.country.equals(""))
+            return false;
+        if(this.code==null || this.code.equals(""))
+            return false;
+        return true;
+    }
 }

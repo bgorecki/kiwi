@@ -39,6 +39,9 @@
         <mapping class="kiwi.model.User"/> 
         <mapping class="kiwi.model.AirlineCompanyUser"/> 
         <mapping class="kiwi.model.AdminUser"/> 
+        <mapping class="kiwi.model.Airport"/>
+		<mapping class="kiwi.model.Flight"/>
+		<mapping class="kiwi.model.Carrier"/>
 
     </session-factory>
 

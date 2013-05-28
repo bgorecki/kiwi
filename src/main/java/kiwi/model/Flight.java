@@ -1,17 +1,34 @@
 package kiwi.model;
 
 import java.sql.Time;
-import java.util.List;
 
-
+import javax.persistence.*;
+/**
+ * Lot
+ * @author bartek
+ */
+@Entity
+@Table(name = "Flight")
 public class Flight {
+	@Id @GeneratedValue
+    @Column(name = "flightId")
+    private Long flightId;
+	
 	private WeekDay WEEK_DAY;
+	
+	@ManyToOne  
+    @JoinColumn(name = "depAirport_id")
 	private Airport depAirport;
-	private Airport arrAirport;
+     
+    @ManyToOne  
+    @JoinColumn(name = "arrAirport_id")
+    private Airport arrAirport;
 	private double staticPrice;
 	private Time depTime;
 	private Time arrTime;
-	private List<Reservation> reservations;
+	
+	@ManyToOne  
+    @JoinColumn(name = "flight_id")
 	private Carrier carrier;
 	
 	public Flight() {}
@@ -62,14 +79,6 @@ public class Flight {
 
 	public void setArrTime(Time arrTime) {
 		this.arrTime = arrTime;
-	}
-
-	public List<Reservation> getReservations() {
-		return reservations;
-	}
-
-	public void setReservations(List<Reservation> reservations) {
-		this.reservations = reservations;
 	}
 
 	public Carrier getCarrier() {

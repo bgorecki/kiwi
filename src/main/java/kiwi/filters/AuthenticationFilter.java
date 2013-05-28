@@ -80,8 +80,6 @@ public class AuthenticationFilter implements Filter {
 	}
 	
 	private boolean userCanAccessPath(User user, String path) {
-		System.out.println("userClass: " + user.getClass());
-		System.out.println("userCanAccessPath: " + usersWhoHasAccessToPaths.get(path));
 		return usersWhoHasAccessToPaths.get(path).contains(user.getClass());
 	}
 
