@@ -15,8 +15,8 @@ public class Airplane {
 	private long airplaneId;
 	
 	@ManyToOne  
-    @JoinColumn(name = "carrierId")
-	private Carrier carrier;
+    @JoinColumn(name = "airlineCompanyId")
+	private AirlineCompany airlineCompany;
 	
 	@Transient
 	private Places[] places;
@@ -35,12 +35,12 @@ public class Airplane {
 		this.airplaneId = airplaneId;
 	}
 
-	public Carrier getCarrier() {
-		return carrier;
+	public AirlineCompany getAirlineCompany() {
+		return airlineCompany;
 	}
 
-	public void setCarrier(Carrier carrier) {
-		this.carrier = carrier;
+	public void setAirlineCompany(AirlineCompany airlineCompany) {
+		this.airlineCompany = airlineCompany;
 	}
 
 	public Places[] getPlaces() {

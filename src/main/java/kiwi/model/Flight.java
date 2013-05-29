@@ -14,8 +14,6 @@ public class Flight {
     @Column(name = "flightId")
     private Long flightId;
 	
-	private WeekDay WEEK_DAY;
-	
 	@ManyToOne  
     @JoinColumn(name = "depAirport_id")
 	private Airport depAirport;
@@ -27,19 +25,13 @@ public class Flight {
 	private Time depTime;
 	private Time arrTime;
 	
+	// private WeekDay
+	
 	@ManyToOne  
     @JoinColumn(name = "flight_id")
-	private Carrier carrier;
+	private AirlineCompanyUser airlineCompany;
 	
 	public Flight() {}
-
-	public WeekDay getWEEK_DAY() {
-		return WEEK_DAY;
-	}
-
-	public void setWEEK_DAY(WeekDay wEEK_DAY) {
-		WEEK_DAY = wEEK_DAY;
-	}
 
 	public Airport getDepAirport() {
 		return depAirport;
@@ -81,12 +73,12 @@ public class Flight {
 		this.arrTime = arrTime;
 	}
 
-	public Carrier getCarrier() {
-		return carrier;
+	public AirlineCompanyUser getAirlineCompany() {
+		return airlineCompany;
 	}
 
-	public void setCarrier(Carrier carrier) {
-		this.carrier = carrier;
+	public void setAirlineCompany(AirlineCompanyUser airlineCompany) {
+		this.airlineCompany = airlineCompany;
 	}
 	
 	

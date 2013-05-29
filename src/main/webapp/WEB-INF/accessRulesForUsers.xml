@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+Adresy serwletów jak i plików .jsp, które podklegają authentykacji. 
+Jeżeli jakieś ścieżki tutaj nie ma, to jest dostępna dla każdego.
+-->
+
+<accessRules>
+	<path value = "/authTest1">
+		<user type="admin" />
+		<user type="airlineCompany" />
+	</path>
+	<path value = "/authTest2">
+		<user type="admin" />
+	</path>
+</accessRules>

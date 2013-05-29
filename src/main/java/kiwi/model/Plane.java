@@ -1,21 +1,29 @@
 package kiwi.model;
 
 public class Plane {
-	private Carrier carrier;
-	private Object places;
+	private AirlineCompany airlineCompany;
+	private Places[] places;
 	private double weight;
 	private double size;
 	private double fuelConsume;
 	private String name;
 	
 	public Plane() {}
-
-	public Carrier getCarrier() {
-		return carrier;
+	
+	public AirlineCompany getAirlineCompany() {
+		return airlineCompany;
 	}
 
-	public void setCarrier(Carrier carrier) {
-		this.carrier = carrier;
+	public void setAirlineCompany(AirlineCompany airlineCompany) {
+		this.airlineCompany = airlineCompany;
+	}
+
+	public Places[] getPlaces() {
+		return places;
+	}
+
+	public void setPlaces(Places[] places) {
+		this.places = places;
 	}
 
 	public double getWeight() {

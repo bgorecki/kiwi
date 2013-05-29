@@ -8,37 +8,37 @@ import javax.persistence.*;
  * @author bartek
  */
 @Entity
-@Table(name = "CARRIER")
-public class Carrier {
+@Table(name = "AirlineCompany")
+public class AirlineCompany {
 
 	@Id @GeneratedValue
-	@Column(name = "carrierId")
-	private Long carrierId;
+	@Column(name = "airlineCompanyId")
+	private Long airlineCompanyId;
 	
-	@OneToMany(mappedBy="carrier", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="airlineCompany", cascade=CascadeType.ALL)
 	private List<Flight> flights;
 	
-	@OneToMany(mappedBy="carrier", cascade=CascadeType.ALL)
-	private List<UserCarrier> userCarrier;
+	@OneToMany(mappedBy="airlineCompany", cascade=CascadeType.ALL)
+	private List<AirlineCompanyUser> airlineCompanyUsers;
 	
 	private String name;
 	private String country;
     
-	@OneToMany(mappedBy="carrier", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="airlineCompany", cascade=CascadeType.ALL)
 	private List<Airplane> airplanes;
     @Transient
 	private List<Modifier> modificator;
 	@Transient
 	private List<Employee> employees;
 	
-	public Carrier() {}
+	public AirlineCompany() {}
 
-	public Long getCarrierId() {
-		return carrierId;
+	public Long getAirlineCompany() {
+		return airlineCompanyId;
 	}
 
-	public void setCarrierId(Long carrierId) {
-		this.carrierId = carrierId;
+	public void setAirlineCompany(Long airlineCompanyId) {
+		this.airlineCompanyId = airlineCompanyId;
 	}
 
 	public List<Flight> getFlights() {
@@ -47,6 +47,14 @@ public class Carrier {
 
 	public void setFlights(List<Flight> flights) {
 		this.flights = flights;
+	}
+
+	public List<AirlineCompanyUser> getAirlineCompanyUsers() {
+		return airlineCompanyUsers;
+	}
+
+	public void setAirlineCompanyUsers(List<AirlineCompanyUser> airlineCompanyUsers) {
+		this.airlineCompanyUsers = airlineCompanyUsers;
 	}
 
 	public String getName() {
@@ -87,13 +95,5 @@ public class Carrier {
 
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
-	}
-
-	public List<UserCarrier> getUserCarrier() {
-		return userCarrier;
-	}
-
-	public void setUserCarrier(List<UserCarrier> userCarrier) {
-		this.userCarrier = userCarrier;
 	}
 }
