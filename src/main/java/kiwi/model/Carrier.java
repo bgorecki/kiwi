@@ -24,7 +24,7 @@ public class Carrier {
 	private String name;
 	private String country;
     
-	@Transient
+	@OneToMany(mappedBy="carrier", cascade=CascadeType.ALL)
 	private List<Airplane> airplanes;
     @Transient
 	private List<Modifier> modificator;
