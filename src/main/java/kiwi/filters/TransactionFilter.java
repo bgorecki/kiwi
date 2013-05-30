@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebFilter;
 
 import kiwi.utils.HibernateUtil;
 
-import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.context.internal.ThreadLocalSessionContext;
 
@@ -28,9 +27,9 @@ public class TransactionFilter implements Filter {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		ThreadLocalSessionContext.bind(session);
 		session.beginTransaction();
-		System.out.println("Transaction filter start.");
+		
 		chain.doFilter(request, response);
-		System.out.println("Transaction filter end.");
+		
 		ThreadLocalSessionContext.unbind(HibernateUtil.getSessionFactory());
 		session.getTransaction().commit();
 		session.close();

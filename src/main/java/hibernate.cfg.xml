@@ -30,7 +30,6 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
     
-        <!-- Validate the schema, make no changes to the database. -->
         <property name="hbm2ddl.auto">create</property>
     
         <!-- Bind the getCurrentSession() method to the thread. -->
@@ -41,7 +40,8 @@
         <mapping class="kiwi.model.AdminUser"/> 
         <mapping class="kiwi.model.Airport"/>
 		<mapping class="kiwi.model.Flight"/>
-		<mapping class="kiwi.model.Carrier"/>
+		<mapping class="kiwi.model.AirlineCompany"/>
+		<mapping class="kiwi.model.Airplane"/>
 
     </session-factory>
 
