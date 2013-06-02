@@ -28,7 +28,7 @@ public class Flight {
 	// private WeekDay
 	
 	@ManyToOne  
-    @JoinColumn(name = "flight_id")
+    @JoinColumn(name = "arlineCompanyId")
 	private AirlineCompanyUser airlineCompany;
 	
 	public Flight() {}

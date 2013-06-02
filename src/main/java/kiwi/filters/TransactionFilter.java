@@ -10,6 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
+import kiwi.utils.DatabaseConnector;
 import kiwi.utils.HibernateUtil;
 
 import org.hibernate.Session;
@@ -24,15 +25,15 @@ import org.hibernate.context.internal.ThreadLocalSessionContext;
 public class TransactionFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = DatabaseConnector.getInstance().getSessionFactory().openSession();
 		ThreadLocalSessionContext.bind(session);
 		session.beginTransaction();
 		
 		chain.doFilter(request, response);
 		
-		ThreadLocalSessionContext.unbind(HibernateUtil.getSessionFactory());
+		ThreadLocalSessionContext.unbind(DatabaseConnector.getInstance().getSessionFactory());
 		session.getTransaction().commit();
-		session.close();
+		//session.close();
 	}
 	
 	public void init(FilterConfig fConfig) throws ServletException {
