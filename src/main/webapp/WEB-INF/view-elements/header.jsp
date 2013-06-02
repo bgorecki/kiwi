@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -270,16 +272,6 @@
 	
 	<!-- Header -->
 	
-	<!-- Server status -->
-	<header><div class="container_12">
-		
-		<p id="skin-name"><small>Constellation<br> Admin Skin</small> <strong>1.2</strong></p>
-		<div class="server-info">Server: <strong>Apache 2.2.14</strong></div>
-		<div class="server-info">Php: <strong>5.3.1</strong></div>
-		
-	</div></header>
-	<!-- End server status -->
-	
 	<!-- Main nav -->
 	<nav id="main-nav">
 		
@@ -382,157 +374,16 @@
 	
 	<!-- Status bar -->
 	<div id="status-bar"><div class="container_12">
-	
 		<ul id="status-infos">
-			<li class="spaced">Logged as: <strong>Admin</strong></li>
-			<li>
-				<a href="#" class="button" title="5 messages"><img src="images/icons/fugue/mail.png" width="16" height="16"> <strong>5</strong></a>
-				<div id="messages-list" class="result-block">
-					<span class="arrow"><span></span></span>
-					
-					<ul class="small-files-list icon-mail">
-						<li>
-							<a href="#"><strong>10:15</strong> Please update...<br>
-							<small>From: System</small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Yest.</strong> Hi<br>
-							<small>From: Jane</small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Yest.</strong> System update<br>
-							<small>From: System</small></a>
-						</li>
-						<li>
-							<a href="#"><strong>2 days</strong> Database backup<br>
-							<small>From: System</small></a>
-						</li>
-						<li>
-							<a href="#"><strong>2 days</strong> Re: bug report<br>
-							<small>From: Max</small></a>
-						</li>
-					</ul>
-					
-					<p id="messages-info" class="result-info"><a href="#">Go to inbox &raquo;</a></p>
-				</div>
-			</li>
-			<li>
-				<a href="#" class="button" title="25 comments"><img src="images/icons/fugue/balloon.png" width="16" height="16"> <strong>25</strong></a>
-				<div id="comments-list" class="result-block">
-					<span class="arrow"><span></span></span>
-					
-					<ul class="small-files-list icon-comment">
-						<li>
-							<a href="#"><strong>Jane</strong>: I don't think so<br>
-							<small>On <strong>Post title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Ken_54</strong>: What about using a different...<br>
-							<small>On <strong>Post title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Jane</strong> Sure, but no more.<br>
-							<small>On <strong>Another post</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Max</strong>: Have you seen that...<br>
-							<small>On <strong>Post title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Anonymous</strong>: Good luck!<br>
-							<small>On <strong>My first post</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Sébastien</strong>: This sure rocks!<br>
-							<small>On <strong>Another post title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>John</strong>: Me too!<br>
-							<small>On <strong>Third post title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>John</strong> This can be solved by...<br>
-							<small>On <strong>Another post</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Jane</strong>: No prob.<br>
-							<small>On <strong>Post title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Anonymous</strong>: I had the following...<br>
-							<small>On <strong>My first post</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Anonymous</strong>: Yes<br>
-							<small>On <strong>Post title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Lian</strong>: Please make sure that...<br>
-							<small>On <strong>Last post title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Ann</strong> Thanks!<br>
-							<small>On <strong>Last post</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Max</strong>: Don't tell me what...<br>
-							<small>On <strong>Post title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Gordon</strong>: Here is an article about...<br>
-							<small>On <strong>My another post</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Lee</strong>: Try to reset the value first<br>
-							<small>On <strong>Last title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Lee</strong>: Sure!<br>
-							<small>On <strong>Second post title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Many</strong> Great job, keep on!<br>
-							<small>On <strong>Third post</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>John</strong>: I really like this<br>
-							<small>On <strong>First title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Paul</strong>: Hello, I have an issue with...<br>
-							<small>On <strong>My first post</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>June</strong>: Yuck.<br>
-							<small>On <strong>Another title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Jane</strong>: Wow, sounds amazing, do...<br>
-							<small>On <strong>Another title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Esther</strong>: Man, this is the best...<br>
-							<small>On <strong>Another post</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>Max</strong>: Thanks!<br>
-							<small>On <strong>Post title</strong></small></a>
-						</li>
-						<li>
-							<a href="#"><strong>John</strong>: I'd say it is not safe...<br>
-							<small>On <strong>My first post</strong></small></a>
-						</li>
-					</ul>
-					
-					<p id="comments-info" class="result-info"><a href="#">Manage comments &raquo;</a></p>
-				</div>
-			</li>
-			<li><a href="login.html" class="button red" title="Logout"><span class="smaller">LOGOUT</span></a></li>
-		</ul>
-		
-		<ul id="breadcrumb">
-			<li><a href="#" title="Home">Home</a></li>
-			<li><a href="#" title="Dashboard">Dashboard</a></li>
+			<c:choose>
+				<c:when test="${not empty sessionScope.user}">
+					<li class="spaced">Logged as: <strong>${sessionScope.user.username}</strong></li>
+					<li><a href="logout" class="button red" title="Wyloguj"><span class="smaller">WYLOGUJ</span></a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="login" class="button red" title="Zaloguj"><span class="smaller">ZALOGUJ</span></a></li>
+				</c:otherwise>
+			</c:choose>
 		</ul>
 	
 	</div></div>

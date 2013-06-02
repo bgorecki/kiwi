@@ -40,12 +40,10 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 		
-		System.out.println("userWhoLoggedIn.type " + userWhologgedIn.getType());
-		
 		HttpSession httpSession = request.getSession(true);
 		httpSession.setAttribute("user", userWhologgedIn);
 		
-		
+		response.sendRedirect("index.jsp");
 	}
 
 }

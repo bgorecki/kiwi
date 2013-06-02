@@ -33,11 +33,11 @@ public class AirlineCompany {
 	
 	public AirlineCompany() {}
 
-	public Long getAirlineCompany() {
+	public Long getAirlineCompanyId() {
 		return airlineCompanyId;
 	}
 
-	public void setAirlineCompany(Long airlineCompanyId) {
+	public void setAirlineCompanyId(Long airlineCompanyId) {
 		this.airlineCompanyId = airlineCompanyId;
 	}
 
