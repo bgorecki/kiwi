@@ -2,6 +2,7 @@ package kiwi.dao;
 
 import java.io.Serializable;
 
+import kiwi.utils.DatabaseConnector;
 import kiwi.utils.HibernateUtil;
 
 import org.hibernate.Session;
@@ -19,11 +20,19 @@ public class GenericDao <T, PK extends Serializable>{
 	public GenericDao(Class<?> type) {
 		this.type = type;
 	}
-	
+
 	public Session getSession() {
-		return HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = DatabaseConnector.getInstance().getSession();
+		if (!session.isOpen())
+			session=newSession();
+
+		return session;
 	}
-	
+
+	protected Session newSession() {
+		return DatabaseConnector.getInstance().getSessionFactory().openSession();
+	}
+
 	public PK create(T object) {
 		return (PK) getSession().save(object);
 	}

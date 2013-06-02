@@ -270,8 +270,6 @@
 <!--[if lt IE 9]><div class="ie"><![endif]-->
 <!--[if lt IE 8]><div class="ie7"><![endif]-->
 	
-	<!-- Header -->
-	
 	<!-- Main nav -->
 	<nav id="main-nav">
 		
