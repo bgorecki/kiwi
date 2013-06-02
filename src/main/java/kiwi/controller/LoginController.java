@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kiwi.model.User;
+import kiwi.models.DbUzytkownikEntity;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
@@ -32,7 +32,7 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 		
-		User userWhologgedIn = User.authenticate(username, password);
+		DbUzytkownikEntity userWhologgedIn = DbUzytkownikEntity.authenticate(username, password);
 		
 		if(userWhologgedIn == null ) {
 			request.setAttribute("msg", "Podany użytkownik nie istnieje lub błędne hasło!");

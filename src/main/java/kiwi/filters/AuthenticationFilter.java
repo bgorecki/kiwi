@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLStreamException;
 
-import kiwi.model.User;
+import kiwi.models.DbUzytkownikEntity;
 
 /**
  * Filtr sprawdzający czy osoba ma prawo dostępu do danego Controllera/strony JSP/zasobu.
@@ -27,7 +27,11 @@ import kiwi.model.User;
  */
 @WebFilter(filterName="authenticationFilter")
 public class AuthenticationFilter implements Filter {
-	private Map<String, List<Class<? extends User>>> usersWhoHasAccessToPaths = new HashMap<String, List<Class<? extends User>>>();
+	/**
+	 * Mapa przechowująca ścieżki do zasobów i role użytkowników którzy mają do nich dostęp
+	 * w formie <ścieżka, List<rola> >.
+	 */
+	private Map<String, List<String>> usersWhoHasAccessToPaths = new HashMap<String, List<String>>();
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -35,11 +39,11 @@ public class AuthenticationFilter implements Filter {
 		String requestedPath = httpRequest.getServletPath();
 		
 		if(pathHasRestrictedAccessPrivileges(requestedPath)) {
-			User user = getUserFromHttpSession(httpRequest);
+			DbUzytkownikEntity user = getUserFromHttpSession(httpRequest);
 			if(user == null || !userCanAccessPath(user, requestedPath)) {
 				httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 				return;
-			} else System.out.println("User == null!");
+			}
 		}
 		
 		chain.doFilter(request, response);
@@ -68,17 +72,17 @@ public class AuthenticationFilter implements Filter {
 			return false;
 	}
 	
-	private User getUserFromHttpSession(HttpServletRequest request) {
+	private DbUzytkownikEntity getUserFromHttpSession(HttpServletRequest request) {
 		if(request.getSession(false) == null || 
 		   request.getSession().getAttribute("user") == null) {
 			return null;
 		} else {
-			return (User) request.getSession().getAttribute("user");
+			return (DbUzytkownikEntity) request.getSession().getAttribute("user");
 		}
 	}
 	
-	private boolean userCanAccessPath(User user, String path) {
-		return usersWhoHasAccessToPaths.get(path).contains(user.getClass());
+	private boolean userCanAccessPath(DbUzytkownikEntity user, String path) {
+		return usersWhoHasAccessToPaths.get(path).contains(user.getRola());
 	}
 
 }

@@ -1,16 +1,11 @@
 package kiwi.utils;
 
 import kiwi.dao.GenericDao;
-import kiwi.dao.UserDao;
-import kiwi.model.User;
-import kiwi.model.AdminUser;
-import kiwi.model.AirlineCompanyUser;
-
 import kiwi.models.DbLotniskoEntity;
 import kiwi.models.DbPrzewoznikEntity;
+import kiwi.models.DbUzytkownikEntity;
+
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.context.internal.ThreadLocalSessionContext;
 
 public class HibernateUtil {
@@ -33,15 +28,13 @@ public class HibernateUtil {
     	ThreadLocalSessionContext.bind(s);
         s.beginTransaction();
 
-		/*User user = new AirlineCompanyUser();
-		user.setPassword("123");
-		user.setUsername("jan kowalski");
-		new UserDao().create(user);
-		
-		user = new AdminUser();
-		user.setPassword("admin1");
-		user.setUsername("admin1");
-		new UserDao().create(user);*/
+        GenericDao<DbUzytkownikEntity, Integer> uzytkownikDao = new GenericDao<DbUzytkownikEntity, Integer>(DbUzytkownikEntity.class);
+	    DbUzytkownikEntity uzytkownik = new DbUzytkownikEntity();
+	    uzytkownik.setLogin("admin1"); uzytkownik.setHaslo("admin1"); uzytkownik.setRola(DbUzytkownikEntity.ADMIN_ROLE);
+	    uzytkownikDao.create(uzytkownik);
+	    uzytkownik = new DbUzytkownikEntity();
+	    uzytkownik.setLogin("jan kowalski"); uzytkownik.setHaslo("123"); uzytkownik.setRola(DbUzytkownikEntity.PRZEWOZNIK_ROLE);
+	    uzytkownikDao.create(uzytkownik);
 
 	    GenericDao<DbLotniskoEntity, Integer> lotniskoDao = new GenericDao<DbLotniskoEntity, Integer>(DbLotniskoEntity.class);
 	    DbLotniskoEntity lotnisko;

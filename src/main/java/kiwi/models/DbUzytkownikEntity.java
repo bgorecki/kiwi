@@ -1,7 +1,15 @@
 package kiwi.models;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
+
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import kiwi.dao.DbUzytkownikEntityDao;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,11 +22,22 @@ import java.sql.Timestamp;
 @Entity
 public class DbUzytkownikEntity
 {
-
+	public static final String ADMIN_ROLE = "administrator";
+	public static final String PRZEWOZNIK_ROLE = "przewoznik";
+	
 	private Integer idUzytkownika;
+	private String login;
+	private String haslo;
+	private String rola;
+	private Timestamp ostatnieLogowanie;
+	private DbPrzewoznikEntity przewoznikByIdPrzewoznika;
+	
+	public static DbUzytkownikEntity authenticate(String username, String password) {
+		return new DbUzytkownikEntityDao().findByUsernameAndPassword(username, password);
+	}
 
 	@javax.persistence.Column(name = "id_uzytkownika", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
-	@Id
+	@Id @GeneratedValue
 	public Integer getIdUzytkownika()
 	{
 		return idUzytkownika;
@@ -28,8 +47,6 @@ public class DbUzytkownikEntity
 	{
 		this.idUzytkownika = idUzytkownika;
 	}
-
-	private String login;
 
 	@javax.persistence.Column(name = "login", nullable = false, insertable = true, updatable = true, length = 100, precision = 0)
 	@Basic
@@ -43,8 +60,6 @@ public class DbUzytkownikEntity
 		this.login = login;
 	}
 
-	private String haslo;
-
 	@javax.persistence.Column(name = "haslo", nullable = false, insertable = true, updatable = true, length = 100, precision = 0)
 	@Basic
 	public String getHaslo()
@@ -57,8 +72,6 @@ public class DbUzytkownikEntity
 		this.haslo = haslo;
 	}
 
-	private String rola;
-
 	@javax.persistence.Column(name = "rola", nullable = false, insertable = true, updatable = true, length = 13, precision = 0)
 	@Basic
 	public String getRola()
@@ -70,8 +83,6 @@ public class DbUzytkownikEntity
 	{
 		this.rola = rola;
 	}
-
-	private Timestamp ostatnieLogowanie;
 
 	@javax.persistence.Column(name = "ostatnie_logowanie", nullable = true, insertable = true, updatable = true, length = 19, precision = 0)
 	@Basic
@@ -115,7 +126,6 @@ public class DbUzytkownikEntity
 		return result;
 	}
 
-	private DbPrzewoznikEntity przewoznikByIdPrzewoznika;
 
 	@ManyToOne(cascade= CascadeType.ALL)
 	@javax.persistence.JoinColumn(name = "id_przewoznika", referencedColumnName = "id_przewoznika")

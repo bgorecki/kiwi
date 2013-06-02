@@ -375,7 +375,7 @@
 		<ul id="status-infos">
 			<c:choose>
 				<c:when test="${not empty sessionScope.user}">
-					<li class="spaced">Logged as: <strong>${sessionScope.user.username}</strong></li>
+					<li class="spaced">Logged as: <strong>${sessionScope.user.login}</strong></li>
 					<li><a href="logout" class="button red" title="Wyloguj"><span class="smaller">WYLOGUJ</span></a></li>
 				</c:when>
 				<c:otherwise>
