@@ -249,6 +249,7 @@
 	
 	/** IE class **/
 	.form input[type=text],
+    .form input[type=number],
 	.form input[type=password],
 	.form .input-type-text {
 		font-size: 1em;
@@ -276,11 +277,13 @@
 		border-radius: 0.417em;
 		}
 		.form input[type=text],
+        .form input[type=number],
 		.form input[type=password] {
 			padding-bottom: 0.583em;
 		}
 		.form input[type=text]:focus,
 		.form input[type=password]:focus,
+        .form input[type=number]:focus,
 		.form .input-type-text:focus,
 		.form select:focus,
 		.form textarea:focus {

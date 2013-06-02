@@ -19,6 +19,7 @@ public class DbKlasaEntity
 
 	@javax.persistence.Column(name = "id_klasy", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
 	@Id
+	@GeneratedValue
 	public Integer getIdKlasy()
 	{
 		return idKlasy;
@@ -31,7 +32,7 @@ public class DbKlasaEntity
 
 	private String nazwa;
 
-	@javax.persistence.Column(name = "nazwa", nullable = false, insertable = true, updatable = true, length = 14, precision = 0)
+	@javax.persistence.Column(name = "nazwa", nullable = false, insertable = true, updatable = true, length = 128, precision = 0)
 	@Basic
 	public String getNazwa()
 	{
@@ -103,4 +104,36 @@ public class DbKlasaEntity
 	{
 		this.rekordyLotusByIdKlasy = rekordyLotusByIdKlasy;
 	}
+
+	public DbKlasaEntity withIdKlasy(final Integer idKlasy)
+	{
+		this.idKlasy = idKlasy;
+		return this;
+	}
+
+	public DbKlasaEntity withNazwa(final String nazwa)
+	{
+		this.nazwa = nazwa;
+		return this;
+	}
+
+	public DbKlasaEntity withMiejscasByIdKlasy(final Collection<DbMiejscaEntity> miejscasByIdKlasy)
+	{
+		this.miejscasByIdKlasy = miejscasByIdKlasy;
+		return this;
+	}
+
+	public DbKlasaEntity withModyfikatorsByIdKlasy(final Collection<DbModyfikatorEntity> modyfikatorsByIdKlasy)
+	{
+		this.modyfikatorsByIdKlasy = modyfikatorsByIdKlasy;
+		return this;
+	}
+
+	public DbKlasaEntity withRekordyLotusByIdKlasy(final Collection<DbRekordyLotuEntity> rekordyLotusByIdKlasy)
+	{
+		this.rekordyLotusByIdKlasy = rekordyLotusByIdKlasy;
+		return this;
+	}
+
+
 }

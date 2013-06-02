@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 
@@ -8,50 +8,47 @@
 	<meta charset="utf-8">
 	
 	<!-- Global stylesheets -->
-	<link href="css/reset.css" rel="stylesheet" type="text/css">
-	<link href="css/common.css" rel="stylesheet" type="text/css">
-	<link href="css/form.css" rel="stylesheet" type="text/css">
-	<link href="css/standard.css" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/css/reset.css"/>" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/css/common.css"/>" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/css/form.css"/>" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/css/standard.css"/>" rel="stylesheet" type="text/css">
 	
 	<!-- Comment/uncomment one of these files to toggle between fixed and fluid layout -->
 	<!--<link href="css/960.gs.css" rel="stylesheet" type="text/css">-->
 	<link href="css/960.gs.fluid.css" rel="stylesheet" type="text/css">
 	
 	<!-- Custom styles -->
-	<link href="css/simple-lists.css" rel="stylesheet" type="text/css">
-	<link href="css/block-lists.css" rel="stylesheet" type="text/css">
-	<link href="css/planning.css" rel="stylesheet" type="text/css">
-	<link href="css/table.css" rel="stylesheet" type="text/css">
-	<link href="css/calendars.css" rel="stylesheet" type="text/css">
-	<link href="css/wizard.css" rel="stylesheet" type="text/css">
-	<link href="css/gallery.css" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/css/simple-lists.css"/>" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/css/block-lists.css"/>" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/css/planning.css"/>" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/css/table.css"/>" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/css/calendars.css"/>" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/css/wizard.css"/>" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/css/gallery.css"/>" rel="stylesheet" type="text/css">
 	
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-	<link rel="icon" type="image/png" href="favicon-large.png">
+	<link rel="shortcut icon" type="image/x-icon" href="<c:url value="/favicon.ico"/>">
+	<link rel="icon" type="image/png" href="<c:url value="/favicon-large.png"/>">
 	
 	<!-- Generic libs -->
-	<script type="text/javascript" src="js/html5.js"></script>				<!-- this has to be loaded before anything else -->
-	<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="js/old-browsers.js"></script>		<!-- remove if you do not need older browsers detection -->
+	<script type="text/javascript" src="<c:url value="/js/jquery-ui-1.10.3/js/jquery-1.9.1.js"/>"></script>
+
 	
 	<!-- Template libs -->
-	<script type="text/javascript" src="js/jquery.accessibleList.js"></script>
-	<script type="text/javascript" src="js/searchField.js"></script>
-	<script type="text/javascript" src="js/common.js"></script>
-	<script type="text/javascript" src="js/standard.js"></script>
-	<!--[if lte IE 8]><script type="text/javascript" src="js/standard.ie.js"></script><![endif]-->
-	<script type="text/javascript" src="js/jquery.tip.js"></script>
-	<script type="text/javascript" src="js/jquery.hashchange.js"></script>
-	<script type="text/javascript" src="js/jquery.contextMenu.js"></script>
-	<script type="text/javascript" src="js/jquery.modal.js"></script>
+	<script type="text/javascript" src="<c:url value="/js/jquery.accessibleList.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/searchField.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/common.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/standard.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/jquery.tip.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/jquery.hashchange.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/jquery.contextMenu.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/js/jquery.modal.js"/>"></script>
 	
 	<!-- Custom styles lib -->
-	<script type="text/javascript" src="js/list.js"></script>
+	<script type="text/javascript" src="<c:url value="/js/list.js"/>"></script>
 	
 	<!-- Plugins -->
-	<script  type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-	<script  type="text/javascript" src="js/jquery.datepick/jquery.datepick.min.js"></script>
+	<script  type="text/javascript" src="<c:url value="/js/jquery.dataTables.min.js"/>"></script>
 	
 	<!-- Charts library -->
 	<!--Load the AJAX API-->
@@ -199,66 +196,9 @@
 					return false;
 				});
 			});
-			
-			/*
-			 * Datepicker
-			 * Thanks to sbkyle! http://themeforest.net/user/sbkyle
-			 */
-			$('.datepicker').datepick({
-				alignment: 'bottom',
-				showOtherMonths: true,
-				selectOtherMonths: true,
-				renderer: {
-					picker: '<div class="datepick block-border clearfix form"><div class="mini-calendar clearfix">' +
-							'{months}</div></div>',
-					monthRow: '{months}', 
-					month: '<div class="calendar-controls" style="white-space: nowrap">' +
-								'{monthHeader:M yyyy}' +
-							'</div>' +
-							'<table cellspacing="0">' +
-								'<thead>{weekHeader}</thead>' +
-								'<tbody>{weeks}</tbody></table>', 
-					weekHeader: '<tr>{days}</tr>', 
-					dayHeader: '<th>{day}</th>', 
-					week: '<tr>{days}</tr>', 
-					day: '<td>{day}</td>', 
-					monthSelector: '.month', 
-					daySelector: 'td', 
-					rtlClass: 'rtl', 
-					multiClass: 'multi', 
-					defaultClass: 'default', 
-					selectedClass: 'selected', 
-					highlightedClass: 'highlight', 
-					todayClass: 'today', 
-					otherMonthClass: 'other-month', 
-					weekendClass: 'week-end', 
-					commandClass: 'calendar', 
-					commandLinkClass: 'button',
-					disabledClass: 'unavailable'
-				}
-			});
+
+
 		});
-		
-		// Demo modal
-		function openModal()
-		{
-			$.modal({
-				content: '<p>This is an example of modal window. You can open several at the same time (click button below!), move them and resize them.</p>'+
-						  '<p>The plugin provides several other functions to control them, try below:</p>'+
-						  '<ul class="simple-list with-icon">'+
-						  '    <li><a href="javascript:void(0)" onclick="$(this).getModalWindow().setModalTitle(\'\')">Remove title</a></li>'+
-						  '    <li><a href="javascript:void(0)" onclick="$(this).getModalWindow().setModalTitle(\'New title\')">Change title</a></li>'+
-						  '    <li><a href="javascript:void(0)" onclick="$(this).getModalWindow().loadModalContent(\'ajax-modal.html\')">Load Ajax content</a></li>'+
-						  '</ul>',
-				title: 'Example modal window',
-				maxWidth: 500,
-				buttons: {
-					'Open new modal': function(win) { openModal(); },
-					'Close': function(win) { win.closeModal(); }
-				}
-			});
-		}
-	
 	</script>
 	
 </head>
@@ -385,7 +325,7 @@
 	
 		<ul id="status-infos">
 			<li class="spaced">Logged as: <strong>Admin</strong></li>
-			<li><a href="login.html" class="button red" title="Logout"><span class="smaller">LOGOUT</span></a></li>
+			<li><a href="<c:url value="/login.html"/>" class="button red" title="Logout"><span class="smaller">LOGOUT</span></a></li>
 		</ul>
 		
 		<ul id="breadcrumb">

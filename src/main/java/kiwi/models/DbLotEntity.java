@@ -20,6 +20,7 @@ public class DbLotEntity
 
 	@javax.persistence.Column(name = "id_lotu", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
 	@Id
+	@GeneratedValue
 	public Integer getIdLotu()
 	{
 		return idLotu;
@@ -201,4 +202,72 @@ public class DbLotEntity
 	{
 		this.rekordyLotusByIdLotu = rekordyLotusByIdLotu;
 	}
+
+	public DbLotEntity withIdLotu(final Integer idLotu)
+	{
+		this.idLotu = idLotu;
+		return this;
+	}
+
+	public DbLotEntity withGodzinaWylotu(final Time godzinaWylotu)
+	{
+		this.godzinaWylotu = godzinaWylotu;
+		return this;
+	}
+
+	public DbLotEntity withGodzinaPrzylotu(final Time godzinaPrzylotu)
+	{
+		this.godzinaPrzylotu = godzinaPrzylotu;
+		return this;
+	}
+
+	public DbLotEntity withCzasPodrozy(final Integer czasPodrozy)
+	{
+		this.czasPodrozy = czasPodrozy;
+		return this;
+	}
+
+	public DbLotEntity withCenaStatyczna(final Float cenaStatyczna)
+	{
+		this.cenaStatyczna = cenaStatyczna;
+		return this;
+	}
+
+	public DbLotEntity withDzienTygodnia(final String dzienTygodnia)
+	{
+		this.dzienTygodnia = dzienTygodnia;
+		return this;
+	}
+
+	public DbLotEntity withLotniskoByWylot(final DbLotniskoEntity lotniskoByWylot)
+	{
+		this.lotniskoByWylot = lotniskoByWylot;
+		return this;
+	}
+
+	public DbLotEntity withLotniskoByPrzylot(final DbLotniskoEntity lotniskoByPrzylot)
+	{
+		this.lotniskoByPrzylot = lotniskoByPrzylot;
+		return this;
+	}
+
+	public DbLotEntity withPrzewoznikByIdPrzew(final DbPrzewoznikEntity przewoznikByIdPrzew)
+	{
+		this.przewoznikByIdPrzew = przewoznikByIdPrzew;
+		return this;
+	}
+
+	public DbLotEntity withLspsByIdLotu(final Collection<DbLspEntity> lspsByIdLotu)
+	{
+		this.lspsByIdLotu = lspsByIdLotu;
+		return this;
+	}
+
+	public DbLotEntity withRekordyLotusByIdLotu(final Collection<DbRekordyLotuEntity> rekordyLotusByIdLotu)
+	{
+		this.rekordyLotusByIdLotu = rekordyLotusByIdLotu;
+		return this;
+	}
+
+
 }

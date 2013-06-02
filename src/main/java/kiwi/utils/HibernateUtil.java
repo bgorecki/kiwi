@@ -6,12 +6,16 @@ import kiwi.model.User;
 import kiwi.model.AdminUser;
 import kiwi.model.AirlineCompanyUser;
 
+import kiwi.models.DbKlasaEntity;
+import kiwi.models.DbLotEntity;
 import kiwi.models.DbLotniskoEntity;
 import kiwi.models.DbPrzewoznikEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.context.internal.ThreadLocalSessionContext;
+
+import java.sql.Time;
 
 public class HibernateUtil {
 
@@ -25,6 +29,10 @@ public class HibernateUtil {
 
 	protected Session newSession() {
 		return DatabaseConnector.getInstance().getSessionFactory().openSession();
+	}
+
+	protected static int godz(int godz) {
+		return godz*60*60*1000;
 	}
 
  // TODO Usunąć w późniejszej fazie
@@ -44,22 +52,38 @@ public class HibernateUtil {
 		new UserDao().create(user);*/
 
 	    GenericDao<DbLotniskoEntity, Integer> lotniskoDao = new GenericDao<DbLotniskoEntity, Integer>(DbLotniskoEntity.class);
-	    DbLotniskoEntity lotnisko;
-	    lotniskoDao.create(lotnisko = new DbLotniskoEntity().withNazwa("Balice").withPanstwo("POLAND").withMiasto("Kraków"));
-	    lotniskoDao.create(new DbLotniskoEntity().withNazwa("Okęcie").withPanstwo("POLAND").withMiasto("Warszawa"));
-	    lotniskoDao.create(new DbLotniskoEntity().withNazwa("Frankfurt Airport").withPanstwo("GERMANY").withMiasto("Frankfurt"));
-	    lotniskoDao.create(new DbLotniskoEntity().withNazwa("Jasionka").withPanstwo("POLAND").withMiasto("Rzeszów"));
-	    lotniskoDao.create(new DbLotniskoEntity().withNazwa("Abu Dhabi").withPanstwo("UEA").withMiasto("Abu Dhabi"));
-	    lotniskoDao.create(new DbLotniskoEntity().withNazwa("Bangkok").withPanstwo("THAILAND").withMiasto("Bangkok"));
+	    DbLotniskoEntity balice, okecie, frnakfurt, jasionka, auh, bkk, jfk;
+	    lotniskoDao.create(balice = new DbLotniskoEntity().withNazwa("Balice").withPanstwo("POLAND").withMiasto("Kraków"));
+	    lotniskoDao.create(okecie = new DbLotniskoEntity().withNazwa("Okęcie").withPanstwo("POLAND").withMiasto("Warszawa"));
+	    lotniskoDao.create(frnakfurt = new DbLotniskoEntity().withNazwa("Frankfurt Airport").withPanstwo("GERMANY").withMiasto("Frankfurt"));
+	    lotniskoDao.create(jasionka = new DbLotniskoEntity().withNazwa("Jasionka").withPanstwo("POLAND").withMiasto("Rzeszów"));
+	    lotniskoDao.create(auh = new DbLotniskoEntity().withNazwa("Abu Dhabi").withPanstwo("UEA").withMiasto("Abu Dhabi"));
+	    lotniskoDao.create(bkk = new DbLotniskoEntity().withNazwa("Bangkok").withPanstwo("THAILAND").withMiasto("Bangkok"));
+	    lotniskoDao.create(jfk = new DbLotniskoEntity().withNazwa("JFK").withPanstwo("usa").withMiasto("Nowy Jork"));
 
 	    GenericDao<DbPrzewoznikEntity, Integer> przewoznikDao = new GenericDao<DbPrzewoznikEntity, Integer>(DbPrzewoznikEntity.class);
-	    DbPrzewoznikEntity przewoznik;
-	    przewoznikDao.create(przewoznik = new DbPrzewoznikEntity().withKraj("POLAND").withNazwa("LOT"));
-	    przewoznikDao.create(new DbPrzewoznikEntity().withKraj("POLAND").withNazwa("Euro LOT"));
-	    przewoznikDao.create(new DbPrzewoznikEntity().withKraj("GERMANY").withNazwa("Luftwafe"));
-	    przewoznikDao.create(new DbPrzewoznikEntity().withKraj("UAE").withNazwa("Etihad"));
-	    przewoznikDao.create(new DbPrzewoznikEntity().withKraj("PHILIPPINES").withNazwa("Philippines Airlines"));
-	    przewoznikDao.create(new DbPrzewoznikEntity().withKraj("USA").withNazwa("United Airlines"));
+	    DbPrzewoznikEntity lot, eurolot, luftwafe, ey, pr, ua;
+	    przewoznikDao.create(lot = new DbPrzewoznikEntity().withKraj("POLAND").withNazwa("LOT"));
+	    przewoznikDao.create(eurolot = new DbPrzewoznikEntity().withKraj("POLAND").withNazwa("Euro LOT"));
+	    przewoznikDao.create(luftwafe = new DbPrzewoznikEntity().withKraj("GERMANY").withNazwa("Luftwafe"));
+	    przewoznikDao.create(ey = new DbPrzewoznikEntity().withKraj("UAE").withNazwa("Etihad"));
+	    przewoznikDao.create(pr = new DbPrzewoznikEntity().withKraj("PHILIPPINES").withNazwa("Philippines Airlines"));
+	    przewoznikDao.create(ua = new DbPrzewoznikEntity().withKraj("USA").withNazwa("United Airlines"));
+
+	    GenericDao<DbLotEntity, Integer> lotDao = new GenericDao<DbLotEntity, Integer>(DbLotEntity.class);
+	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(1).withDzienTygodnia("Sobota").withGodzinaPrzylotu(new Time(godz(1))).withGodzinaWylotu(new Time(godz(2))).withLotniskoByPrzylot(balice).withLotniskoByWylot(jasionka).withPrzewoznikByIdPrzew(lot));
+	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(2).withDzienTygodnia("Sobota").withGodzinaPrzylotu(new Time(godz(3))).withGodzinaWylotu(new Time(godz(5))).withLotniskoByPrzylot(balice).withLotniskoByWylot(okecie).withPrzewoznikByIdPrzew(eurolot));
+	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(3).withDzienTygodnia("Sobota").withGodzinaPrzylotu(new Time(godz(6))).withGodzinaWylotu(new Time(godz(9))).withLotniskoByPrzylot(frnakfurt).withLotniskoByWylot(balice).withPrzewoznikByIdPrzew(luftwafe));
+	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(9).withDzienTygodnia("Sobota").withGodzinaPrzylotu(new Time(godz(11))).withGodzinaWylotu(new Time(godz(20))).withLotniskoByPrzylot(jfk).withLotniskoByWylot(frnakfurt).withPrzewoznikByIdPrzew(ua));
+	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(9).withDzienTygodnia("Sobota").withGodzinaPrzylotu(new Time(godz(9))).withGodzinaWylotu(new Time(godz(20))).withLotniskoByPrzylot(jfk).withLotniskoByWylot(jasionka).withPrzewoznikByIdPrzew(luftwafe));
+
+	    GenericDao<DbKlasaEntity, Integer> klasaDao = new GenericDao<DbKlasaEntity, Integer>(DbKlasaEntity.class);
+	    klasaDao.create(new DbKlasaEntity().withNazwa("Economy"));
+	    klasaDao.create(new DbKlasaEntity().withNazwa("Economy Plus"));
+	    klasaDao.create(new DbKlasaEntity().withNazwa("Comfort"));
+	    klasaDao.create(new DbKlasaEntity().withNazwa("Business"));
+	    klasaDao.create(new DbKlasaEntity().withNazwa("Business Premium"));
+	    klasaDao.create(new DbKlasaEntity().withNazwa("Diamond First"));
 
 		ThreadLocalSessionContext.unbind(DatabaseConnector.getInstance().getSessionFactory());
 		s.getTransaction().commit();

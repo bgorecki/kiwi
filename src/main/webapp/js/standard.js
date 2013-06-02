@@ -38,7 +38,7 @@
 	});
 	
 	// Close buttons
-	$('.close-bt').live('click', function()
+	$(document).on('click', '.close-bt', function()
 	{
 		$(this).parent().fadeAndRemove();
 	});

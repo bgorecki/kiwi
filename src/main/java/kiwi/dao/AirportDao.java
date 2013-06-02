@@ -19,7 +19,6 @@ public class AirportDao extends GenericDao<Airport, Long> {
      */
     @SuppressWarnings("unchecked")
 	public List<Airport> getAll() {
-    	List<Airport> airports = (List<Airport>)getSession().createQuery("from kiwi.model.Airport").list();
-    	return airports;
+    	return (List<Airport>)getSession().createQuery("from DbLotniskoEntity").list();
     }
 }
