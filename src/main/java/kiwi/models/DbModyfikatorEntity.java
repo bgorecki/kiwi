@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Entity
 public class DbModyfikatorEntity
 {
-
 	private Integer idModyfikatora;
 
 	@javax.persistence.Column(name = "id_modyfikatora", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)

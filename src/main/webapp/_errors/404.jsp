@@ -12,12 +12,11 @@
 		</ul>
 		
 		<ul class="action-tabs right on-form with-children-tip children-tip-right">
-			<li><a href="index.html" title="Go to homepage"><img src='<c:url value="/images/icons/fugue/home.png" />' width="16" height="16"></a></li>
+			<li><a href="index.jsp" title="Go to homepage"><img src='<c:url value="/images/icons/fugue/home.png" />' width="16" height="16"></a></li>
 		</ul>
 		
 		<form class="block-content no-title dark-bg form" method="post" action="">
-			<input type="text" name="s" id="s" value=""> &nbsp; 
-			<button type="submit">Search</button>
+			&nbsp;<br/>&nbsp;
 		</form>
 		
 	</section>

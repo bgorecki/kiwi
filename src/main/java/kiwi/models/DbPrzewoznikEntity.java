@@ -14,9 +14,15 @@ import java.util.Collection;
 @Entity
 public class DbPrzewoznikEntity
 {
-
 	private Integer idPrzewoznika;
-
+	private String nazwa;
+	private String kraj;
+	private Collection<DbLotEntity> lotsByIdPrzewoznika;
+	private Collection<DbModyfikatorEntity> modyfikatorsByIdPrzewoznika;
+	private Collection<DbPracownikEntity> pracowniksByIdPrzewoznika;
+	private Collection<DbSamolotEntity> samolotsByIdPrzewoznika;
+	private Collection<DbUzytkownikEntity> uzytkowniksByIdPrzewoznika;
+	
 	@javax.persistence.Column(name = "id_przewoznika", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
 	@Id
 	@GeneratedValue
@@ -30,8 +36,6 @@ public class DbPrzewoznikEntity
 		this.idPrzewoznika = idPrzewoznika;
 	}
 
-	private String nazwa;
-
 	@javax.persistence.Column(name = "nazwa", nullable = false, insertable = true, updatable = true, length = 250, precision = 0)
 	@Basic
 	public String getNazwa()
@@ -43,8 +47,6 @@ public class DbPrzewoznikEntity
 	{
 		this.nazwa = nazwa;
 	}
-
-	private String kraj;
 
 	@javax.persistence.Column(name = "kraj", nullable = false, insertable = true, updatable = true, length = 250, precision = 0)
 	@Basic
@@ -83,8 +85,6 @@ public class DbPrzewoznikEntity
 		return result;
 	}
 
-	private Collection<DbLotEntity> lotsByIdPrzewoznika;
-
 	@OneToMany(mappedBy = "przewoznikByIdPrzew",cascade=CascadeType.ALL)
 	public Collection<DbLotEntity> getLotsByIdPrzewoznika()
 	{
@@ -95,8 +95,6 @@ public class DbPrzewoznikEntity
 	{
 		this.lotsByIdPrzewoznika = lotsByIdPrzewoznika;
 	}
-
-	private Collection<DbModyfikatorEntity> modyfikatorsByIdPrzewoznika;
 
 	@OneToMany(mappedBy = "przewoznikByIdPrzew",cascade=CascadeType.ALL)
 	public Collection<DbModyfikatorEntity> getModyfikatorsByIdPrzewoznika()
@@ -109,8 +107,6 @@ public class DbPrzewoznikEntity
 		this.modyfikatorsByIdPrzewoznika = modyfikatorsByIdPrzewoznika;
 	}
 
-	private Collection<DbPracownikEntity> pracowniksByIdPrzewoznika;
-
 	@OneToMany(mappedBy = "przewoznikByIdPrzew",cascade=CascadeType.ALL)
 	public Collection<DbPracownikEntity> getPracowniksByIdPrzewoznika()
 	{
@@ -122,8 +118,6 @@ public class DbPrzewoznikEntity
 		this.pracowniksByIdPrzewoznika = pracowniksByIdPrzewoznika;
 	}
 
-	private Collection<DbSamolotEntity> samolotsByIdPrzewoznika;
-
 	@OneToMany(mappedBy = "przewoznikByIdPrzew",cascade=CascadeType.ALL)
 	public Collection<DbSamolotEntity> getSamolotsByIdPrzewoznika()
 	{
@@ -134,8 +128,6 @@ public class DbPrzewoznikEntity
 	{
 		this.samolotsByIdPrzewoznika = samolotsByIdPrzewoznika;
 	}
-
-	private Collection<DbUzytkownikEntity> uzytkowniksByIdPrzewoznika;
 
 	@OneToMany(mappedBy = "przewoznikByIdPrzewoznika",cascade=CascadeType.ALL)
 	public Collection<DbUzytkownikEntity> getUzytkowniksByIdPrzewoznika()

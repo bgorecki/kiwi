@@ -5,7 +5,7 @@ import kiwi.models.DbUzytkownikEntity;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
-public class DbUzytkownikEntityDao extends GenericDao<DbUzytkownikEntity, Long> {
+public class DbUzytkownikEntityDao extends GenericDao<DbUzytkownikEntity, Integer> {
 
 	public DbUzytkownikEntityDao() {
 		super(DbUzytkownikEntity.class);

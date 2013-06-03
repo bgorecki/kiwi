@@ -28,14 +28,6 @@ public class HibernateUtil {
     	ThreadLocalSessionContext.bind(s);
         s.beginTransaction();
 
-        GenericDao<DbUzytkownikEntity, Integer> uzytkownikDao = new GenericDao<DbUzytkownikEntity, Integer>(DbUzytkownikEntity.class);
-	    DbUzytkownikEntity uzytkownik = new DbUzytkownikEntity();
-	    uzytkownik.setLogin("admin1"); uzytkownik.setHaslo("admin1"); uzytkownik.setRola(DbUzytkownikEntity.ADMIN_ROLE);
-	    uzytkownikDao.create(uzytkownik);
-	    uzytkownik = new DbUzytkownikEntity();
-	    uzytkownik.setLogin("jan kowalski"); uzytkownik.setHaslo("123"); uzytkownik.setRola(DbUzytkownikEntity.PRZEWOZNIK_ROLE);
-	    uzytkownikDao.create(uzytkownik);
-
 	    GenericDao<DbLotniskoEntity, Integer> lotniskoDao = new GenericDao<DbLotniskoEntity, Integer>(DbLotniskoEntity.class);
 	    DbLotniskoEntity lotnisko;
 	    lotniskoDao.create(lotnisko = new DbLotniskoEntity().withNazwa("Balice").withPanstwo("POLAND").withMiasto("Kraków"));
@@ -54,6 +46,15 @@ public class HibernateUtil {
 	    przewoznikDao.create(new DbPrzewoznikEntity().withKraj("PHILIPPINES").withNazwa("Philippines Airlines"));
 	    przewoznikDao.create(new DbPrzewoznikEntity().withKraj("USA").withNazwa("United Airlines"));
 
+	    GenericDao<DbUzytkownikEntity, Integer> uzytkownikDao = new GenericDao<DbUzytkownikEntity, Integer>(DbUzytkownikEntity.class);
+	    DbUzytkownikEntity uzytkownik = new DbUzytkownikEntity();
+	    uzytkownik.setLogin("admin1"); uzytkownik.setHaslo("admin1"); uzytkownik.setRola(DbUzytkownikEntity.ADMIN_ROLE);
+	    uzytkownikDao.create(uzytkownik);
+	    uzytkownik = new DbUzytkownikEntity();
+	    uzytkownik.setLogin("jan kowalski"); uzytkownik.setHaslo("123"); uzytkownik.setRola(DbUzytkownikEntity.PRZEWOZNIK_ROLE);
+	    uzytkownik.setPrzewoznikByIdPrzewoznika(przewoznik);
+	    uzytkownikDao.create(uzytkownik);
+	    
 		ThreadLocalSessionContext.unbind(DatabaseConnector.getInstance().getSessionFactory());
 		s.getTransaction().commit();
     }

@@ -1,9 +1,9 @@
 package kiwi.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import kiwi.utils.DatabaseConnector;
-import kiwi.utils.HibernateUtil;
 
 import org.hibernate.Session;
 
@@ -47,6 +47,10 @@ public class GenericDao <T, PK extends Serializable>{
 	
 	public void delete(T object) {
 		getSession().delete(object);
+	}
+	
+	public List<T> getAll() {
+		return (List<T>) getSession().createCriteria(type).list();
 	}
 
 }
