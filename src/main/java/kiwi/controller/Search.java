@@ -1,22 +1,17 @@
 package kiwi.controller;
 
-import com.sun.net.httpserver.HttpServer;
-import kiwi.dao.AirportDao;
 import kiwi.dao.ClassDao;
-import kiwi.dao.FlightsDao;
+import kiwi.dao.DbLotniskoEntityDao;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -190,7 +185,7 @@ public class Search extends HttpServlet
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
-		request.setAttribute("flights", new AirportDao().getAll());
+		request.setAttribute("flights", new DbLotniskoEntityDao().getAll());
 		request.setAttribute("nazwyKlas", new ClassDao().getAll());
 
 		if (request.getParameter("sent") != null && request.getParameter("sent").equals("1"))

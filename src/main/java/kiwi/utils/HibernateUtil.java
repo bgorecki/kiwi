@@ -1,11 +1,6 @@
 package kiwi.utils;
 
 import kiwi.dao.GenericDao;
-import kiwi.dao.UserDao;
-import kiwi.model.User;
-import kiwi.model.AdminUser;
-import kiwi.model.AirlineCompanyUser;
-
 import kiwi.models.DbKlasaEntity;
 import kiwi.models.DbLotEntity;
 import kiwi.models.DbLotniskoEntity;
@@ -88,7 +83,7 @@ public class HibernateUtil {
 	    uzytkownikDao.create(uzytkownik);
 	    uzytkownik = new DbUzytkownikEntity();
 	    uzytkownik.setLogin("jan kowalski"); uzytkownik.setHaslo("123"); uzytkownik.setRola(DbUzytkownikEntity.PRZEWOZNIK_ROLE);
-	    uzytkownik.setPrzewoznikByIdPrzewoznika(przewoznik);
+	    uzytkownik.setPrzewoznikByIdPrzewoznika(lot);
 	    uzytkownikDao.create(uzytkownik);
 	    
 		ThreadLocalSessionContext.unbind(DatabaseConnector.getInstance().getSessionFactory());
