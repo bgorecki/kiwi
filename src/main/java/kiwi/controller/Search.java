@@ -2,6 +2,7 @@ package kiwi.controller;
 
 import kiwi.dao.ClassDao;
 import kiwi.dao.DbLotniskoEntityDao;
+import kiwi.dao.FlightsDao;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
+
+import static org.apache.log4j.Level.*;
 
 /**
  * User: scroot
@@ -47,23 +51,23 @@ public class Search extends HttpServlet
 			{
 				errors.put("to", "Pole lotnisko docelowe nie może być puste");
 			}
-			if (klasa == 0)
+			if (klasa == null)
 			{
 				errors.put("klasa", "Musisz wybrać pole klasa");
 			}
-			if (ilosc == 0)
+			if (ilosc == null)
 			{
 				errors.put("ilosc", "Musisz podać ilośc pasażerów dorosłych");
 			}
-			if (ilosc_dz == 0)
+			if (ilosc_dz == null)
 			{
 				errors.put("ilosc_dz", "Musisz podać ilość dzieci");
 			}
-			if (ilosc_inf == 0)
+			if (ilosc_inf == null)
 			{
 				errors.put("ilosc_inf", "Musisz podać ilość infantów");
 			}
-			if (data.matches("\\d{2}/\\d{2}/\\d{4}"))
+			if (!data.matches("\\d{2}/\\d{2}/\\d{4}"))
 			{
 				errors.put("data", "Musisz podać datę w formacie dd/mm/yyyy");
 			}
@@ -198,12 +202,16 @@ public class Search extends HttpServlet
 			{
 				e.printStackTrace();
 			}
+
+			Logger logger = Logger.getLogger(this.getClass());
+			logger.log(INFO, sf.toString());
+
 			if (!sf.validate())
 			{
 				request.setAttribute("errors", sf.getErrors());
 			} else {
-				Logger logger = Logger.getLogger(this.getClass());
-				logger.log(Priority.ERROR, sf);
+				new FlightsDao().findFlightsByAttributes(sf);
+
 			}
 		}
 

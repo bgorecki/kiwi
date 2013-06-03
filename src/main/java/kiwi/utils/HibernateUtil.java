@@ -63,11 +63,11 @@ public class HibernateUtil {
 	    przewoznikDao.create(ua = new DbPrzewoznikEntity().withKraj("USA").withNazwa("United Airlines"));
 
 	    GenericDao<DbLotEntity, Integer> lotDao = new GenericDao<DbLotEntity, Integer>(DbLotEntity.class);
-	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(1).withDzienTygodnia("Sobota").withGodzinaPrzylotu(new Time(godz(1))).withGodzinaWylotu(new Time(godz(2))).withLotniskoByPrzylot(balice).withLotniskoByWylot(jasionka).withPrzewoznikByIdPrzew(lot));
-	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(2).withDzienTygodnia("Sobota").withGodzinaPrzylotu(new Time(godz(3))).withGodzinaWylotu(new Time(godz(5))).withLotniskoByPrzylot(balice).withLotniskoByWylot(okecie).withPrzewoznikByIdPrzew(eurolot));
-	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(3).withDzienTygodnia("Sobota").withGodzinaPrzylotu(new Time(godz(6))).withGodzinaWylotu(new Time(godz(9))).withLotniskoByPrzylot(frnakfurt).withLotniskoByWylot(balice).withPrzewoznikByIdPrzew(luftwafe));
-	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(9).withDzienTygodnia("Sobota").withGodzinaPrzylotu(new Time(godz(11))).withGodzinaWylotu(new Time(godz(20))).withLotniskoByPrzylot(jfk).withLotniskoByWylot(frnakfurt).withPrzewoznikByIdPrzew(ua));
-	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(9).withDzienTygodnia("Sobota").withGodzinaPrzylotu(new Time(godz(9))).withGodzinaWylotu(new Time(godz(20))).withLotniskoByPrzylot(jfk).withLotniskoByWylot(jasionka).withPrzewoznikByIdPrzew(luftwafe));
+	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(1).withDzienTygodnia(6).withGodzinaPrzylotu(new Time(godz(1))).withGodzinaWylotu(new Time(godz(2))).withLotniskoByPrzylot(balice).withLotniskoByWylot(jasionka).withPrzewoznikByIdPrzew(lot));
+	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(2).withDzienTygodnia(6).withGodzinaPrzylotu(new Time(godz(3))).withGodzinaWylotu(new Time(godz(5))).withLotniskoByPrzylot(balice).withLotniskoByWylot(okecie).withPrzewoznikByIdPrzew(eurolot));
+	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(3).withDzienTygodnia(6).withGodzinaPrzylotu(new Time(godz(6))).withGodzinaWylotu(new Time(godz(9))).withLotniskoByPrzylot(frnakfurt).withLotniskoByWylot(balice).withPrzewoznikByIdPrzew(luftwafe));
+	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(9).withDzienTygodnia(6).withGodzinaPrzylotu(new Time(godz(11))).withGodzinaWylotu(new Time(godz(20))).withLotniskoByPrzylot(jfk).withLotniskoByWylot(frnakfurt).withPrzewoznikByIdPrzew(ua));
+	    lotDao.create(new DbLotEntity().withCenaStatyczna(750F).withCzasPodrozy(9).withDzienTygodnia(6).withGodzinaPrzylotu(new Time(godz(9))).withGodzinaWylotu(new Time(godz(20))).withLotniskoByPrzylot(jfk).withLotniskoByWylot(jasionka).withPrzewoznikByIdPrzew(luftwafe));
 
 	    GenericDao<DbKlasaEntity, Integer> klasaDao = new GenericDao<DbKlasaEntity, Integer>(DbKlasaEntity.class);
 	    klasaDao.create(new DbKlasaEntity().withNazwa("Economy"));

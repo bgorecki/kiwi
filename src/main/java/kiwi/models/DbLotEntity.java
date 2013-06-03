@@ -87,16 +87,16 @@ public class DbLotEntity
 		this.cenaStatyczna = cenaStatyczna;
 	}
 
-	private String dzienTygodnia;
+	private Integer dzienTygodnia;
 
-	@javax.persistence.Column(name = "dzien_tygodnia", nullable = false, insertable = true, updatable = true, length = 13, precision = 0)
+	@javax.persistence.Column(name = "dzien_tygodnia", nullable = false, insertable = true, updatable = true, length = 1, precision = 0)
 	@Basic
-	public String getDzienTygodnia()
+	public Integer getDzienTygodnia()
 	{
 		return dzienTygodnia;
 	}
 
-	public void setDzienTygodnia(String dzienTygodnia)
+	public void setDzienTygodnia(Integer dzienTygodnia)
 	{
 		this.dzienTygodnia = dzienTygodnia;
 	}
@@ -160,6 +160,7 @@ public class DbLotEntity
 
 	public void setLotniskoByPrzylot(DbLotniskoEntity lotniskoByPrzylot)
 	{
+		this.lotniskoByPrzylot = lotniskoByPrzylot;
 		this.lotniskoByPrzylot = lotniskoByPrzylot;
 	}
 
@@ -233,7 +234,7 @@ public class DbLotEntity
 		return this;
 	}
 
-	public DbLotEntity withDzienTygodnia(final String dzienTygodnia)
+	public DbLotEntity withDzienTygodnia(final Integer dzienTygodnia)
 	{
 		this.dzienTygodnia = dzienTygodnia;
 		return this;
