@@ -27,9 +27,9 @@ public class TransactionFilter implements Filter {
 //		Session session = DatabaseConnector.getInstance().getSessionFactory().openSession();
 //		ThreadLocalSessionContext.bind(session);
 //		session.beginTransaction();
-//		
+
 		chain.doFilter(request, response);
-//		
+
 //		ThreadLocalSessionContext.unbind(DatabaseConnector.getInstance().getSessionFactory());
 //		session.getTransaction().commit();
 		//session.close();

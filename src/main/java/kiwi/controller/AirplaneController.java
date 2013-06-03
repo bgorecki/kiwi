@@ -14,10 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import kiwi.dao.AirplaneDao;
-import kiwi.dao.AirportDao;
-import kiwi.model.Airplane;
-import kiwi.model.Airport;
+import kiwi.dao.DbSamolotEntityDao;
+import kiwi.dao.DbLotniskoEntityDao;
+import kiwi.models.DbSamolotEntity;
 
 @WebServlet("/AirplaneController")
 public class AirplaneController extends HttpServlet {
@@ -29,17 +28,17 @@ public class AirplaneController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<Airplane> airplanes = new AirplaneDao().getAll();
+		List<DbSamolotEntity> airplanes = new DbSamolotEntityDao().getAll();
     	request.setAttribute("airplanes", airplanes);
-    	request.getRequestDispatcher("/showAirports.jsp").forward(request, response);
+    	request.getRequestDispatcher("/showAirplanes.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 String action = request.getParameter("action");
-		 Airplane airplane = new Airplane();
+		 DbSamolotEntity airplane = new DbSamolotEntity();
          try {
              BeanUtils.populate(airplane, request.getParameterMap());
-             if(airplane.isFullyFilled()) { //sprawdzenie czy uzupełniono wszystkie pola, jeśli tak - dodaj do bazy
+             if(new DbSamolotEntityDao().isFullyFilled(airplane)) { //sprawdzenie czy uzupełniono wszystkie pola, jeśli tak - dodaj do bazy
                   if(action.equals("add")) {
                      addAirplane(airplane);}
                   else if(action.equals("edit")) {
@@ -53,7 +52,6 @@ public class AirplaneController extends HttpServlet {
              }
              else // przekieruj do formularza spowrotem
                   request.getRequestDispatcher("/WEB-INF/errorPage.jsp").forward(request, response);
-           	  //response.sendRedirect("/kiwi/WEB-INF/errorPage.jsp");
                 
          } catch (IllegalAccessException ex) {
              Logger.getLogger(AirportController.class.getName()).log(Level.SEVERE, null, ex);
@@ -64,19 +62,16 @@ public class AirplaneController extends HttpServlet {
          }
 	}
 	
-	private void addAirplane(Airplane airport) {
-		AirplaneDao airplaneDao = new AirplaneDao();
-		airplaneDao.create(airport);
+	private void addAirplane(DbSamolotEntity aiplane) {
+			new DbSamolotEntityDao().create(aiplane);
 	    }
 	    
-	    private void updateAirplane(Airplane airport) {
-	    	AirplaneDao airplaneDao = new AirplaneDao();
-	    	airplaneDao.update(airport);
+	    private void updateAirplane(DbSamolotEntity aiplane) {
+	    	new DbSamolotEntityDao().update(aiplane);
 	    }
 	    
-	    private void deleteAirplane(Airplane airport) {
-	    	AirplaneDao airplaneDao = new AirplaneDao();
-	    	airplaneDao.delete(airport);
+	    private void deleteAirplane(DbSamolotEntity aiplane) {
+	    	new DbSamolotEntityDao().delete(aiplane);
 	     }
 
 }
