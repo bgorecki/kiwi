@@ -208,18 +208,6 @@
 <!--[if lt IE 9]><div class="ie"><![endif]-->
 <!--[if lt IE 8]><div class="ie7"><![endif]-->
 	
-	<!-- Header -->
-	
-	<!-- Server status -->
-	<header><div class="container_12">
-		
-		<p id="skin-name"><small>KIWI<br> Flight Manager</small> <strong>1.2</strong></p>
-		<div class="server-info">Server: <strong>Apache Tomcat 7</strong></div>
-		<div class="server-info">Java: <strong>1.7</strong></div>
-		
-	</div></header>
-	<!-- End server status -->
-	
 	<!-- Main nav -->
 	<nav id="main-nav">
 		
@@ -322,15 +310,16 @@
 	
 	<!-- Status bar -->
 	<div id="status-bar"><div class="container_12">
-	
 		<ul id="status-infos">
-			<li class="spaced">Logged as: <strong>Admin</strong></li>
-			<li><a href="<c:url value="/login.html"/>" class="button red" title="Logout"><span class="smaller">LOGOUT</span></a></li>
-		</ul>
-		
-		<ul id="breadcrumb">
-			<li><a href="#" title="Home">Home</a></li>
-			<li><a href="#" title="Dashboard">Dashboard</a></li>
+			<c:choose>
+				<c:when test="${not empty sessionScope.user}">
+					<li class="spaced">Logged as: <strong>${sessionScope.user.login}</strong></li>
+					<li><a href="logout" class="button red" title="Wyloguj"><span class="smaller">WYLOGUJ</span></a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="login" class="button red" title="Zaloguj"><span class="smaller">ZALOGUJ</span></a></li>
+				</c:otherwise>
+			</c:choose>
 		</ul>
 	
 	</div></div>

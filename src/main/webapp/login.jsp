@@ -52,7 +52,7 @@
                 <input type="hidden" name="a" id="a" value="send">
                 <p class="inline-small-label">
                     <label for="username"><span class="big">Użytkownik</span></label>
-                    <input type="text" name="username" id="username" class="full-width" value="${username}">
+                    <input type="text" name="username" id="username" class="full-width" value="${param.username}">
                 </p>
                 <p class="inline-small-label">
                     <label for="password"><span class="big">Hasło</span></label>

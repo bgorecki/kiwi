@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,9 +17,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.XMLEvent;
 
-import kiwi.model.AdminUser;
-import kiwi.model.AirlineCompanyUser;
-import kiwi.model.User;
+import kiwi.models.DbUzytkownikEntity;
 
 public class AccessRulesParser {
 	static final String PATH = "path";
@@ -32,11 +29,11 @@ public class AccessRulesParser {
 		inputFile = new BufferedReader(new FileReader(filename));
 	}
 	
-	public Map<String, List<Class<? extends User>>> readRulesMap() throws XMLStreamException, FactoryConfigurationError {
-		Map<String, List<Class<? extends User>>> rules = new LinkedHashMap<String, List<Class<? extends User>>>();
+	public Map<String, List<String>> readRulesMap() throws XMLStreamException, FactoryConfigurationError {
+		Map<String, List<String>> rules = new LinkedHashMap<String, List<String>>();
 		
 		String path = null;
-		List<Class<? extends User>> users = new LinkedList<Class<? extends User>>();
+		List<String> users = new LinkedList<String>();
 		
 		XMLEventReader eventReader = XMLInputFactory.newInstance().createXMLEventReader(inputFile);
 		while(eventReader.hasNext()) {
@@ -49,10 +46,10 @@ public class AccessRulesParser {
 				} else if(elementType.equals(USER)) {
 					if(path != null) {
 						String type = getAttribute(event, "type");
-						if(type.equals("admin"))
-							users.add(AdminUser.class);
-						else if(type.equals("airlineCompany")) 
-							users.add(AirlineCompanyUser.class);
+						if(type.equals(DbUzytkownikEntity.ADMIN_ROLE))
+							users.add(DbUzytkownikEntity.ADMIN_ROLE);
+						else if(type.equals(DbUzytkownikEntity.PRZEWOZNIK_ROLE)) 
+							users.add(DbUzytkownikEntity.PRZEWOZNIK_ROLE);	
 					}
 				}
 				
@@ -63,7 +60,7 @@ public class AccessRulesParser {
 						rules.put(path, users);
 						
 						path = null;
-						users = new LinkedList<Class<? extends User>>();
+						users = new LinkedList<String>();
 					}
 				}
 			}

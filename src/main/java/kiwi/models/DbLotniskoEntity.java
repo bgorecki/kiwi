@@ -159,4 +159,5 @@ public class DbLotniskoEntity
 		this.lotsByIdLotniska_0 = lotsByIdLotniska_0;
 		return this;
 	}
+
 }

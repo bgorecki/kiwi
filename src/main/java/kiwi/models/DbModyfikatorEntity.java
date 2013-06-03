@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Entity
 public class DbModyfikatorEntity
 {
-
 	private Integer idModyfikatora;
 
 	@javax.persistence.Column(name = "id_modyfikatora", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -29,8 +28,8 @@ public class DbModyfikatorEntity
 	}
 
 	private String mod;
-
-	@javax.persistence.Column(name = "mod", nullable = false, insertable = true, updatable = true, length = 3, precision = 0)
+	// nazwa zmieniona na modd bo w mysql mod to nazwa zastrzeżona
+	@javax.persistence.Column(name = "modd", nullable = false, insertable = true, updatable = true, length = 3, precision = 0)
 	@Basic
 	public String getMod()
 	{

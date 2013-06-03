@@ -10,9 +10,10 @@ import kiwi.models.DbKlasaEntity;
 import kiwi.models.DbLotEntity;
 import kiwi.models.DbLotniskoEntity;
 import kiwi.models.DbPrzewoznikEntity;
+import kiwi.models.DbSamolotEntity;
+import kiwi.models.DbUzytkownikEntity;
+
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.context.internal.ThreadLocalSessionContext;
 
 import java.sql.Time;
@@ -41,16 +42,6 @@ public class HibernateUtil {
     	ThreadLocalSessionContext.bind(s);
         s.beginTransaction();
 
-		/*User user = new AirlineCompanyUser();
-		user.setPassword("123");
-		user.setUsername("jan kowalski");
-		new UserDao().create(user);
-		
-		user = new AdminUser();
-		user.setPassword("admin1");
-		user.setUsername("admin1");
-		new UserDao().create(user);*/
-
 	    GenericDao<DbLotniskoEntity, Integer> lotniskoDao = new GenericDao<DbLotniskoEntity, Integer>(DbLotniskoEntity.class);
 	    DbLotniskoEntity balice, okecie, frnakfurt, jasionka, auh, bkk, jfk;
 	    lotniskoDao.create(balice = new DbLotniskoEntity().withNazwa("Balice").withPanstwo("POLAND").withMiasto("Kraków"));
@@ -61,6 +52,12 @@ public class HibernateUtil {
 	    lotniskoDao.create(bkk = new DbLotniskoEntity().withNazwa("Bangkok").withPanstwo("THAILAND").withMiasto("Bangkok"));
 	    lotniskoDao.create(jfk = new DbLotniskoEntity().withNazwa("JFK").withPanstwo("usa").withMiasto("Nowy Jork"));
 
+	    GenericDao<DbSamolotEntity, Integer> samolotDao  = new GenericDao<DbSamolotEntity, Integer>(DbSamolotEntity.class);
+	    samolotDao.create(new DbSamolotEntity().withNazwa("Boeing 747").withWaga(Float.valueOf("184600")).withWielkosc(Float.valueOf("68.5")).withZuzyciePaliwa(Float.valueOf("13000")).withPrzewoznikByIdPrzew(new DbPrzewoznikEntity().withKraj("POLAND").withNazwa("LOT")));
+	    samolotDao.create(new DbSamolotEntity().withNazwa("Airbus A380").withWaga(Float.valueOf("276000")).withWielkosc(Float.valueOf("79.8")).withZuzyciePaliwa(Float.valueOf("15000")).withPrzewoznikByIdPrzew(new DbPrzewoznikEntity().withKraj("POLAND").withNazwa("LOT")));
+	    samolotDao.create(new DbSamolotEntity().withNazwa("An-148").withWaga(Float.valueOf("70000")).withWielkosc(Float.valueOf("28.91")).withZuzyciePaliwa(Float.valueOf("7")).withPrzewoznikByIdPrzew(new DbPrzewoznikEntity().withKraj("POLAND").withNazwa("LOT")));
+
+	    
 	    GenericDao<DbPrzewoznikEntity, Integer> przewoznikDao = new GenericDao<DbPrzewoznikEntity, Integer>(DbPrzewoznikEntity.class);
 	    DbPrzewoznikEntity lot, eurolot, luftwafe, ey, pr, ua;
 	    przewoznikDao.create(lot = new DbPrzewoznikEntity().withKraj("POLAND").withNazwa("LOT"));
@@ -85,6 +82,15 @@ public class HibernateUtil {
 	    klasaDao.create(new DbKlasaEntity().withNazwa("Business Premium"));
 	    klasaDao.create(new DbKlasaEntity().withNazwa("Diamond First"));
 
+	    GenericDao<DbUzytkownikEntity, Integer> uzytkownikDao = new GenericDao<DbUzytkownikEntity, Integer>(DbUzytkownikEntity.class);
+	    DbUzytkownikEntity uzytkownik = new DbUzytkownikEntity();
+	    uzytkownik.setLogin("admin1"); uzytkownik.setHaslo("admin1"); uzytkownik.setRola(DbUzytkownikEntity.ADMIN_ROLE);
+	    uzytkownikDao.create(uzytkownik);
+	    uzytkownik = new DbUzytkownikEntity();
+	    uzytkownik.setLogin("jan kowalski"); uzytkownik.setHaslo("123"); uzytkownik.setRola(DbUzytkownikEntity.PRZEWOZNIK_ROLE);
+	    uzytkownik.setPrzewoznikByIdPrzewoznika(przewoznik);
+	    uzytkownikDao.create(uzytkownik);
+	    
 		ThreadLocalSessionContext.unbind(DatabaseConnector.getInstance().getSessionFactory());
 		s.getTransaction().commit();
     }
