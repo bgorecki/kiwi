@@ -18,7 +18,7 @@ public class DbSamolotEntity
 	private Integer idSamolotu;
 
 	@javax.persistence.Column(name = "id_samolotu", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
-	@Id
+	@Id @GeneratedValue
 	public Integer getIdSamolotu()
 	{
 		return idSamolotu;
@@ -43,7 +43,7 @@ public class DbSamolotEntity
 		this.nazwa = nazwa;
 	}
 
-	private Float wielkosc;
+	private Float wielkosc; // rozpiętość skrzydeł
 
 	@javax.persistence.Column(name = "wielkosc", nullable = true, insertable = true, updatable = true, length = 10, precision = 2)
 	@Basic
@@ -152,5 +152,35 @@ public class DbSamolotEntity
 	public void setPrzewoznikByIdPrzew(DbPrzewoznikEntity przewoznikByIdPrzew)
 	{
 		this.przewoznikByIdPrzew = przewoznikByIdPrzew;
+	}
+	
+	public DbSamolotEntity withNazwa(final String nazwa)
+	{
+		this.nazwa = nazwa;
+		return this;
+	}
+	
+	public DbSamolotEntity withWielkosc(final Float wielkosc)
+	{
+		this.wielkosc = wielkosc;
+		return this;
+	}
+	
+	public DbSamolotEntity withWaga(final Float waga)
+	{
+		this.waga = waga;
+		return this;
+	}
+	
+	public DbSamolotEntity withZuzyciePaliwa(final Float zuzyciePaliwa)
+	{
+		this.zuzyciePaliwa = zuzyciePaliwa;
+		return this;
+	}
+	
+	public DbSamolotEntity withPrzewoznikByIdPrzew(final DbPrzewoznikEntity przewoznikByIdPrzew)
+	{
+		this.przewoznikByIdPrzew = przewoznikByIdPrzew;
+		return this;
 	}
 }

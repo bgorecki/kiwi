@@ -3,6 +3,7 @@ package kiwi.utils;
 import kiwi.dao.GenericDao;
 import kiwi.models.DbLotniskoEntity;
 import kiwi.models.DbPrzewoznikEntity;
+import kiwi.models.DbSamolotEntity;
 import kiwi.models.DbUzytkownikEntity;
 
 import org.hibernate.Session;
@@ -45,6 +46,12 @@ public class HibernateUtil {
 	    lotniskoDao.create(new DbLotniskoEntity().withNazwa("Abu Dhabi").withPanstwo("UEA").withMiasto("Abu Dhabi"));
 	    lotniskoDao.create(new DbLotniskoEntity().withNazwa("Bangkok").withPanstwo("THAILAND").withMiasto("Bangkok"));
 
+	    GenericDao<DbSamolotEntity, Integer> samolotDao  = new GenericDao<DbSamolotEntity, Integer>(DbSamolotEntity.class);
+	    samolotDao.create(new DbSamolotEntity().withNazwa("Boeing 747").withWaga(Float.valueOf("184600")).withWielkosc(Float.valueOf("68.5")).withZuzyciePaliwa(Float.valueOf("13000")).withPrzewoznikByIdPrzew(new DbPrzewoznikEntity().withKraj("POLAND").withNazwa("LOT")));
+	    samolotDao.create(new DbSamolotEntity().withNazwa("Airbus A380").withWaga(Float.valueOf("276000")).withWielkosc(Float.valueOf("79.8")).withZuzyciePaliwa(Float.valueOf("15000")).withPrzewoznikByIdPrzew(new DbPrzewoznikEntity().withKraj("POLAND").withNazwa("LOT")));
+	    samolotDao.create(new DbSamolotEntity().withNazwa("An-148").withWaga(Float.valueOf("70000")).withWielkosc(Float.valueOf("28.91")).withZuzyciePaliwa(Float.valueOf("7")).withPrzewoznikByIdPrzew(new DbPrzewoznikEntity().withKraj("POLAND").withNazwa("LOT")));
+
+	    
 	    GenericDao<DbPrzewoznikEntity, Integer> przewoznikDao = new GenericDao<DbPrzewoznikEntity, Integer>(DbPrzewoznikEntity.class);
 	    DbPrzewoznikEntity przewoznik;
 	    przewoznikDao.create(przewoznik = new DbPrzewoznikEntity().withKraj("POLAND").withNazwa("LOT"));
@@ -53,7 +60,8 @@ public class HibernateUtil {
 	    przewoznikDao.create(new DbPrzewoznikEntity().withKraj("UAE").withNazwa("Etihad"));
 	    przewoznikDao.create(new DbPrzewoznikEntity().withKraj("PHILIPPINES").withNazwa("Philippines Airlines"));
 	    przewoznikDao.create(new DbPrzewoznikEntity().withKraj("USA").withNazwa("United Airlines"));
-
+	    
+	    
 		ThreadLocalSessionContext.unbind(DatabaseConnector.getInstance().getSessionFactory());
 		s.getTransaction().commit();
     }

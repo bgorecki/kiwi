@@ -25,14 +25,14 @@ import org.hibernate.context.internal.ThreadLocalSessionContext;
 public class TransactionFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		Session session = DatabaseConnector.getInstance().getSessionFactory().openSession();
-		ThreadLocalSessionContext.bind(session);
-		session.beginTransaction();
+//		Session session = DatabaseConnector.getInstance().getSessionFactory().openSession();
+//		ThreadLocalSessionContext.bind(session);
+//		session.beginTransaction();
 		
 		chain.doFilter(request, response);
 		
-		ThreadLocalSessionContext.unbind(DatabaseConnector.getInstance().getSessionFactory());
-		session.getTransaction().commit();
+//		ThreadLocalSessionContext.unbind(DatabaseConnector.getInstance().getSessionFactory());
+//		session.getTransaction().commit();
 		//session.close();
 	}
 	
