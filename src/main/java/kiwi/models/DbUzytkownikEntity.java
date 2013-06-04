@@ -127,7 +127,7 @@ public class DbUzytkownikEntity
 	}
 
 
-	@ManyToOne(cascade= CascadeType.ALL)
+	@ManyToOne(cascade= CascadeType.PERSIST)
 	@javax.persistence.JoinColumn(name = "id_przewoznika", referencedColumnName = "id_przewoznika")
 	public DbPrzewoznikEntity getPrzewoznikByIdPrzewoznika()
 	{
