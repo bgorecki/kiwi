@@ -242,6 +242,9 @@
             </li>
             <!-- KONIEC ELEMENT MENU - ZARZADZANIE PRZEWOZNIKAMI -->
 		</ul>
+		
+		
+		</ul>
 	</nav>
 	<!-- End main nav -->
 	
