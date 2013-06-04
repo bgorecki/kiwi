@@ -305,6 +305,7 @@ public class Search extends HttpServlet
 				}
 
 				request.setAttribute("foundFlights", loty);
+				session.setAttribute("foundFlights", loty);
 				session.setAttribute("foundFlightsPrices", prices);
 			}
 		}

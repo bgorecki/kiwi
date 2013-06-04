@@ -1,6 +1,8 @@
 package kiwi.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kiwi.dao.DbKlasaDao;
+import kiwi.dao.FlightsDao;
+import kiwi.dao.GenericDao;
+import kiwi.models.DbKlasaEntity;
 import kiwi.models.DbLotEntity;
 import kiwi.models.DbPasazerEntity;
 import kiwi.models.DbRekordyLotuEntity;
@@ -28,6 +34,17 @@ public class Reservation extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+		String choosen = request.getParameter("choosen");
+		String ilosc = request.getParameter("ilosc");
+		String ilosc_dz = request.getParameter("ilosc_dz");
+		String ilosc_inf = request.getParameter("ilosc_inf");
+		String klasa = request.getParameter("klasa");
+		String data = request.getParameter("data");
+		String[] dateParts = data.split("/");
+		Date dataRezerwacji = new Date(Integer.parseInt(dateParts[2])-1900, Integer.parseInt(dateParts[1]) - 1, Integer.parseInt(dateParts[0]));
+		
+		DbKlasaEntity klasaDb = new DbKlasaDao().getById(Integer.parseInt(klasa));
+		
 		// Walidacja czy wszystkie pola są uzupełnione
 		Iterator<String[]> it = request.getParameterMap().values().iterator();
 		while(it.hasNext()) {
@@ -38,16 +55,13 @@ public class Reservation extends HttpServlet {
 					return;
 				}
 			}
-		}
+		}		
 		
-		String choosen = request.getParameter("choosen");
-		String ilosc = request.getParameter("ilosc");
-		String ilosc_dz = request.getParameter("ilosc_dz");
-		String ilosc_inf = request.getParameter("ilosc_inf");
-		String klasa = request.getParameter("klasa");
+		List<DbPasazerEntity> pasazerowie = new LinkedList<DbPasazerEntity>();
+		List<DbLotEntity> lotyRezerwacji = ((List<List<DbLotEntity>>) request.getSession().getAttribute("foundFlights")).get(Integer.valueOf(choosen));
+		Float cenaRezerwacji = ((List<Float>) request.getSession().getAttribute("foundFlightsPrices")).get(Integer.valueOf(choosen));
 		
 		// Wyciagniecie pasazerow z formularza
-		List<DbPasazerEntity> pasazerowie = new LinkedList<DbPasazerEntity>();
 		DbPasazerEntity pasazer;
 		for(int i=0; i < Integer.valueOf(ilosc); i++) {
 			pasazer = new DbPasazerEntity();
@@ -71,12 +85,7 @@ public class Reservation extends HttpServlet {
 			pasazerowie.add(pasazer);
 		}
 		
-		List<List<DbLotEntity>> loty = (List<List<DbLotEntity>>) request.getSession().getAttribute("foundFlights");
-		List<DbLotEntity> lotyRezerwacji = loty.get(Integer.valueOf(choosen));
-		
 		DbRezerwacjaEntity rezerwacja = new DbRezerwacjaEntity();
-		rezerwacja.setPasazersByIdRezerwacji(pasazerowie);
-		
 		
 		List<DbRekordyLotuEntity> rekordyLotuRezerwacji = new LinkedList<DbRekordyLotuEntity>();
 		DbRekordyLotuEntity rekord;
@@ -87,9 +96,22 @@ public class Reservation extends HttpServlet {
 				rekord.setRezerwacjaByIdRez(rezerwacja);
 				rekord.setPasazerByIdOs(p);
 				rekord.setLotByIdLot(l);
+				rekord.setDataPrzylotu(dataRezerwacji);
+				rekord.setDataWylotu(dataRezerwacji);
+				rekord.setKlasaByIdKlas(klasaDb);
+				rekord.setCenaDynamiczna(0.0f);
+				rekordyLotuRezerwacji.add(rekord);
 			}
 		}
-
+		
+		rezerwacja.setRekordyLotusByIdRezerwacji(rekordyLotuRezerwacji);
+		rezerwacja.setCenaCalkowita(cenaRezerwacji);
+		
+		GenericDao<DbRezerwacjaEntity, Integer> daoTest = new GenericDao<>(DbRezerwacjaEntity.class);
+		daoTest.create(rezerwacja);
+		
+		request.getSession().setAttribute("rezerwacjaWToku", rezerwacja);
+		
 	}
 
 }

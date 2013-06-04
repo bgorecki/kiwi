@@ -17,6 +17,7 @@
 	    		<input type="hidden" name="ilosc_inf" value="${param.ilosc_inf}" />
 	    		<input type="hidden" name="klasa" value="${param.klasa}" />
 	    		<input type="hidden" name="choosen" value="${param.choosen}" />
+	    		<input type="hidden" name="data" value="${param.data}" />
 	    	
 	    		<h1>Dane pasażerów</h1>
 	    		<p>

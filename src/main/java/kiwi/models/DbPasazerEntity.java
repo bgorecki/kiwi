@@ -71,7 +71,7 @@ public class DbPasazerEntity
 		this.wiek = wiek;
 	}
 
-	@javax.persistence.Column(name = "data_ur", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+	@javax.persistence.Column(name = "data_ur", nullable = true, insertable = true, updatable = true, length = 10, precision = 0)
 	@Basic
 	public Date getDataUr()
 	{
