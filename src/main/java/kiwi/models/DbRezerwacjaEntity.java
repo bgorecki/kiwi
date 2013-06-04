@@ -14,11 +14,13 @@ import java.util.Collection;
 @Entity
 public class DbRezerwacjaEntity
 {
-
 	private Integer idRezerwacji;
-
+	private Float cenaCalkowita;
+	private Collection<DbPasazerEntity> pasazersByIdRezerwacji;
+	private Collection<DbRekordyLotuEntity> rekordyLotusByIdRezerwacji;
+	
 	@javax.persistence.Column(name = "id_rezerwacji", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
-	@Id
+	@Id @GeneratedValue
 	public Integer getIdRezerwacji()
 	{
 		return idRezerwacji;
@@ -28,8 +30,6 @@ public class DbRezerwacjaEntity
 	{
 		this.idRezerwacji = idRezerwacji;
 	}
-
-	private Float cenaCalkowita;
 
 	@javax.persistence.Column(name = "cena_calkowita", nullable = false, insertable = true, updatable = true, length = 20, precision = 2)
 	@Basic
@@ -66,8 +66,6 @@ public class DbRezerwacjaEntity
 		return result;
 	}
 
-	private Collection<DbPasazerEntity> pasazersByIdRezerwacji;
-
 	@OneToMany(mappedBy = "rezerwacjaByIdRezerw",cascade=CascadeType.ALL)
 	public Collection<DbPasazerEntity> getPasazersByIdRezerwacji()
 	{
@@ -78,8 +76,6 @@ public class DbRezerwacjaEntity
 	{
 		this.pasazersByIdRezerwacji = pasazersByIdRezerwacji;
 	}
-
-	private Collection<DbRekordyLotuEntity> rekordyLotusByIdRezerwacji;
 
 	@OneToMany(mappedBy = "rezerwacjaByIdRez",cascade= CascadeType.ALL)
 	public Collection<DbRekordyLotuEntity> getRekordyLotusByIdRezerwacji()

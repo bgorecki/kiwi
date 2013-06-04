@@ -1,6 +1,7 @@
 package kiwi.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,6 +42,7 @@ public class LoginController extends HttpServlet {
 		}
 		
 		HttpSession httpSession = request.getSession(true);
+		userWhologgedIn.setOstatnieLogowanie(new Timestamp(new java.util.Date().getTime()));
 		httpSession.setAttribute("user", userWhologgedIn);
 		
 		response.sendRedirect("index.jsp");

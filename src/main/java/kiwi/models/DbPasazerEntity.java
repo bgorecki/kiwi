@@ -15,11 +15,16 @@ import java.util.Collection;
 @Entity
 public class DbPasazerEntity
 {
-
 	private Integer idPasazera;
+	private String imie;
+	private String nazwisko;
+	private String wiek;
+	private Date dataUr;
+	private DbRezerwacjaEntity rezerwacjaByIdRezerw;
+	private Collection<DbRekordyLotuEntity> rekordyLotusByIdPasazera;
 
 	@javax.persistence.Column(name = "id_pasazera", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
-	@Id
+	@Id @GeneratedValue
 	public Integer getIdPasazera()
 	{
 		return idPasazera;
@@ -29,8 +34,6 @@ public class DbPasazerEntity
 	{
 		this.idPasazera = idPasazera;
 	}
-
-	private String imie;
 
 	@javax.persistence.Column(name = "imie", nullable = false, insertable = true, updatable = true, length = 250, precision = 0)
 	@Basic
@@ -44,8 +47,6 @@ public class DbPasazerEntity
 		this.imie = imie;
 	}
 
-	private String nazwisko;
-
 	@javax.persistence.Column(name = "nazwisko", nullable = false, insertable = true, updatable = true, length = 250, precision = 0)
 	@Basic
 	public String getNazwisko()
@@ -58,8 +59,6 @@ public class DbPasazerEntity
 		this.nazwisko = nazwisko;
 	}
 
-	private String wiek;
-
 	@javax.persistence.Column(name = "wiek", nullable = false, insertable = true, updatable = true, length = 18, precision = 0)
 	@Basic
 	public String getWiek()
@@ -71,8 +70,6 @@ public class DbPasazerEntity
 	{
 		this.wiek = wiek;
 	}
-
-	private Date dataUr;
 
 	@javax.persistence.Column(name = "data_ur", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
 	@Basic
@@ -114,8 +111,6 @@ public class DbPasazerEntity
 		return result;
 	}
 
-	private DbRezerwacjaEntity rezerwacjaByIdRezerw;
-
 	@ManyToOne(cascade=CascadeType.ALL)
 	@javax.persistence.JoinColumn(name = "id_rezerw", referencedColumnName = "id_rezerwacji", nullable = false)
 	public DbRezerwacjaEntity getRezerwacjaByIdRezerw()
@@ -127,8 +122,6 @@ public class DbPasazerEntity
 	{
 		this.rezerwacjaByIdRezerw = rezerwacjaByIdRezerw;
 	}
-
-	private Collection<DbRekordyLotuEntity> rekordyLotusByIdPasazera;
 
 	@OneToMany(mappedBy = "pasazerByIdOs",cascade=CascadeType.ALL)
 	public Collection<DbRekordyLotuEntity> getRekordyLotusByIdPasazera()
