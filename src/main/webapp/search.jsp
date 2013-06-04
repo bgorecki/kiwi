@@ -215,10 +215,14 @@
                                         </li>
                                     </c:forEach>
                                 </ul>
-
-                                <button type="submit" onclick="$('#choosen').val(${loop.index}); $('#formulage').attr('action', '<c:url value="/reservation.html"/>');">Wybieram ten lot!</button>
-
+                                <div class="block-content no-title dark-bg no-margin">
+                                    <button type="submit" onclick="$('#choosen').val(${loop.index}); $('#formulage').attr('action', '<c:url value="/reservation.html"/>');">Wybieram ten lot!</button>
+                                    <div class="float-right">
+                                        <h2>Cena: <fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2"  value="${foundFlightsPrices[loop.index]}" /></h2>
+                                    </div>
+                                </div>
                             </fieldset>
+
                         </c:forEach>
                     </div>
                 </div>

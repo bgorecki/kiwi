@@ -6,6 +6,7 @@ import kiwi.dijkstra.Finder;
 import kiwi.dijkstra.Vertex;
 import kiwi.models.DbKlasaEntity;
 import kiwi.models.DbLotEntity;
+import kiwi.models.DbModyfikatorEntity;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -126,5 +127,31 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 				                              .setParameter("klasa", klasa).setParameter("lot", lot).uniqueResult();
 
 		return posiadane-zajete;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Float[] getPrices(DbLotEntity lot, DbKlasaEntity klasa) {
+		Float[] prices = new Float[2];
+
+		DbModyfikatorEntity mod = Iterables.<DbModyfikatorEntity>getFirst(getSession().createQuery("select modyfikator from DbModyfikatorEntity modyfikator join modyfikator.klasaByIdKlas klasa join klasa.miejscasByIdKlasy miejsca join miejsca.samolotByIdSam sam join sam.lspsByIdSamolotu lsp join lsp.lotByIdLot where modyfikator.klasaByIdKlas = :klasa and lsp.lotByIdLot = :lot").setParameter("klasa", klasa).setParameter("lot", lot).list(), null);
+		prices[0] = lot.getCenaStatyczna()+mod.getWartoscMod();
+		prices[1] = lot.getCenaStatyczna()+mod.getDziecko();
+
+		return prices;
+	}
+
+	public Float getPrice(DbLotEntity lot, Search.SearchForm sf) {
+		Float[] prices = getPrices(lot, sf.getKlasaDb());
+		Float price = sf.getIlosc()*prices[0] + sf.getIlosc_dz()*prices[1] + sf.getIlosc_inf()*prices[1];
+		return price;
+	}
+
+	public Float getFlightPrice(List<DbLotEntity> lot, Search.SearchForm sf) {
+
+		Float price = 0F;
+		for(DbLotEntity i: lot) {
+			price += getPrice(i,sf)*(1F-.05F*lot.size());
+		}
+		return price;
 	}
 }
