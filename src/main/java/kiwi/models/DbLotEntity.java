@@ -137,7 +137,7 @@ public class DbLotEntity
 
 	private DbLotniskoEntity lotniskoByWylot;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@javax.persistence.JoinColumn(name = "wylot", referencedColumnName = "id_lotniska", nullable = false)
 	public DbLotniskoEntity getLotniskoByWylot()
 	{
@@ -151,7 +151,7 @@ public class DbLotEntity
 
 	private DbLotniskoEntity lotniskoByPrzylot;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@javax.persistence.JoinColumn(name = "przylot", referencedColumnName = "id_lotniska", nullable = false)
 	public DbLotniskoEntity getLotniskoByPrzylot()
 	{

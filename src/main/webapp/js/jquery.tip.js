@@ -140,7 +140,7 @@
 		this.each(function(i)
 		{
 			var element = $(this);
-			var oldIE = ($.browser.msie && $.browser.version < 9);
+			var oldIE = false;
 			
 			// If tip does not already exist (if current), create it
 			var tip = element.data('tip');
@@ -182,7 +182,7 @@
 			{
 				var settings = element.data('settings');
 				
-				if ($.browser.msie && $.browser.version < 9)
+				if (false)
 				{
 					// IE8 and lower filters do not allow correct animation (the arrow is truncated)
 					tip.children('.arrow').remove();

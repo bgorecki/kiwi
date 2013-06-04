@@ -345,59 +345,146 @@
 	);
 }
 
-.planning .from-7-30, .planning .at-7-30 { left: 0; }
+.planning .from-0, .planning .at-0 {
+    left: 1%;
+}
+
+.planning .from-1, .planning .at-1 {
+    left: 4.16%;
+}
+
+.planning .from-2, .planning .at-2 {
+    left: 8.32%;
+}
+
+.planning .from-3, .planning .at-3 {
+    left: 12.48%;
+}
+
+.planning .from-4, .planning .at-4 {
+    left: 16.64%;
+}
+
+.planning .from-5, .planning .at-5 {
+    left: 20.80%;
+}
+
+.planning .from-6, .planning .at-6 {
+    left: 24.96%;
+}
+
+.planning .from-7, .planning .at-7 {
+    left: 29.12%;
+}
+
+.planning .from-7-30, .planning .at-7-30 { left: 1%; }
 .planning .from-7-45, .planning .at-7-45 { left: 1.92%; }
-.planning .from-8, .planning .at-8, .planning .from-8-00, .planning .at-8-00 { left: 3.85%; }
+.planning .from-8, .planning .at-8, .planning .from-8-00, .planning .at-8-00 { left: 33.28%; }
 .planning .from-8-15, .planning .at-8-15 { left: 5.77%; }
 .planning .from-8-30, .planning .at-8-30 { left: 7.69%; }
 .planning .from-8-45, .planning .at-8-45 { left: 9.62%; }
-.planning .from-9, .planning .at-9, .planning .from-9-00, .planning .at-9-00 { left: 11.54%; }
+.planning .from-9, .planning .at-9, .planning .from-9-00, .planning .at-9-00 { left: 37.44%; }
 .planning .from-9-15, .planning .at-9-15 { left: 13.46%; }
 .planning .from-9-30, .planning .at-9-30 { left: 15.38%; }
 .planning .from-9-45, .planning .at-9-45 { left: 17.31%; }
-.planning .from-10, .planning .at-10, .planning .from-10-00, .planning .at-10-00 { left: 19.23%; }
+.planning .from-10, .planning .at-10, .planning .from-10-00, .planning .at-10-00 { left: 41.60%; }
 .planning .from-10-15, .planning .at-10-15 { left: 21.15%; }
 .planning .from-10-30, .planning .at-10-30 { left: 23.08%; }
 .planning .from-10-45, .planning .at-10-45 { left: 25%; }
-.planning .from-11, .planning .at-11, .planning .from-11-00, .planning .at-11-00 { left: 26.92%; }
+.planning .from-11, .planning .at-11, .planning .from-11-00, .planning .at-11-00 { left: 45.76%; }
 .planning .from-11-15, .planning .at-11-15 { left: 28.85%; }
 .planning .from-11-30, .planning .at-11-30 { left: 30.77%; }
 .planning .from-11-45, .planning .at-11-45 { left: 32.69%; }
-.planning .from-12, .planning .at-12, .planning .from-12-00, .planning .at-12-00 { left: 34.62%; }
+.planning .from-12, .planning .at-12, .planning .from-12-00, .planning .at-12-00 { left: 49.92%; }
 .planning .from-12-15, .planning .at-12-15 { left: 36.54%; }
 .planning .from-12-30, .planning .at-12-30 { left: 38.46%; }
 .planning .from-12-45, .planning .at-12-45 { left: 40.38%; }
-.planning .from-13, .planning .at-13, .planning .from-13-00, .planning .at-13-00 { left: 42.31%; }
+.planning .from-13, .planning .at-13, .planning .from-13-00, .planning .at-13-00 { left: 54.08%; }
 .planning .from-13-15, .planning .at-13-15 { left: 44.23%; }
 .planning .from-13-30, .planning .at-13-30 { left: 46.15%; }
 .planning .from-13-45, .planning .at-13-45 { left: 48.08%; }
-.planning .from-14, .planning .at-14, .planning .from-14-00, .planning .at-14-00 { left: 50%; }
+.planning .from-14, .planning .at-14, .planning .from-14-00, .planning .at-14-00 { left: 58.24%; }
 .planning .from-14-15, .planning .at-14-15 { left: 51.92%; }
 .planning .from-14-30, .planning .at-14-30 { left: 53.85%; }
 .planning .from-14-45, .planning .at-14-45 { left: 55.77%; }
-.planning .from-15, .planning .at-15, .planning .from-15-00, .planning .at-15-00 { left: 57.69%; }
+.planning .from-15, .planning .at-15, .planning .from-15-00, .planning .at-15-00 { left: 62.40%; }
 .planning .from-15-15, .planning .at-15-15 { left: 59.62%; }
 .planning .from-15-30, .planning .at-15-30 { left: 61.54%; }
 .planning .from-15-45, .planning .at-15-45 { left: 63.46%; }
-.planning .from-16, .planning .at-16, .planning .from-16-00, .planning .at-16-00 { left: 65.38%; }
+.planning .from-16, .planning .at-16, .planning .from-16-00, .planning .at-16-00 { left: 66.56%; }
 .planning .from-16-15, .planning .at-16-15 { left: 67.31%; }
 .planning .from-16-30, .planning .at-16-30 { left: 69.23%; }
 .planning .from-16-45, .planning .at-16-45 { left: 71.15%; }
-.planning .from-17, .planning .at-17, .planning .from-17-00, .planning .at-17-00 { left: 73.08%; }
+.planning .from-17, .planning .at-17, .planning .from-17-00, .planning .at-17-00 { left: 70.72%; }
 .planning .from-17-15, .planning .at-17-15 { left: 75%; }
 .planning .from-17-30, .planning .at-17-30 { left: 76.92%; }
 .planning .from-17-45, .planning .at-17-45 { left: 78.85%; }
-.planning .from-18, .planning .at-18, .planning .from-18-00, .planning .at-18-00 { left: 80.77%; }
+.planning .from-18, .planning .at-18, .planning .from-18-00, .planning .at-18-00 { left: 74.88%; }
 .planning .from-18-15, .planning .at-18-15 { left: 82.69%; }
 .planning .from-18-30, .planning .at-18-30 { left: 84.62%; }
 .planning .from-18-45, .planning .at-18-45 { left: 86.54%; }
-.planning .from-19, .planning .at-19, .planning .from-19-00, .planning .at-19-00 { left: 88.46%; }
+.planning .from-19, .planning .at-19, .planning .from-19-00, .planning .at-19-00 { left: 79.04%; }
 .planning .from-19-15, .planning .at-19-15 { left: 90.38%; }
 .planning .from-19-30, .planning .at-19-30 { left: 92.31%; }
 .planning .from-19-45, .planning .at-19-45 { left: 94.23%; }
-.planning .from-20, .planning .at-20, .planning .from-20-00, .planning .at-20-00 { left: 96.15%; }
+.planning .from-20, .planning .at-20, .planning .from-20-00, .planning .at-20-00 { left: 83.2%; }
 .planning .from-20-15, .planning .at-20-15 { left: 98.08%; }
 
+.planning .from-21, .planning .at-21 { left: 87.36%; }
+.planning .from-22, .planning .at-22 { left: 91.52%; }
+.planning .from-23, .planning .at-23 { left: 95.68%; }
+.planning .from-24, .planning .at-24 { left: 98.84%; }
+
+
+.planning .to-0 {
+    right: 98.84%;
+}
+
+.planning .to-1 {
+    right: 95.68%;
+}
+
+.planning .to-2 {
+    right: 91.52%;
+}
+
+.planning .to-3 {
+    right: 87.36%;
+}
+
+.planning .to-4 {
+    right: 83.2%;
+}
+
+.planning .to-5 {
+    right: 79.04%;
+}
+
+.planning .to-6 {
+    right: 74.88%;
+}
+
+.planning .to-7 { right: 74.88%; }
+.planning .to-8 { right: 70.72%; }
+.planning .to-9 { right: 66.56%; }
+.planning .to-10 { right: 62.4%; }
+.planning .to-11 { right: 58.24%; }
+.planning .to-12 { right: 54.08%; }
+.planning .to-13 { right: 49.92%; }
+.planning .to-14 { right: 45.76%; }
+.planning .to-15 { right: 41.6%; }
+.planning .to-16 { right: 37.44%; }
+.planning .to-17 { right: 33.28%; }
+.planning .to-18 { right: 29.12%; }
+.planning .to-19 { right: 24.96%; }
+.planning .to-20 { right: 20.8%; }
+.planning .to-21 { right: 16.64%; }
+.planning .to-22 { right: 12.48%; }
+.planning .to-23 { right: 8.32%; }
+.planning .to-24 { right: 4.16%; }
+
+
+/*
 .planning .to-7-30 { right: 100%; }
 .planning .to-7-45 { right: 98.08%; }
 .planning .to-8, .planning .to-8-00 { right: 96.15%; }
@@ -449,4 +536,4 @@
 .planning .to-19-30 { right: 7.69%; }
 .planning .to-19-45 { right: 5.77%; }
 .planning .to-20, .planning .to-20-00 { right: 3.85%; }
-.planning .to-20-15 { right: 1.92%; }
+.planning .to-20-15 { right: 1.92%; }*/

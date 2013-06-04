@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/WEB-INF/view-elements/header.jsp"/>
 <script src="/js/jquery-ui-1.10.3/js/jquery-ui-1.10.3.custom.min.js"></script>
 <link rel="stylesheet" href="/js/jquery-ui-1.10.3/css/ui-lightness/jquery-ui-1.10.3.custom.min.css"/>
@@ -45,6 +46,12 @@
     });
 </script>
 
+<c:if test="${not empty param.sent and empty foundFlights and empty errors}">
+    <ul class="message error grid_12">
+        <li><h1>Przepraszamy, nie znaleźliśmy lotów odpowiadających Twojemu zapytaniu.</h1></li>
+        <li class="close-bt"></li>
+    </ul>
+</c:if>
 
 <form class="form" id="formulage" method="get" action="#flights">
     <article class="container_12">
@@ -168,19 +175,31 @@
                                     <li class="planning-header">
                                         <span><b>Users</b></span>
                                         <ul>
+                                            <li class="at-0">0</li>
+                                            <li class="at-1">1</li>
+                                            <li class="at-2">2</li>
+                                            <li class="at-3">3</li>
+                                            <li class="at-4">4</li>
+                                            <li class="at-5">5</li>
+                                            <li class="at-6">6</li>
+                                            <li class="at-7">7</li>
                                             <li class="at-8">8</li>
                                             <li class="at-9">9</li>
                                             <li class="at-10">10</li>
                                             <li class="at-11">11</li>
                                             <li class="at-12">12</li>
-                                            <li class="at-13">1</li>
-                                            <li class="at-14">2</li>
-                                            <li class="at-15">3</li>
-                                            <li class="at-16">4</li>
-                                            <li class="at-17">5</li>
-                                            <li class="at-18">6</li>
-                                            <li class="at-19">7</li>
-                                            <li class="at-20">8</li>
+                                            <li class="at-13">13</li>
+                                            <li class="at-14">14</li>
+                                            <li class="at-15">15</li>
+                                            <li class="at-16">16</li>
+                                            <li class="at-17">17</li>
+                                            <li class="at-18">18</li>
+                                            <li class="at-19">19</li>
+                                            <li class="at-20">20</li>
+                                            <li class="at-21">21</li>
+                                            <li class="at-22">22</li>
+                                            <li class="at-23">23</li>
+                                            <li class="at-24">24</li>
                                         </ul>
                                     </li>
                                     <c:forEach var="j" items="${i}" varStatus="jLoop">
@@ -188,9 +207,9 @@
                                             <a href="#"><img src="images/icons/fugue/control-double.png" width="16"
                                                              height="16"> ${j.lotniskoByWylot.miasto}</a>
                                             <ul>
-                                                <li class="from-8 to-12"><a href="#" title="Event description"
-                                                                            class="with-tip">8:00 - 12:00<span
-                                                        class="event-blue" style="width:100%">${j.lotniskoByWylot.miasto} -> ${j.lotniskoByPrzylot.miasto}</span></a>
+                                                <li class="from-${j.godzinaWylotu.hours} to-${j.godzinaPrzylotu.hours}"><a href="#" title="${j.lotniskoByWylot.miasto} -> ${j.lotniskoByPrzylot.miasto} <fmt:formatDate value="${j.godzinaWylotu}" pattern="HH:mm"/> ->  <fmt:formatDate value="${j.godzinaPrzylotu}" pattern="HH:mm"/>"
+                                                                            class="with-tip event-blue">
+                                                      ${j.lotniskoByWylot.miasto} -> ${j.lotniskoByPrzylot.miasto} <fmt:formatDate value="${j.godzinaWylotu}" pattern="HH:mm"/> ->  <fmt:formatDate value="${j.godzinaPrzylotu}" pattern="HH:mm"/></a>
                                                 </li>
                                             </ul>
                                         </li>

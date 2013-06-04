@@ -2,6 +2,7 @@ package kiwi.dao;
 
 import java.util.List;
 
+import kiwi.models.DbLotniskoEntity;
 import kiwi.models.DbSamolotEntity;
 
 public class DbSamolotEntityDao extends GenericDao<DbSamolotEntity, Integer>{
@@ -13,10 +14,23 @@ public class DbSamolotEntityDao extends GenericDao<DbSamolotEntity, Integer>{
 	@SuppressWarnings("unchecked")
 	public List<DbSamolotEntity> getAll() {
 		getSession().beginTransaction();
-		List<DbSamolotEntity> airplanes = (List<DbSamolotEntity>)getSession().createQuery("from kiwi.model.DbSamolotEntity").list();
+		List<DbSamolotEntity> airplanes = (List<DbSamolotEntity>)getSession().createQuery("from kiwi.models.DbSamolotEntity").list();
 		getSession().getTransaction().commit();
 		getSession().clear();
     	return airplanes;
+	}
+	
+	public void update(DbSamolotEntity airplane) {
+		getSession().beginTransaction();
+		getSession().update(airplane);
+		getSession().getTransaction().commit();
+	}
+	
+	public void delete(Integer id) {
+		getSession().beginTransaction();
+		DbSamolotEntity airplane = new DbSamolotEntityDao().read(id);
+    	new DbSamolotEntityDao().delete(airplane);
+    	getSession().getTransaction().commit();
 	}
 	
 	/**

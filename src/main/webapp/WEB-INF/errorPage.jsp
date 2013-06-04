@@ -7,6 +7,6 @@
 <title>Coś poszło nie tak</title>
 </head>
 <body>
-<h1>Coś poszło nie tak, spróbuj ponownie!</h1>
+<h1>Coś poszło nie tak, spróbuj ponownie! ${exception }</h1><br>
 </body>
 </html>
