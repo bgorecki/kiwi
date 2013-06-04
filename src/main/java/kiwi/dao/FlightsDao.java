@@ -1,12 +1,12 @@
 package kiwi.dao;
 
 import com.google.common.collect.Iterables;
-import kiwi.controller.Search;
 import kiwi.dijkstra.Finder;
 import kiwi.dijkstra.Vertex;
 import kiwi.models.DbKlasaEntity;
 import kiwi.models.DbLotEntity;
 import kiwi.models.DbModyfikatorEntity;
+import kiwi.models.SearchForm;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -34,7 +34,7 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 		return getSession().createQuery("from DbLotEntity").list();
 	}
 
-	public List<List<DbLotEntity>> findFlightsByAttributes(Search.SearchForm sf)
+	public List<List<DbLotEntity>> findFlightsByAttributes(SearchForm sf)
 	{
 		Date result = null;
 		DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy");
@@ -113,7 +113,7 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 		return loty;
 	}
 
-	public DbLotEntity findFlightsByAirportNames(Search.SearchForm sf)
+	public DbLotEntity findFlightsByAirportNames(SearchForm sf)
 	{
 		return Iterables.<DbLotEntity>getFirst(getSession().createQuery("from DbLotEntity where lotniskoByPrzylot = :lotniskoByPrzylot and lotniskoByWylot = :lotniskoByWylot").setParameter("lotniskoByPrzylot", sf.getToLotnisko()).setParameter("lotniskoByWylot", sf.getFromLotnisko()).list(), null);
 	}
@@ -157,13 +157,13 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 		return prices;
 	}
 
-	public Float getPrice(DbLotEntity lot, Search.SearchForm sf) {
+	public Float getPrice(DbLotEntity lot, SearchForm sf) {
 		Float[] prices = getPrices(lot, sf.getKlasaDb());
 		Float price = sf.getIlosc()*prices[0] + sf.getIlosc_dz()*prices[1] + sf.getIlosc_inf()*prices[1];
 		return price;
 	}
 
-	public Float getFlightPrice(List<DbLotEntity> lot, Search.SearchForm sf) {
+	public Float getFlightPrice(List<DbLotEntity> lot, SearchForm sf) {
 
 		Float price = 0F;
 		for(DbLotEntity i: lot) {

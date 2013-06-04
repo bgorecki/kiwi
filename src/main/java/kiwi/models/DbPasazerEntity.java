@@ -20,6 +20,7 @@ public class DbPasazerEntity
 
 	@javax.persistence.Column(name = "id_pasazera", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
 	@Id
+	@GeneratedValue
 	public Integer getIdPasazera()
 	{
 		return idPasazera;
