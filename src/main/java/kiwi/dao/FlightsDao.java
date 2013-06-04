@@ -118,7 +118,7 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 		return Iterables.<DbLotEntity>getFirst(getSession().createQuery("from DbLotEntity where lotniskoByPrzylot = :lotniskoByPrzylot and lotniskoByWylot = :lotniskoByWylot").setParameter("lotniskoByPrzylot", sf.getToLotnisko()).setParameter("lotniskoByWylot", sf.getFromLotnisko()).list(), null);
 	}
 
-	public Integer getFreeSeatsCount(DbLotEntity lot, DbKlasaEntity klasa)
+	public Integer getFreeSeatsCountInClass(DbLotEntity lot, DbKlasaEntity klasa)
 	{
 		Integer zajete = ((Long) getSession().createQuery("select count(*) from DbRekordyLotuEntity where lotByIdLot = :lot and klasaByIdKlas = :klasa")
 				                 .setParameter("lot", lot).setParameter("klasa", klasa).uniqueResult()).intValue();
@@ -127,6 +127,23 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 				                              .setParameter("klasa", klasa).setParameter("lot", lot).uniqueResult();
 
 		return posiadane-zajete;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Integer getSeatsCount(DbLotEntity lot) {
+		Integer count = 0;
+		for(Integer i: (List<Integer>)getSession().createQuery("select m.ilosc from DbMiejscaEntity m join m.samolotByIdSam s join s.lspsByIdSamolotu lsp where lsp.samolotByIdSam = s and lsp.lotByIdLot = :lot group by m.idMiejsca").setParameter("lot", lot).list()) {
+			count += i;
+		}
+		return count;
+	}
+
+	public Integer getReservationsCountForDate(DbLotEntity lot, DateTime date) {
+		return (Integer)getSession().createQuery("select count(rekordy)from DbRekordyLotuEntity rekordy where dataWylotu = :data").setParameter("data", date).uniqueResult();
+	}
+
+	public DateTime getErliestFlight(DbLotEntity flight) {
+		return new DateTime((Date)getSession().createQuery("select rekordy.dataWylotu from DbRekordyLotuEntity rekordy where dataWylotu = min(dataWylotu)").uniqueResult());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -153,5 +170,10 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 			price += getPrice(i,sf)*(1F-.05F*lot.size());
 		}
 		return price;
+	}
+
+	public DbLotEntity getById(int id)
+	{
+		return Iterables.<DbLotEntity>getFirst(getSession().createQuery("from DbLotEntity where idLotu = :id").setParameter("id", id).list(), null);
 	}
 }

@@ -91,4 +91,29 @@ public class DbRezerwacjaEntity
 	{
 		this.rekordyLotusByIdRezerwacji = rekordyLotusByIdRezerwacji;
 	}
+
+	public DbRezerwacjaEntity withIdRezerwacji(final Integer idRezerwacji)
+	{
+		this.idRezerwacji = idRezerwacji;
+		return this;
+	}
+
+	public DbRezerwacjaEntity withCenaCalkowita(final Float cenaCalkowita)
+	{
+		this.cenaCalkowita = cenaCalkowita;
+		return this;
+	}
+
+	public DbRezerwacjaEntity withPasazersByIdRezerwacji(final Collection<DbPasazerEntity> pasazersByIdRezerwacji)
+	{
+		this.pasazersByIdRezerwacji = pasazersByIdRezerwacji;
+		return this;
+	}
+
+	public DbRezerwacjaEntity withRekordyLotusByIdRezerwacji(final Collection<DbRekordyLotuEntity> rekordyLotusByIdRezerwacji)
+	{
+		this.rekordyLotusByIdRezerwacji = rekordyLotusByIdRezerwacji;
+		return this;
+	}
+
 }

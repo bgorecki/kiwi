@@ -9,7 +9,6 @@ import kiwi.models.DbLotEntity;
 import kiwi.models.DbLotniskoEntity;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import static org.apache.log4j.Level.*;
 
@@ -288,9 +286,9 @@ public class Search extends HttpServlet
 				List<List<DbLotEntity>> remove = new ArrayList<List<DbLotEntity>>();
 				for(List<DbLotEntity> i: loty) {
 					for(DbLotEntity j: i) {
-						int ilosc = flightsDao.getFreeSeatsCount(j, sf.getKlasaDb());
+						int ilosc = flightsDao.getFreeSeatsCountInClass(j, sf.getKlasaDb());
 
-						if(flightsDao.getFreeSeatsCount(j, sf.getKlasaDb()) < iloscMiejsc) {
+						if(flightsDao.getFreeSeatsCountInClass(j, sf.getKlasaDb()) < iloscMiejsc) {
 							remove.add(i); break;
 						}
 					}

@@ -5,7 +5,9 @@ import kiwi.models.*;
 
 import org.hibernate.Session;
 import org.hibernate.context.internal.ThreadLocalSessionContext;
+import org.joda.time.DateTime;
 
+import java.sql.Date;
 import java.sql.Time;
 
 public class HibernateUtil {
@@ -172,6 +174,14 @@ public class HibernateUtil {
 	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k3).withDziecko(200).withWartoscMod(100F).withPrzewoznikByIdPrzew(ua));
 	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k4).withDziecko(400).withWartoscMod(200F).withPrzewoznikByIdPrzew(ua));
 
+	  /*  GenericDao<DbPasazerEntity, Integer> pasazerDao = new GenericDao<>(DbPasazerEntity.class);
+
+
+	    GenericDao<DbRezerwacjaEntity, Integer> rezerwacjaDao = new GenericDao<>(DbRezerwacjaEntity.class);
+
+	    GenericDao<DbRekordyLotuEntity, Integer> rekordyDao = new GenericDao<>(DbRekordyLotuEntity.class);
+	    rekordyDao.create(new DbRekordyLotuEntity().withDataWylotu(new Date(new DateTime(2013, 6, 8, 0, 0).toDate().getTime())).withDataPrzylotu(new Date(new DateTime(2013, 6, 8, 0, 0).toDate().getTime())).withKlasaByIdKlas(k1).withLotByIdLot(lotJJFK).)
+*/
 	    GenericDao<DbUzytkownikEntity, Integer> uzytkownikDao = new GenericDao<DbUzytkownikEntity, Integer>(DbUzytkownikEntity.class);
 	    DbUzytkownikEntity uzytkownik = new DbUzytkownikEntity();
 	    uzytkownik.setLogin("admin1"); uzytkownik.setHaslo("admin1"); uzytkownik.setRola(DbUzytkownikEntity.ADMIN_ROLE);

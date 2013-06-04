@@ -19,6 +19,7 @@ public class DbRekordyLotuEntity
 
 	@javax.persistence.Column(name = "id_rlotu", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
 	@Id
+	@GeneratedValue
 	public Integer getIdRlotu()
 	{
 		return idRlotu;
@@ -153,4 +154,54 @@ public class DbRekordyLotuEntity
 	{
 		this.klasaByIdKlas = klasaByIdKlas;
 	}
+
+	public DbRekordyLotuEntity withIdRlotu(final Integer idRlotu)
+	{
+		this.idRlotu = idRlotu;
+		return this;
+	}
+
+	public DbRekordyLotuEntity withCenaDynamiczna(final Float cenaDynamiczna)
+	{
+		this.cenaDynamiczna = cenaDynamiczna;
+		return this;
+	}
+
+	public DbRekordyLotuEntity withDataWylotu(final Date dataWylotu)
+	{
+		this.dataWylotu = dataWylotu;
+		return this;
+	}
+
+	public DbRekordyLotuEntity withDataPrzylotu(final Date dataPrzylotu)
+	{
+		this.dataPrzylotu = dataPrzylotu;
+		return this;
+	}
+
+	public DbRekordyLotuEntity withLotByIdLot(final DbLotEntity lotByIdLot)
+	{
+		this.lotByIdLot = lotByIdLot;
+		return this;
+	}
+
+	public DbRekordyLotuEntity withPasazerByIdOs(final DbPasazerEntity pasazerByIdOs)
+	{
+		this.pasazerByIdOs = pasazerByIdOs;
+		return this;
+	}
+
+	public DbRekordyLotuEntity withRezerwacjaByIdRez(final DbRezerwacjaEntity rezerwacjaByIdRez)
+	{
+		this.rezerwacjaByIdRez = rezerwacjaByIdRez;
+		return this;
+	}
+
+	public DbRekordyLotuEntity withKlasaByIdKlas(final DbKlasaEntity klasaByIdKlas)
+	{
+		this.klasaByIdKlas = klasaByIdKlas;
+		return this;
+	}
+
+
 }
