@@ -17,6 +17,7 @@ public class DbModyfikatorEntity
 
 	@javax.persistence.Column(name = "id_modyfikatora", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
 	@Id
+	@GeneratedValue
 	public Integer getIdModyfikatora()
 	{
 		return idModyfikatora;
@@ -27,18 +28,18 @@ public class DbModyfikatorEntity
 		this.idModyfikatora = idModyfikatora;
 	}
 
-	private String mod;
+	private String modd;
 	// nazwa zmieniona na modd bo w mysql mod to nazwa zastrzeżona
-	@javax.persistence.Column(name = "modd", nullable = false, insertable = true, updatable = true, length = 3, precision = 0)
+	@javax.persistence.Column(name = "modd", nullable = true, insertable = true, updatable = true, length = 3, precision = 0)
 	@Basic
-	public String getMod()
+	public String getModd()
 	{
-		return mod;
+		return modd;
 	}
 
-	public void setMod(String mod)
+	public void setModd(String mod)
 	{
-		this.mod = mod;
+		this.modd = mod;
 	}
 
 	private Float wartoscMod;
@@ -80,7 +81,7 @@ public class DbModyfikatorEntity
 		if (dziecko != null ? !dziecko.equals(that.dziecko) : that.dziecko != null) return false;
 		if (idModyfikatora != null ? !idModyfikatora.equals(that.idModyfikatora) : that.idModyfikatora != null)
 			return false;
-		if (mod != null ? !mod.equals(that.mod) : that.mod != null) return false;
+		if (modd != null ? !modd.equals(that.modd) : that.modd != null) return false;
 		if (wartoscMod != null ? !wartoscMod.equals(that.wartoscMod) : that.wartoscMod != null) return false;
 
 		return true;
@@ -90,7 +91,7 @@ public class DbModyfikatorEntity
 	public int hashCode()
 	{
 		int result = idModyfikatora != null ? idModyfikatora.hashCode() : 0;
-		result = 31 * result + (mod != null ? mod.hashCode() : 0);
+		result = 31 * result + (modd != null ? modd.hashCode() : 0);
 		result = 31 * result + (wartoscMod != null ? wartoscMod.hashCode() : 0);
 		result = 31 * result + (dziecko != null ? dziecko.hashCode() : 0);
 		return result;
@@ -123,4 +124,42 @@ public class DbModyfikatorEntity
 	{
 		this.przewoznikByIdPrzew = przewoznikByIdPrzew;
 	}
+
+	public DbModyfikatorEntity withIdModyfikatora(final Integer idModyfikatora)
+	{
+		this.idModyfikatora = idModyfikatora;
+		return this;
+	}
+
+	public DbModyfikatorEntity withModd(final String modd)
+	{
+		this.modd = modd;
+		return this;
+	}
+
+	public DbModyfikatorEntity withWartoscMod(final Float wartoscMod)
+	{
+		this.wartoscMod = wartoscMod;
+		return this;
+	}
+
+	public DbModyfikatorEntity withDziecko(final Integer dziecko)
+	{
+		this.dziecko = dziecko;
+		return this;
+	}
+
+	public DbModyfikatorEntity withKlasaByIdKlas(final DbKlasaEntity klasaByIdKlas)
+	{
+		this.klasaByIdKlas = klasaByIdKlas;
+		return this;
+	}
+
+	public DbModyfikatorEntity withPrzewoznikByIdPrzew(final DbPrzewoznikEntity przewoznikByIdPrzew)
+	{
+		this.przewoznikByIdPrzew = przewoznikByIdPrzew;
+		return this;
+	}
+
+
 }

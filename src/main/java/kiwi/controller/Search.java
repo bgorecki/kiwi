@@ -299,8 +299,13 @@ public class Search extends HttpServlet
 					loty.remove(i);
 				}
 
+				List<Float> prices = new ArrayList<>();
+				for(List<DbLotEntity> i: loty) {
+					prices.add(flightsDao.getFlightPrice(i, sf));
+				}
+
 				request.setAttribute("foundFlights", loty);
-				session.setAttribute("foundFlights", loty);
+				session.setAttribute("foundFlightsPrices", prices);
 			}
 		}
 

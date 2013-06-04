@@ -151,6 +151,27 @@ public class HibernateUtil {
 	    miejscaDao.create(new DbMiejscaEntity().withIlosc(10).withKlasaByIdKlas(k2).withSamolotByIdSam(antekEurolot));
 	    miejscaDao.create(new DbMiejscaEntity().withIlosc(10).withKlasaByIdKlas(k1).withSamolotByIdSam(antekEurolot));
 
+	    GenericDao<DbModyfikatorEntity, Integer> modyfikatorDao = new GenericDao<>(DbModyfikatorEntity.class);
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k1).withDziecko(0).withWartoscMod(0F).withPrzewoznikByIdPrzew(lot));
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k2).withDziecko(100).withWartoscMod(50F).withPrzewoznikByIdPrzew(lot));
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k3).withDziecko(200).withWartoscMod(100F).withPrzewoznikByIdPrzew(lot));
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k4).withDziecko(400).withWartoscMod(200F).withPrzewoznikByIdPrzew(lot));
+
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k1).withDziecko(0).withWartoscMod(0F).withPrzewoznikByIdPrzew(eurolot));
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k2).withDziecko(100).withWartoscMod(50F).withPrzewoznikByIdPrzew(eurolot));
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k3).withDziecko(200).withWartoscMod(100F).withPrzewoznikByIdPrzew(eurolot));
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k4).withDziecko(400).withWartoscMod(200F).withPrzewoznikByIdPrzew(eurolot));
+
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k1).withDziecko(0).withWartoscMod(0F).withPrzewoznikByIdPrzew(luftwafe));
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k2).withDziecko(100).withWartoscMod(50F).withPrzewoznikByIdPrzew(luftwafe));
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k3).withDziecko(200).withWartoscMod(100F).withPrzewoznikByIdPrzew(luftwafe));
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k4).withDziecko(400).withWartoscMod(200F).withPrzewoznikByIdPrzew(luftwafe));
+
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k1).withDziecko(0).withWartoscMod(0F).withPrzewoznikByIdPrzew(ua));
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k2).withDziecko(100).withWartoscMod(50F).withPrzewoznikByIdPrzew(ua));
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k3).withDziecko(200).withWartoscMod(100F).withPrzewoznikByIdPrzew(ua));
+	    modyfikatorDao.create(new DbModyfikatorEntity().withKlasaByIdKlas(k4).withDziecko(400).withWartoscMod(200F).withPrzewoznikByIdPrzew(ua));
+
 	    GenericDao<DbUzytkownikEntity, Integer> uzytkownikDao = new GenericDao<DbUzytkownikEntity, Integer>(DbUzytkownikEntity.class);
 	    DbUzytkownikEntity uzytkownik = new DbUzytkownikEntity();
 	    uzytkownik.setLogin("admin1"); uzytkownik.setHaslo("admin1"); uzytkownik.setRola(DbUzytkownikEntity.ADMIN_ROLE);
