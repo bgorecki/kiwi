@@ -2,7 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <jsp:include page="/WEB-INF/view-elements/header.jsp" />
-
+		
+		<div style="float: left">
 	    <form method="post" class="form" action="airlinecompanies?action=editCompany&id=${airlineCompany.idPrzewoznika}">
 	    	<span style="color:red;">${msg}</span><br/><br/>
 	    	<fieldset>
@@ -20,8 +21,30 @@
 			   
 	    	</fieldset>
 	    </form>
-	    
-	    <h2>Użytkownicy z dostępem do systemu</h2>
+	    </div>
+	    <div style="margin-left: 50px; float: left">
+	    <form method="post" class="form" action="airlinecompanies?action=addCompanyUser&companyId=${airlineCompany.idPrzewoznika}">
+	    	<span style="color:red;">${msg}</span><br/><br/>
+	    	<fieldset>
+	        	<legend>Dodaj użytkownika</legend>
+	        	<p>
+	        		<label for="field" class="required">Wymagane pola</label>
+	        	</p>
+	        	<p>
+			        <label for="fieldLogin" class="required">Login administratora przewoźnika</label>
+			        <input type="text" maxlength="150" name="login" id="fieldLogin"  value="${param.login}">
+			        <label for="fieldHaslo" class="required">Hasło administratora przewoźnika</label>
+			        <input type="password" maxlength="150" name="haslo" id="fieldHaslo">
+			        <label for="fieldHasloPowtorzone" class="required">Powtórz hasło administratora przewoźnika</label>
+			        <input type="password" maxlength="150" name="hasloPowtorzone" id="fieldHasloPowtorzone">
+			    	<br/><input type="submit" value="Dodaj">
+			    </p>
+			   
+	    	</fieldset>
+	 	</form>
+	    </div>
+	    <div style="clear: both">
+	    <h4>Użytkownicy z dostępem do systemu</h4><br/>
 	    <table class="table" cellspacing="0">
  
 	    <thead>
@@ -58,28 +81,8 @@
 	         
 	    </tbody>
  
-	</table>
-	
-	<form method="post" class="form" action="airlinecompanies?action=addCompanyUser&companyId=${airlineCompany.idPrzewoznika}">
-	    	<span style="color:red;">${msg}</span><br/><br/>
-	    	<fieldset>
-	        	<legend>Dodaj użytkownika</legend>
-	        	<p>
-	        		<label for="field" class="required">Wymagane pola</label>
-	        	</p>
-	        	<p>
-			        <label for="fieldLogin" class="required">Login administratora przewoźnika</label>
-			        <input type="text" maxlength="150" name="login" id="fieldLogin"  value="${param.login}">
-			        <label for="fieldHaslo" class="required">Hasło administratora przewoźnika</label>
-			        <input type="password" maxlength="150" name="haslo" id="fieldHaslo">
-			        <label for="fieldHasloPowtorzone" class="required">Powtórz hasło administratora przewoźnika</label>
-			        <input type="password" maxlength="150" name="hasloPowtorzone" id="fieldHasloPowtorzone">
-			    	<br/><input type="submit" value="Dodaj">
-			    </p>
-			   
-	    	</fieldset>
-	    </form>
-	    
+		</table>
+	</div>
 	    
 <jsp:include page="/WEB-INF/view-elements/footer.jsp" />
 	
