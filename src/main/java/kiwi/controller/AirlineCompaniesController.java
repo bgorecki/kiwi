@@ -145,17 +145,18 @@ public class AirlineCompaniesController extends HttpServlet {
 		}
 		
 		if(action.equals("editCompany")) {
+			DbPrzewoznikEntity przewoznik = dao.read(Integer.parseInt(request.getParameter("id")));
+			
 			String nazwa = request.getParameter("nazwa");
 			String kraj = request.getParameter("kraj");
 			if(nazwa == null || nazwa.equals("") || kraj == null || kraj.equals("")) {
-				request.setAttribute("msg", "Wszystkie wymagane pola muszą być uzupełnione!");
+				request.setAttribute("airlineCompany", przewoznik);
+				request.setAttribute("msg1", "Wszystkie wymagane pola muszą być uzupełnione!");
 				request.getRequestDispatcher("editAirlineCompany.jsp").forward(request, response);
 				return;
 			}
 			
-			DbPrzewoznikEntity przewoznik = new DbPrzewoznikEntity();
 			try {
-				przewoznik = dao.read(Integer.parseInt(request.getParameter("id")));
 				BeanUtils.populate(przewoznik, request.getParameterMap());
 				DatabaseConnector.getInstance().getSession().beginTransaction();
 				dao.update(przewoznik);
@@ -172,6 +173,24 @@ public class AirlineCompaniesController extends HttpServlet {
 		if(action.equals("addCompanyUser")) {
 			String companyId = request.getParameter("companyId");
 			DbPrzewoznikEntity przewoznik = dao.read(Integer.valueOf(companyId));
+			
+			String login = request.getParameter("login");
+			String haslo = request.getParameter("haslo");
+			String hasloPowtorzone = request.getParameter("hasloPowtorzone");
+			
+			if(login == null || login.equals("") || haslo == null || haslo.equals("") || hasloPowtorzone == null || hasloPowtorzone.equals("")) { 
+				request.setAttribute("airlineCompany", przewoznik);
+				request.setAttribute("msg2", "Wszystkie wymagane pola muszą być uzupełnione!");
+				request.getRequestDispatcher("editAirlineCompany.jsp").forward(request, response);
+				return;
+			}
+			
+			if(!checkIfPasswordIsCorrectlyTyped(request)) {
+				request.setAttribute("airlineCompany", przewoznik);
+				request.setAttribute("msg2", "Hasło oraz hasło powtórzone muszą być takie same!!");
+				request.getRequestDispatcher("editAirlineCompany.jsp").forward(request, response);
+				return;
+			}
 			
 			DbUzytkownikEntity uzytkownikPrzewoznika = new DbUzytkownikEntity();
 			try {
@@ -203,7 +222,7 @@ public class AirlineCompaniesController extends HttpServlet {
 		
 		if(nazwa == null || nazwa.equals("") ||
 		   kraj == null || kraj.equals("") ||
-		   login == null || kraj.equals("") || 
+		   login == null || login.equals("") || 
 		   haslo == null || haslo.equals("") || 
 		   hasloPowtorzone == null || hasloPowtorzone.equals("")) { 
 			return false;

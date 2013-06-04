@@ -4,10 +4,13 @@
 <jsp:include page="/WEB-INF/view-elements/header.jsp" />
 		
 		<div style="float: left">
-	    <form method="post" class="form" action="airlinecompanies?action=editCompany&id=${airlineCompany.idPrzewoznika}">
-	    	<span style="color:red;">${msg}</span><br/><br/>
+	    <form method="post" id="simple_form" class="block-content form" action="airlinecompanies?action=editCompany&id=${airlineCompany.idPrzewoznika}">
+	    	<c:if test="${not empty msg1}" >
+	    		<ul class="message error no-margin"><li>${msg1}</li></ul>
+	    	</c:if>
 	    	<fieldset>
-	        	<legend>Edytuj przewoźnika</legend>
+	    		<h1>Edytuj przewoźnika</h1>
+	        	<legend>Informacje o przewoźniku</legend>
 	        	<p>
 	        		<label for="field" class="required">Wymagane pola</label>
 	        	</p>
@@ -16,17 +19,20 @@
 			        <input type="text" maxlength="150" name="nazwa" id="fieldNazwa" value="${airlineCompany.nazwa}">
 			        <label for="fieldKraj" class="required">Kraj</label>
 			        <input type="text" maxlength="150" name="kraj" id="fieldKraj" value="${airlineCompany.kraj}">
-			    	<br/><input type="submit" value="Zapisz">
+			    	<br/><button type="submit">Edytuj</button>
 			    </p>
 			   
 	    	</fieldset>
 	    </form>
 	    </div>
 	    <div style="margin-left: 50px; float: left">
-	    <form method="post" class="form" action="airlinecompanies?action=addCompanyUser&companyId=${airlineCompany.idPrzewoznika}">
-	    	<span style="color:red;">${msg}</span><br/><br/>
+	    <form method="post" id="simple_form" class="block-content form" action="airlinecompanies?action=addCompanyUser&companyId=${airlineCompany.idPrzewoznika}">
+	    	<c:if test="${not empty msg2}" >
+	    		<ul class="message error no-margin"><li>${msg2}</li></ul>
+	    	</c:if>
 	    	<fieldset>
-	        	<legend>Dodaj użytkownika</legend>
+	    		<h1>Dodaj użytkownika</h1>
+	        	<legend>Informacje o użytkowniku</legend>
 	        	<p>
 	        		<label for="field" class="required">Wymagane pola</label>
 	        	</p>
@@ -37,14 +43,14 @@
 			        <input type="password" maxlength="150" name="haslo" id="fieldHaslo">
 			        <label for="fieldHasloPowtorzone" class="required">Powtórz hasło administratora przewoźnika</label>
 			        <input type="password" maxlength="150" name="hasloPowtorzone" id="fieldHasloPowtorzone">
-			    	<br/><input type="submit" value="Dodaj">
+			    	<br/><button type="submit">Dodaj</button>
 			    </p>
 			   
 	    	</fieldset>
 	 	</form>
 	    </div>
-	    <div style="clear: both">
-	    <h4>Użytkownicy z dostępem do systemu</h4><br/>
+	    <div style="padding-top: 50px; clear: both">
+	    <h1>Użytkownicy przewoźnika z dostępem do systemu</h1>
 	    <table class="table" cellspacing="0">
  
 	    <thead>
