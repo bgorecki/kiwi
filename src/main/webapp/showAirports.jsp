@@ -17,19 +17,13 @@
 			<td>${airport.nazwa }</td>
 			<!-- The class table-actions is designed for action icons -->
 			<td class="table-actions">
-			<form action="/kiwi/airportController" method="post" style="float: left">
+			<form action="<c:url value="/airports"/>" method="post" style="float: left">
 				<input type="hidden" name="action" value="edit"/>
-				<input type="hidden" name="nazwa" value="${airport.nazwa }"/>
-				<input type="hidden" name="panstwo" value="${airport.panstwo }"/>
-				<input type="hidden" name="miasto" value="${airport.miasto }"/>
 				<input type="hidden" name="idLotniska" value="${airport.idLotniska}"/>
 				<input type="image" title="Edytuj lotnisko" class="with-tip" src="images/icons/fugue/pencil.png" width="16" height="16"/>
 			</form>
-			<form action="/kiwi/airportController" method="post" style="float: right">
+			<form action="<c:url value="/airports"/>" method="post" style="float: right">
 				<input type="hidden" name="action" value="delete"/>
-				<input type="hidden" name="nazwa" value="${airport.nazwa }"/>
-				<input type="hidden" name="panstwo" value="${airport.panstwo }"/>
-				<input type="hidden" name="miasto" value="${airport.miasto }"/>
 				<input type="hidden" name="idLotniska" value="${airport.idLotniska}"/>
 				<input type="image" title="Usuń lotnisko" class="with-tip" src="images/icons/fugue/cross-circle.png" width="16" height="16"/>
 			</form>

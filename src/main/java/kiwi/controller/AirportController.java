@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kiwi.dao.DbLotniskoEntityDao;
+import kiwi.dao.DbLotniskoEntityDao;
+import kiwi.models.DbLotniskoEntity;
 import kiwi.models.DbLotniskoEntity;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -21,7 +23,7 @@ import org.apache.commons.beanutils.BeanUtils;
  *
  * @author bartek
  */
-@WebServlet(name = "airportController", urlPatterns = {"/airportController"})
+@WebServlet("/airports")
 public class AirportController extends HttpServlet {
 
     @Override
@@ -33,68 +35,53 @@ public class AirportController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    	  request.setCharacterEncoding("UTF-8");
-    	  String action = request.getParameter("action");
-    	  DbLotniskoEntity airport = new DbLotniskoEntity();
-          try {
-              BeanUtils.populate(airport, request.getParameterMap());
-              if(new DbLotniskoEntityDao().isFullyFilled(airport)) {//sprawdzenie czy uzupełniono wszystkie pola, jeśli tak - wykonaj akcje
-                   if(action.equals("add")) {
-                      addAirport(airport, request, response);}
-                   else if(action.equals("edit")) {
-                	   request.setAttribute("airport", airport);
-                	   request.getRequestDispatcher("/editAirport.jsp").forward(request, response);   
-                   }
-                   else if(action.equals("update"))
-                	   updateAirport(airport, request, response);
-                   else if(action.equals("delete"))
-                	  deleteAirport(airport, request, response);
-              }
-              else // przekieruj do formularza spowrotem
-                  // poprawić 
-            	  request.getRequestDispatcher("/WEB-INF/errorPage.jsp").forward(request, response);
-                 
-          } catch (IllegalAccessException ex) {
-              Logger.getLogger(AirportController.class.getName()).log(Level.SEVERE, null, ex);
-          } catch (InvocationTargetException ex) {
-              Logger.getLogger(AirportController.class.getName()).log(Level.SEVERE, null, ex);
-          } catch (IOException ex) {
-              Logger.getLogger(AirportController.class.getName()).log(Level.SEVERE, null, ex);
-          }
-    }
-    
-    private void addAirport(DbLotniskoEntity airport, HttpServletRequest request, HttpServletResponse response) {
-    	new DbLotniskoEntityDao().create(airport);
-    	try {
-			doGet(request, response);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    }
-    
-    private void updateAirport(DbLotniskoEntity airport, HttpServletRequest request, HttpServletResponse response) {
-       new DbLotniskoEntityDao().update(airport);
-       try {
-		doGet(request, response);
-	} catch (ServletException e) {
-		e.printStackTrace();
-	} catch (IOException e) {
-		e.printStackTrace();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	 request.setCharacterEncoding("UTF-8");
+		 String action = request.getParameter("action");
+		 switch(action) { 
+			 case "add": addAirport(request, response); break;
+			 case "edit": editAirport(request, response); break;
+			 case "update": updateAirport(request, response); break;
+			 case "delete": deleteAirplane(request, response); break;
+			 default: response.sendError(1, "Problem z parametrem action");
+		 }
 	}
-    }
-    
-    private void deleteAirport(DbLotniskoEntity airport, HttpServletRequest request, HttpServletResponse response) {
-    	new DbLotniskoEntityDao().delete(airport.getIdLotniska());
-        try {
+	
+	private void addAirport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DbLotniskoEntity airport = new DbLotniskoEntity();
+		try {
+			BeanUtils.populate(airport, request.getParameterMap());
+			new DbLotniskoEntityDao().create(airport);
 			doGet(request, response);
-		} catch (ServletException e) {
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
-     }
+   }
+	
+	private void editAirport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DbLotniskoEntity airport = new DbLotniskoEntityDao().read(Integer.parseInt(request.getParameter("idLotniska")));
+		request.setAttribute("airport", airport);
+   	request.getRequestDispatcher("/editAirport.jsp").forward(request, response);
+   }
+	
+	private void updateAirport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DbLotniskoEntity airport = new DbLotniskoEntityDao().read(Integer.parseInt(request.getParameter("idLotniska")));
+		try {
+			BeanUtils.populate(airport, request.getParameterMap());
+			new DbLotniskoEntityDao().update(airport);
+			doGet(request, response);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+   }
+	
+	private void deleteAirplane(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DbLotniskoEntity airport = new DbLotniskoEntityDao().read(Integer.parseInt(request.getParameter("idLotniska")));
+		new DbLotniskoEntityDao().delete(airport);
+		doGet(request, response);
+   }
 }
