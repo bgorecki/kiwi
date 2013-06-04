@@ -1,6 +1,8 @@
 package kiwi.dao;
 
 import java.util.List;
+
+import com.google.common.collect.Iterables;
 import kiwi.models.DbLotniskoEntity;
 
 /**
@@ -46,4 +48,10 @@ public class DbLotniskoEntityDao extends GenericDao<DbLotniskoEntity, Integer> {
             return false;
         return true;
     }
+
+	@SuppressWarnings("unchecked")
+	public DbLotniskoEntity getByName(String s)
+	{
+		return Iterables.<DbLotniskoEntity>getFirst(getSession().createQuery("from DbLotniskoEntity where nazwa = :name").setParameter("name", s).list(),null);
+	}
 }

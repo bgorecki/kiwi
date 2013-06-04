@@ -18,6 +18,7 @@ public class DbMiejscaEntity
 
 	@javax.persistence.Column(name = "id_miejsca", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
 	@Id
+	@GeneratedValue
 	public Integer getIdMiejsca()
 	{
 		return idMiejsca;
@@ -91,4 +92,30 @@ public class DbMiejscaEntity
 	{
 		this.klasaByIdKlas = klasaByIdKlas;
 	}
+
+	public DbMiejscaEntity withIdMiejsca(final Integer idMiejsca)
+	{
+		this.idMiejsca = idMiejsca;
+		return this;
+	}
+
+	public DbMiejscaEntity withIlosc(final Integer ilosc)
+	{
+		this.ilosc = ilosc;
+		return this;
+	}
+
+	public DbMiejscaEntity withSamolotByIdSam(final DbSamolotEntity samolotByIdSam)
+	{
+		this.samolotByIdSam = samolotByIdSam;
+		return this;
+	}
+
+	public DbMiejscaEntity withKlasaByIdKlas(final DbKlasaEntity klasaByIdKlas)
+	{
+		this.klasaByIdKlas = klasaByIdKlas;
+		return this;
+	}
+
+
 }

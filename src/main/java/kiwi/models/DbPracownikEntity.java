@@ -19,6 +19,7 @@ public class DbPracownikEntity
 
 	@javax.persistence.Column(name = "id_pracownika", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
 	@Id
+	@GeneratedValue
 	public Integer getIdPracownika()
 	{
 		return idPracownika;
@@ -139,4 +140,48 @@ public class DbPracownikEntity
 	{
 		this.przewoznikByIdPrzew = przewoznikByIdPrzew;
 	}
+
+	public DbPracownikEntity withIdPracownika(final Integer idPracownika)
+	{
+		this.idPracownika = idPracownika;
+		return this;
+	}
+
+	public DbPracownikEntity withImie(final String imie)
+	{
+		this.imie = imie;
+		return this;
+	}
+
+	public DbPracownikEntity withNazwisko(final String nazwisko)
+	{
+		this.nazwisko = nazwisko;
+		return this;
+	}
+
+	public DbPracownikEntity withStanowisko(final String stanowisko)
+	{
+		this.stanowisko = stanowisko;
+		return this;
+	}
+
+	public DbPracownikEntity withPensja(final Float pensja)
+	{
+		this.pensja = pensja;
+		return this;
+	}
+
+	public DbPracownikEntity withLspsByIdPracownika(final Collection<DbLspEntity> lspsByIdPracownika)
+	{
+		this.lspsByIdPracownika = lspsByIdPracownika;
+		return this;
+	}
+
+	public DbPracownikEntity withPrzewoznikByIdPrzew(final DbPrzewoznikEntity przewoznikByIdPrzew)
+	{
+		this.przewoznikByIdPrzew = przewoznikByIdPrzew;
+		return this;
+	}
+
+
 }

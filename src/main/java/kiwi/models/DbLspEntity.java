@@ -1,9 +1,6 @@
 package kiwi.models;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,6 +18,7 @@ public class DbLspEntity
 
 	@javax.persistence.Column(name = "id_lsp", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
 	@Id
+	@GeneratedValue
 	public Integer getIdLsp()
 	{
 		return idLsp;
@@ -91,4 +89,29 @@ public class DbLspEntity
 	{
 		this.samolotByIdSam = samolotByIdSam;
 	}
+
+	public DbLspEntity withIdLsp(final Integer idLsp)
+	{
+		this.idLsp = idLsp;
+		return this;
+	}
+
+	public DbLspEntity withLotByIdLot(final DbLotEntity lotByIdLot)
+	{
+		this.lotByIdLot = lotByIdLot;
+		return this;
+	}
+
+	public DbLspEntity withPracownikByIdPrac(final DbPracownikEntity pracownikByIdPrac)
+	{
+		this.pracownikByIdPrac = pracownikByIdPrac;
+		return this;
+	}
+
+	public DbLspEntity withSamolotByIdSam(final DbSamolotEntity samolotByIdSam)
+	{
+		this.samolotByIdSam = samolotByIdSam;
+		return this;
+	}
+
 }

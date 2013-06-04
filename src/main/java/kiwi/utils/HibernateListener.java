@@ -12,7 +12,7 @@ public class HibernateListener implements ServletContextListener
 	{
 		// Just call the static initializer of that class
 		DatabaseConnector.getInstance().getSessionFactory();
-		//HibernateUtil.createDataForTesting();
+		HibernateUtil.createDataForTesting();
 	}
 
 	public void contextDestroyed(ServletContextEvent event)

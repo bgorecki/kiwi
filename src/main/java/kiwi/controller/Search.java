@@ -1,9 +1,12 @@
 package kiwi.controller;
 
 import kiwi.dao.ClassDao;
+import kiwi.dao.DbKlasaDao;
 import kiwi.dao.DbLotniskoEntityDao;
 import kiwi.dao.FlightsDao;
+import kiwi.models.DbKlasaEntity;
 import kiwi.models.DbLotEntity;
+import kiwi.models.DbLotniskoEntity;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +39,10 @@ public class Search extends HttpServlet
 	{
 
 		String from;
+		DbLotniskoEntity fromLotnisko;
 		String to;
+		DbLotniskoEntity toLotnisko;
+		DbKlasaEntity klasaDb;
 		Integer klasa;
 		Integer ilosc;
 		Integer ilosc_dz;
@@ -49,14 +56,39 @@ public class Search extends HttpServlet
 			if (from.isEmpty())
 			{
 				errors.put("from", "Pole lotnisko początkowe nie może być puste");
+			} else
+			{
+				try
+				{
+					String[] fromEx = from.split(" - ");
+					DbLotniskoEntityDao lotnisko = new DbLotniskoEntityDao();
+					fromLotnisko = lotnisko.getByName(fromEx[1]);
+				} catch (Exception e)
+				{
+					errors.put("from", "Nieprawidłowe lotnisko");
+				}
 			}
+
 			if (to.isEmpty())
 			{
 				errors.put("to", "Pole lotnisko docelowe nie może być puste");
+			} else
+			{
+				try
+				{
+					String[] fromEx = to.split(" - ");
+					DbLotniskoEntityDao lotnisko = new DbLotniskoEntityDao();
+					toLotnisko = lotnisko.getByName(fromEx[1]);
+				} catch (Exception e)
+				{
+					errors.put("to", "Nieprawidłowe lotnisko");
+				}
 			}
 			if (klasa == null)
 			{
 				errors.put("klasa", "Musisz wybrać pole klasa");
+			} else {
+				klasaDb = new DbKlasaDao().getById(klasa);
 			}
 			if (ilosc == null)
 			{
@@ -73,6 +105,11 @@ public class Search extends HttpServlet
 			if (!data.matches("\\d{2}/\\d{2}/\\d{4}"))
 			{
 				errors.put("data", "Musisz podać datę w formacie dd/mm/yyyy");
+			}
+
+			if (ilosc + ilosc_dz + ilosc_inf > 12)
+			{
+				errors.put("ilosc", "Jedna rezerwacja może obejmować maksymalnie 12 pasażerów");
 			}
 
 			if (errors.isEmpty()) return true;
@@ -184,14 +221,31 @@ public class Search extends HttpServlet
 					       ", errors=" + errors +
 					       '}';
 		}
+
+		public DbLotniskoEntity getFromLotnisko()
+		{
+			return fromLotnisko;
+		}
+
+		public DbLotniskoEntity getToLotnisko()
+		{
+			return toLotnisko;
+		}
+
+		public DbKlasaEntity getKlasaDb()
+		{
+			return klasaDb;
+		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		HttpSession session = request.getSession();
+		session.setAttribute("foundFlights", null);
+
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-
 		request.setAttribute("flights", new DbLotniskoEntityDao().getAll());
 		request.setAttribute("nazwyKlas", new ClassDao().getAll());
 
@@ -209,17 +263,45 @@ public class Search extends HttpServlet
 			Logger logger = Logger.getLogger(this.getClass());
 			logger.log(INFO, sf.toString());
 
+
 			if (!sf.validate())
 			{
 				request.setAttribute("errors", sf.getErrors());
-			} else {
-				List<List<DbLotEntity>> loty = new FlightsDao().findFlightsByAttributes(sf);
+			} else
+			{
+				List<List<DbLotEntity>> loty = null;
+				if (sf.getDirect() != null)
+				{
+					DbLotEntity lot = new FlightsDao().findFlightsByAirportNames(sf);
+					if (lot != null)
+					{
+						loty = new ArrayList<List<DbLotEntity>>();
+						loty.add(new ArrayList<DbLotEntity>());
+						loty.get(0).add(lot);
+					}
+				} else
+					loty = new FlightsDao().findFlightsByAttributes(sf);
+
+				Integer iloscMiejsc = sf.getIlosc()+sf.getIlosc_dz()+sf.getIlosc_inf();
+
+				FlightsDao flightsDao = new FlightsDao();
+				List<List<DbLotEntity>> remove = new ArrayList<List<DbLotEntity>>();
+				for(List<DbLotEntity> i: loty) {
+					for(DbLotEntity j: i) {
+						int ilosc = flightsDao.getFreeSeatsCount(j, sf.getKlasaDb());
+
+						if(flightsDao.getFreeSeatsCount(j, sf.getKlasaDb()) < iloscMiejsc) {
+							remove.add(i); break;
+						}
+					}
+				}
+				for(List<DbLotEntity> i: remove) {
+					loty.remove(i);
+				}
+
 				request.setAttribute("foundFlights", loty);
-				HttpSession session = request.getSession();
 				session.setAttribute("foundFlights", loty);
 			}
-
-
 		}
 
 		request.getRequestDispatcher("search.jsp").forward(request, response);
