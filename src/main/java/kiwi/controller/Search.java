@@ -3,6 +3,7 @@ package kiwi.controller;
 import kiwi.dao.ClassDao;
 import kiwi.dao.DbLotniskoEntityDao;
 import kiwi.dao.FlightsDao;
+import kiwi.models.DbLotEntity;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
@@ -12,8 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -210,9 +213,13 @@ public class Search extends HttpServlet
 			{
 				request.setAttribute("errors", sf.getErrors());
 			} else {
-				new FlightsDao().findFlightsByAttributes(sf);
-
+				List<List<DbLotEntity>> loty = new FlightsDao().findFlightsByAttributes(sf);
+				request.setAttribute("foundFlights", loty);
+				HttpSession session = request.getSession();
+				session.setAttribute("foundFlights", loty);
 			}
+
+
 		}
 
 		request.getRequestDispatcher("search.jsp").forward(request, response);
