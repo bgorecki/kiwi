@@ -138,7 +138,8 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 
 		Integer posiadane = (Integer) getSession().createQuery("select m.ilosc from DbMiejscaEntity m join m.samolotByIdSam s join s.lspsByIdSamolotu lsp where lsp.samolotByIdSam = s and lsp.lotByIdLot = :lot and m.klasaByIdKlas = :klasa")
 				                              .setParameter("klasa", klasa).setParameter("lot", lot).uniqueResult();
-
+        if(posiadane == null) posiadane = 0;
+        if(zajete == null) zajete = 0;
 		return posiadane - zajete;
 	}
 
