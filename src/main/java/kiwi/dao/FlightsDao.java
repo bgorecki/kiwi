@@ -138,8 +138,8 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 		return count;
 	}
 
-	public Integer getReservationsCountForDate(DbLotEntity lot, DateTime date) {
-		return (Integer)getSession().createQuery("select count(rekordy)from DbRekordyLotuEntity rekordy where dataWylotu = :data").setParameter("data", date).uniqueResult();
+	public Integer getReservationsCountForDate(DbLotEntity lot, java.sql.Date date) {
+		return ((Long)getSession().createQuery("select count(rekordy)from DbRekordyLotuEntity rekordy where dataWylotu = :data").setParameter("data", date).uniqueResult()).intValue();
 	}
 
 	public DateTime getErliestFlight(DbLotEntity flight) {
