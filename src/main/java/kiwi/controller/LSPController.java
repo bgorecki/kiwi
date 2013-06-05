@@ -48,7 +48,7 @@ public class LSPController extends HttpServlet {
 		List<DbSamolotEntity> airplanes = new DbSamolotEntityDao().getAll();
 		request.setAttribute("airplanes", airplanes);
 		request.setAttribute("idLsp", request.getParameter("idLsp"));
-		request.setAttribute("lspIdSamolotu", request.getParameter("idSamolotu"));
+		request.setAttribute("lspIdSamolotu", Integer.parseInt(request.getParameter("idSamolotu")));
 		request.getRequestDispatcher("/lspEditAirplane.jsp").forward(request, response);
 	}
 	
