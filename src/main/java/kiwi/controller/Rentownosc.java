@@ -3,6 +3,7 @@ package kiwi.controller;
 import kiwi.dao.FlightsDao;
 import kiwi.models.DbLotEntity;
 import kiwi.models.DbUzytkownikEntity;
+import kiwi.models.SearchForm;
 import org.joda.time.DateTime;
 
 import javax.servlet.ServletException;
@@ -62,6 +63,24 @@ public class Rentownosc extends HttpServlet
 
 		rent /= days.size();
 		rent *= 100;
+
+        if(rent < 50) {
+            List<List<DbLotEntity>> loty = null;
+            loty = new FlightsDao().findFlightsByAttributes(new SearchForm().withFromLotnisko(lot.getLotniskoByWylot()).withToLotnisko(lot.getLotniskoByPrzylot()).withData(date.getDayOfMonth()+"/"+date.getMonthOfYear()+"/"+date.getYear()));
+            List<List<DbLotEntity>> tr = new ArrayList<>();
+            if(loty != null) {
+                for(List<DbLotEntity> i: loty) {
+                    if(i.contains(lot)) {
+                        tr.add(i);
+                    }
+                }
+
+                for(List<DbLotEntity> i: tr) {
+                    loty.remove(i);
+                }
+            }
+            request.setAttribute("loty", loty);
+        }
 
 		request.setAttribute("days", days);
 		request.setAttribute("counter", ilosc);

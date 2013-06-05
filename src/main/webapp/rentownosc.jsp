@@ -36,6 +36,65 @@
                 </script>       <br><br>
                 <c:if test="${rent < 50}">
                     Lot jest nierentowny, powinineś rozważyć likwidację lotu lub zmianę maszyny obsługującej trasę lotu.
+
+                    <c:choose>
+                        <c:when test="${empty loty}">
+                            Nie znaleziono zamienników na ten loty
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="i" items="${flights}" varStatus="loop">
+                                <fieldset class="grey-bg">
+                                    <legend>Propozycja #${loop.count}</legend>
+                                    <ul class="planning no-margin">
+                                        <li class="planning-header">
+                                            <span><b>Users</b></span>
+                                            <ul>
+                                                <li class="at-0">0</li>
+                                                <li class="at-1">1</li>
+                                                <li class="at-2">2</li>
+                                                <li class="at-3">3</li>
+                                                <li class="at-4">4</li>
+                                                <li class="at-5">5</li>
+                                                <li class="at-6">6</li>
+                                                <li class="at-7">7</li>
+                                                <li class="at-8">8</li>
+                                                <li class="at-9">9</li>
+                                                <li class="at-10">10</li>
+                                                <li class="at-11">11</li>
+                                                <li class="at-12">12</li>
+                                                <li class="at-13">13</li>
+                                                <li class="at-14">14</li>
+                                                <li class="at-15">15</li>
+                                                <li class="at-16">16</li>
+                                                <li class="at-17">17</li>
+                                                <li class="at-18">18</li>
+                                                <li class="at-19">19</li>
+                                                <li class="at-20">20</li>
+                                                <li class="at-21">21</li>
+                                                <li class="at-22">22</li>
+                                                <li class="at-23">23</li>
+                                                <li class="at-24">24</li>
+                                            </ul>
+                                        </li>
+                                        <c:forEach var="j" items="${i}" varStatus="jLoop">
+                                            <li>
+                                                <a href="#"><img src="images/icons/fugue/control-double.png" width="16"
+                                                                 height="16"> ${j.lotniskoByWylot.miasto}</a>
+                                                <ul>
+                                                    <li class="from-${j.godzinaWylotu.hours} to-${j.godzinaPrzylotu.hours}"><a href="#" title="${j.lotniskoByWylot.miasto} -> ${j.lotniskoByPrzylot.miasto} <fmt:formatDate value="${j.godzinaWylotu}" pattern="HH:mm"/> ->  <fmt:formatDate value="${j.godzinaPrzylotu}" pattern="HH:mm"/>"
+                                                                                                                               class="with-tip event-blue">
+                                                            ${j.lotniskoByWylot.miasto} -> ${j.lotniskoByPrzylot.miasto} <fmt:formatDate value="${j.godzinaWylotu}" pattern="HH:mm"/> ->  <fmt:formatDate value="${j.godzinaPrzylotu}" pattern="HH:mm"/></a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </fieldset>
+
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+
                 </c:if>
                 <c:if test="${rent > 50}">
                     Lot jest rentowny.

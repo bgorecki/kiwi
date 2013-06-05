@@ -16,20 +16,43 @@ public class SearchForm
 {
 
 	String from;
-	DbLotniskoEntity fromLotnisko;
+	protected DbLotniskoEntity fromLotnisko;
 	String to;
-	DbLotniskoEntity toLotnisko;
+	protected DbLotniskoEntity toLotnisko;
 	DbKlasaEntity klasaDb;
 	Integer klasa;
 	Integer ilosc;
 	Integer ilosc_dz;
 	Integer ilosc_inf;
-	String data;
-	DateTime dataParsed;
+	protected String data;
+	protected DateTime dataParsed;
 	Boolean direct;
 	Map<String, String> errors = new HashMap<String, String>();
 
-	public Boolean validate()
+
+    public SearchForm withData(final String data) {
+        this.data = data;
+        return this;
+    }
+
+    public SearchForm withDataParsed(final DateTime dataParsed) {
+        this.dataParsed = dataParsed;
+        return this;
+    }
+
+
+    public SearchForm withFromLotnisko(final DbLotniskoEntity fromLotnisko) {
+        this.fromLotnisko = fromLotnisko;
+        return this;
+    }
+
+    public SearchForm withToLotnisko(final DbLotniskoEntity toLotnisko) {
+        this.toLotnisko = toLotnisko;
+        return this;
+    }
+
+
+    public Boolean validate()
 	{
 		if (from.isEmpty())
 		{
