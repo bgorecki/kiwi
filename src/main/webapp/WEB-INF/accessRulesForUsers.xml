@@ -24,7 +24,6 @@ Jeżeli jakieś ścieżki tutaj nie ma, to jest dostępna dla każdego.
 	<path value = "/lsp">
 		<user type="przewoznik" />
 	</path>
-	<path value = "/FlightController">
-		<user type="przewoznik" />
-	</path>
+
+
 </accessRules>

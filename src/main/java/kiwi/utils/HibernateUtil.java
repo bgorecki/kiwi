@@ -74,6 +74,7 @@ public class HibernateUtil {
 	    lotDao.create(lotBF = new DbLotEntity().withCenaStatyczna(70F).withCzasPodrozy(3).withDzienTygodnia(6).withGodzinaPrzylotu(new Time(godz(9))).withGodzinaWylotu(new Time(godz(6))).withLotniskoByPrzylot(frnakfurt).withLotniskoByWylot(balice).withPrzewoznikByIdPrzew(luftwafe));
 	    lotDao.create(lotFJFK = new DbLotEntity().withCenaStatyczna(150F).withCzasPodrozy(9).withDzienTygodnia(6).withGodzinaPrzylotu(new Time(godz(20))).withGodzinaWylotu(new Time(godz(11))).withLotniskoByPrzylot(jfk).withLotniskoByWylot(frnakfurt).withPrzewoznikByIdPrzew(ua));
 	    lotDao.create(lotJJFK = new DbLotEntity().withCenaStatyczna(950F).withCzasPodrozy(9).withDzienTygodnia(6).withGodzinaPrzylotu(new Time(godz(15))).withGodzinaWylotu(new Time(godz(6))).withLotniskoByPrzylot(jfk).withLotniskoByWylot(jasionka).withPrzewoznikByIdPrzew(luftwafe));
+	    lotDao.create(new DbLotEntity().withCenaStatyczna(700F).withCzasPodrozy(1).withDzienTygodnia(6).withGodzinaPrzylotu(new Time(godz(10))).withGodzinaWylotu(new Time(godz(8))).withLotniskoByPrzylot(balice).withLotniskoByWylot(jasionka).withPrzewoznikByIdPrzew(lot));
 
 	    GenericDao<DbKlasaEntity, Integer> klasaDao = new GenericDao<DbKlasaEntity, Integer>(DbKlasaEntity.class);
 	    DbKlasaEntity k1, k2, k3, k4;

@@ -13,6 +13,6 @@ public class LogoutController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().removeAttribute("user");
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("login.jsp");
 	}
 }

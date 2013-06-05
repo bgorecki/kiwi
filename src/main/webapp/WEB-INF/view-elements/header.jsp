@@ -313,8 +313,9 @@
 			
 	        	<li class="lsp"><a href="lsp" title="Pracownicy, loty">Pracownicy, loty</a>
             	</li>
-            <!-- KONIEC ELEMENT MENU - ZARZADZANIE LSP --> 
-
+            <!-- KONIEC ELEMENT MENU - ZARZADZANIE LSP -->
+            </c:if>
+            <c:if test="${sessionScope.user.rola eq 'przewoznik' or user.rola eq 'administrator' }">
             <c:choose>
             <c:when test="${pageContext.request.servletPath == '/showFlights.jsp' or pageContext.request.servletPath == '/addFlights.jsp' or pageContext.request.servletPath == '/editFlights.jsp'}">
             <li class="flights current"><a href="FlightController" title="Połączenia">Połączenia</a>

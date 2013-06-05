@@ -36,13 +36,14 @@
                 </script>       <br><br>
                 <c:if test="${rent < 50}">
                     Lot jest nierentowny, powinineś rozważyć likwidację lotu lub zmianę maszyny obsługującej trasę lotu.
-
+                    <form class="form">
                     <c:choose>
                         <c:when test="${empty loty}">
                             Nie znaleziono zamienników na ten loty
                         </c:when>
                         <c:otherwise>
-                            <c:forEach var="i" items="${flights}" varStatus="loop">
+                            <br><br>
+                            <c:forEach var="i" items="${loty}" varStatus="loop">
                                 <fieldset class="grey-bg">
                                     <legend>Propozycja #${loop.count}</legend>
                                     <ul class="planning no-margin">
@@ -94,7 +95,7 @@
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
-
+                    </form>
                 </c:if>
                 <c:if test="${rent > 50}">
                     Lot jest rentowny.
