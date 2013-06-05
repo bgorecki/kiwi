@@ -49,7 +49,7 @@
 	    	</fieldset>
 	 	</form>
 	    </div>
-	    <div style="padding-top: 50px; clear: both">
+	    <div style="padding-top: 50px; padding-bottom: 50px; clear: both">
 	    <h1>Użytkownicy przewoźnika z dostępem do systemu</h1>
 	    <table class="table" cellspacing="0">
  

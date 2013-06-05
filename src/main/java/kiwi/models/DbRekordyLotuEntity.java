@@ -16,10 +16,16 @@ public class DbRekordyLotuEntity
 {
 
 	private Integer idRlotu;
+	private Float cenaDynamiczna;
+	private Date dataWylotu;
+	private Date dataPrzylotu;
+	private DbLotEntity lotByIdLot;
+	private DbPasazerEntity pasazerByIdOs;
+	private DbRezerwacjaEntity rezerwacjaByIdRez;
+	private DbKlasaEntity klasaByIdKlas;
 
 	@javax.persistence.Column(name = "id_rlotu", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
-	@Id
-	@GeneratedValue
+	@Id @GeneratedValue
 	public Integer getIdRlotu()
 	{
 		return idRlotu;
@@ -29,8 +35,6 @@ public class DbRekordyLotuEntity
 	{
 		this.idRlotu = idRlotu;
 	}
-
-	private Float cenaDynamiczna;
 
 	@javax.persistence.Column(name = "cena_dynamiczna", nullable = false, insertable = true, updatable = true, length = 20, precision = 2)
 	@Basic
@@ -44,8 +48,6 @@ public class DbRekordyLotuEntity
 		this.cenaDynamiczna = cenaDynamiczna;
 	}
 
-	private Date dataWylotu;
-
 	@javax.persistence.Column(name = "data_wylotu", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
 	@Basic
 	public Date getDataWylotu()
@@ -57,8 +59,6 @@ public class DbRekordyLotuEntity
 	{
 		this.dataWylotu = dataWylotu;
 	}
-
-	private Date dataPrzylotu;
 
 	@javax.persistence.Column(name = "data_przylotu", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
 	@Basic
@@ -99,8 +99,6 @@ public class DbRekordyLotuEntity
 		return result;
 	}
 
-	private DbLotEntity lotByIdLot;
-
 	@ManyToOne(cascade=CascadeType.ALL)
 	@javax.persistence.JoinColumn(name = "id_lot", referencedColumnName = "id_lotu", nullable = false)
 	public DbLotEntity getLotByIdLot()
@@ -112,8 +110,6 @@ public class DbRekordyLotuEntity
 	{
 		this.lotByIdLot = lotByIdLot;
 	}
-
-	private DbPasazerEntity pasazerByIdOs;
 
 	@ManyToOne(cascade=CascadeType.ALL)
 	@javax.persistence.JoinColumn(name = "id_os", referencedColumnName = "id_pasazera", nullable = false)
@@ -127,8 +123,6 @@ public class DbRekordyLotuEntity
 		this.pasazerByIdOs = pasazerByIdOs;
 	}
 
-	private DbRezerwacjaEntity rezerwacjaByIdRez;
-
 	@ManyToOne(cascade=CascadeType.ALL)
 	@javax.persistence.JoinColumn(name = "id_rez", referencedColumnName = "id_rezerwacji", nullable = false)
 	public DbRezerwacjaEntity getRezerwacjaByIdRez()
@@ -140,8 +134,6 @@ public class DbRekordyLotuEntity
 	{
 		this.rezerwacjaByIdRez = rezerwacjaByIdRez;
 	}
-
-	private DbKlasaEntity klasaByIdKlas;
 
 	@ManyToOne(cascade= CascadeType.ALL)
 	@javax.persistence.JoinColumn(name = "id_klas", referencedColumnName = "id_klasy", nullable = false)

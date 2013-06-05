@@ -17,7 +17,7 @@ import java.io.IOException;
  * Date: 05.06.13
  * Time: 00:25
  */
-@WebServlet("/search.html")
+@WebServlet("/rentownosc.html")
 public class Rentownosc extends HttpServlet
 {
 
