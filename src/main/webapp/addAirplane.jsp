@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/view-elements/header.jsp" />
-	<form action="<c:url value="/airplanes"/>" class="form" method="POST">       
+	<form action="<c:url value="/airplanes"/>" class="block-content form" method="POST">       
         <fieldset class="grey-bg">
-        <legend>Dodawanie samolotu</legend>
+        <h1>Dodawanie samolotu</h1>
+        <legend>Informacje o samolocie</legend>
         <p>
         	<label for="d" class="required">(pola wymagane)</label>
 	    	<label for="nazwa" class="required">Nazwa: </label>

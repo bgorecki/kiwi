@@ -3,10 +3,7 @@ package kiwi.dao;
 import com.google.common.collect.Iterables;
 import kiwi.dijkstra.Finder;
 import kiwi.dijkstra.Vertex;
-import kiwi.models.DbKlasaEntity;
-import kiwi.models.DbLotEntity;
-import kiwi.models.DbModyfikatorEntity;
-import kiwi.models.SearchForm;
+import kiwi.models.*;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -34,6 +31,11 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 		return getSession().createQuery("from DbLotEntity").list();
 	}
 
+	public List<DbLotEntity> getAllByUser(DbUzytkownikEntity user){
+
+		List<DbLotEntity> flights= (List<DbLotEntity>)getSession().createQuery("select lot from kiwi.models.DbLotEntity lot join lot.przewoznikByIdPrzew p join p.uzytkowniksByIdPrzewoznika where p = :prz").setParameter("prz", user.getPrzewoznikByIdPrzewoznika()).list();
+		return flights;
+	}
 	public List<List<DbLotEntity>> findFlightsByAttributes(SearchForm sf)
 	{
 		Date result = null;
@@ -121,7 +123,7 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 	public Integer getFreeSeatsCountInClass(DbLotEntity lot, DbKlasaEntity klasa)
 	{
 		Integer zajete = ((Long) getSession().createQuery("select count(*) from DbRekordyLotuEntity where lotByIdLot = :lot and klasaByIdKlas = :klasa")
-				                 .setParameter("lot", lot).setParameter("klasa", klasa).uniqueResult()).intValue();
+				                         .setParameter("lot", lot).setParameter("klasa", klasa).uniqueResult()).intValue();
 
 		Integer posiadane = (Integer) getSession().createQuery("select m.ilosc from DbMiejscaEntity m join m.samolotByIdSam s join s.lspsByIdSamolotu lsp where lsp.samolotByIdSam = s and lsp.lotByIdLot = :lot and m.klasaByIdKlas = :klasa")
 				                              .setParameter("klasa", klasa).setParameter("lot", lot).uniqueResult();
@@ -137,6 +139,26 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 		}
 
 		return count;
+	}
+
+	public boolean isFullyFilled(DbLotEntity flight) {
+		if(flight.getCenaStatyczna()==null || flight.getCenaStatyczna().equals(""))
+			return false;
+		if(flight.getCzasPodrozy()==null || flight.getCzasPodrozy().equals(""))
+			return false;
+		if(flight.getDzienTygodnia()==null || flight.getDzienTygodnia().equals(""))
+			return false;
+		if(flight.getGodzinaPrzylotu()==null || flight.getGodzinaPrzylotu().equals(""))
+			return false;
+		if (flight.getGodzinaWylotu()==null || flight.getGodzinaWylotu().equals(""))
+			return false;
+		if(flight.getLotniskoByWylot()==null || flight.getLotniskoByWylot().equals(""))
+			return false;
+		if(flight.getLotniskoByPrzylot()==null || flight.getLotniskoByPrzylot().equals(""))
+			return false;
+		if(flight.getPrzewoznikByIdPrzew()==null || flight.getPrzewoznikByIdPrzew().equals(""))
+			return false;
+		return true;
 	}
 
 	public Integer getReservationsCountForDate(DbLotEntity lot, java.sql.Date date) {

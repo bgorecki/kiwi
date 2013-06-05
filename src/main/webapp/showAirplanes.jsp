@@ -21,10 +21,6 @@
 			<td class="table-actions">
 			<form action="<c:url value="/airplanes"/>" method="post" style="float: left">
 				<input type="hidden" name="action" value="edit"/>
-				<input type="hidden" name="nazwa" value="${airplane.nazwa }"/>
-				<input type="hidden" name="wielkosc" value="${airplane.wielkosc }"/>
-				<input type="hidden" name="waga" value="${airplane.waga }"/>
-				<input type="hidden" name="zuzyciePaliwa" value="${airplane.zuzyciePaliwa }"/>
 				<input type="hidden" name="idSamolotu" value="${airplane.idSamolotu}"/>
 				<input type="image" title="Edytuj samolot" class="with-tip" src="images/icons/fugue/pencil.png" width="16" height="16"/>
 			</form>

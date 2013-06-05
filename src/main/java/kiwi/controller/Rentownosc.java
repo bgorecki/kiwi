@@ -56,18 +56,21 @@ public class Rentownosc extends HttpServlet
 			days.add(date.getDayOfMonth());
 			Integer ilosctmp = fd.getReservationsCountForDate(lot, new Date(date.getMillis()));
 			ilosc.put(date.getDayOfMonth(), ilosctmp);
-			rent += ilosctmp/max;
+			rent += ilosctmp.doubleValue() / max.doubleValue();
 			date = date.plusDays(7);
 		}
 
-
+		rent /= days.size();
+		rent *= 100;
 
 		request.setAttribute("days", days);
 		request.setAttribute("counter", ilosc);
 		request.setAttribute("max", max);
 		request.setAttribute("lot", lot);
+		request.setAttribute("rent", rent);
 
 		request.getRequestDispatcher("rentownosc.jsp").forward(request, response);
 	}
 
 }
+

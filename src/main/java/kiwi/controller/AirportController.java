@@ -3,9 +3,6 @@ package kiwi.controller;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kiwi.dao.DbLotniskoEntityDao;
-import kiwi.dao.DbLotniskoEntityDao;
-import kiwi.models.DbLotniskoEntity;
 import kiwi.models.DbLotniskoEntity;
 
 import org.apache.commons.beanutils.BeanUtils;
