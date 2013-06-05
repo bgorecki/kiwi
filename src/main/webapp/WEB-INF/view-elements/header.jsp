@@ -275,7 +275,7 @@
             <!-- ELEMENT MENU - ZARZADZANIE SAMOLOTAMI -->
 			<c:choose>
 	        <c:when test="${pageContext.request.servletPath == '/showAirplanes.jsp' or pageContext.request.servletPath == '/addAirplane.jsp'}">
-	        	<li class="airplane"><a href="airplanes" title="Samoloty">Samoloty</a>
+	        	<li class="airplane current"><a href="airplanes" title="Samoloty">Samoloty</a>
 	        </c:when>
 	        <c:otherwise>
 	        	<li class="airplane"><a href="airplanes" title="Samoloty">Samoloty</a>
@@ -284,7 +284,7 @@
                 <ul>
                 	<c:choose>
 	        		<c:when test="${pageContext.request.servletPath == '/showAirplanes.jsp'}">
-	        			<li class="current"><a href="airplanes" title="Lista samolotów">Lista samolotów</a></li>
+	        			<li class="airplane current"><a href="airplanes" title="Lista samolotów">Lista samolotów</a></li>
 	        		</c:when>
 	        		<c:otherwise>
 	        			<li><a href="airplanes" title="Lista samolotów">Lista samolotów</a></li>
@@ -307,6 +307,37 @@
 	        	<li class="lsp"><a href="lsp" title="Pracownicy, loty">Pracownicy, loty</a>
             <!-- </li> -->
             <!-- KONIEC ELEMENT MENU - ZARZADZANIE LSP --> 
+
+            <c:choose>
+            <c:when test="${pageContext.request.servletPath == '/showFlights.jsp' or pageContext.request.servletPath == '/addFlights.jsp' or pageContext.request.servletPath == '/editFlights.jsp'}">
+            <li class="flights urrent"><a href="FlightController" title="Połączenia">Połączenia</a>
+                </c:when>
+                <c:otherwise>
+            <li class="flights"><a href="FlightController" title="Połączenia">Połączenia</a>
+                </c:otherwise>
+                </c:choose>
+                <ul>
+                    <c:choose>
+                        <c:when test="${pageContext.request.servletPath == '/showFlights.jsp'}">
+                            <li class="current"><a href="FlightController" title="Lista połączeń">Lista połączeń</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a href="FlightController" title="Lista połączeń">Lista połączeń</a></li>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${pageContext.request.servletPath == '/addFlights.jsp'}">
+                            <li class="current"><a href="FlightController?action=addFlights" title="Dodaj połączenie">Dodaj połączenie</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a href="FlightController?action=addFlights" title="Dodaj połączenie">Dodaj połączenie</a></li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+
+            </li>
 		</ul>
 
 	</nav>
