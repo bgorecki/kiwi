@@ -150,8 +150,8 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 	@SuppressWarnings("unchecked")
 	public Float[] getPrices(DbLotEntity lot, DbKlasaEntity klasa) {
 		Float[] prices = new Float[2];
-
 		DbModyfikatorEntity mod = Iterables.<DbModyfikatorEntity>getFirst(getSession().createQuery("select modyfikator from DbModyfikatorEntity modyfikator join modyfikator.klasaByIdKlas klasa join klasa.miejscasByIdKlasy miejsca join miejsca.samolotByIdSam sam join sam.lspsByIdSamolotu lsp join lsp.lotByIdLot where modyfikator.klasaByIdKlas = :klasa and lsp.lotByIdLot = :lot").setParameter("klasa", klasa).setParameter("lot", lot).list(), null);
+		System.out.println("mod=" + mod + " lot=" + lot + "klasa=" + klasa);
 		prices[0] = lot.getCenaStatyczna()+mod.getWartoscMod();
 		prices[1] = lot.getCenaStatyczna()+mod.getDziecko();
 
