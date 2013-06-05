@@ -27,7 +27,7 @@
 			<form action="<c:url value="/airplanes"/>" method="post" style="float: right">
 				<input type="hidden" name="action" value="delete"/>
 				<input type="hidden" name="idSamolotu" value="${airplane.idSamolotu}"/>
-				<input type="image" title="Usuń samolot" class="with-tip" src="images/icons/fugue/cross-circle.png" width="16" height="16"/>
+				<input type="image" title="Usuń samolot" class="with-tip" src="images/icons/fugue/cross-circle.png" width="16" height="16" onclick="return confirm('Czy jesteś pewny? Operacja nie może być cofnięta!')"/>
 			</form>
 			</td>
 		</tr>

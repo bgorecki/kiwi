@@ -33,7 +33,7 @@
 		            <!-- The class table-actions is designed for action icons -->
 		            <td class="table-actions">
 		                <a href="<c:url value="/airlinecompanies?action=editCompany&id=${company.idPrzewoznika}"/>" title="Edytuj" class="with-tip"><img src="<c:url value="/images/icons/fugue/pencil.png"/>" width="16" height="16"></a>
-		                <a href="<c:url value="/airlinecompanies?action=deleteCompany&id=${company.idPrzewoznika}"/>" title="Usuń" class="with-tip"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"></a>
+		                <a href="<c:url value="/airlinecompanies?action=deleteCompany&id=${company.idPrzewoznika}"/>" title="Usuń" class="with-tip" onclick="return confirm('Czy jesteś pewny? Operacja nie może być cofnięta!')"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"></a>
 		            </td>
 	        	</tr>
 	        </c:forEach>

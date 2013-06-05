@@ -44,7 +44,7 @@
 			<form action="<c:url value="/lsp"/>" method="post" style="float: right">
 				<input type="hidden" name="action" value="delete"/>
 				<input type="hidden" name="idLSP" value="${lsp.idLsp}"/>
-				<input type="image" title="Usuń rekord" class="with-tip" src="images/icons/fugue/cross-circle.png" width="16" height="16"/>
+				<input type="image" title="Usuń rekord" class="with-tip" src="images/icons/fugue/cross-circle.png" onclick="return confirm('Czy jesteś pewny? Operacja nie może być cofnięta!')" width="16" height="16"/>
 			</form>
 			</td>
 		</tr>

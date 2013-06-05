@@ -14,7 +14,7 @@
                     </ul>
                 </c:if>
 
-                    <h1>Zarządzanie lotniskami</h1>
+                    <h1>Zarządzanie połączeniami</h1>
                 <form action="<c:url value="/FlightController?action=editorsave&id=${param.id}"/>" class="form" method="post">
 
                     <fieldset class="grey-bg required">

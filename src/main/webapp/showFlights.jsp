@@ -69,7 +69,7 @@
             <td class="table-actions">
                 <a href="<c:url value="/FlightController?action=editorsave&id=${flights.idLotu}"/>" title="Edytuj" class="with-tip"><img src="<c:url value="/images/icons/fugue/pencil.png"/>" width="16" height="16"></a>
                 <a href="<c:url value="/FlightController?action=deleteFlights&id=${flights.idLotu}"/>" title="Usuń" class="with-tip"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"></a>
-                <a href="<c:url value="/rentownosc.html?id=${flights.idLotu}"/>" title="Rentowność" class="with-tip"><img src="images/icons/fugue/chart.png" width="16" height="16"></a>
+                <a href="<c:url value="/rentownosc.html?id=${flights.idLotu}"/>" title="Rentowność" class="with-tip" onclick="return confirm('Czy jesteś pewny? Operacja nie może być cofnięta!')"><img src="images/icons/fugue/chart.png" width="16" height="16"></a>
             </td>
 
         </tr>
