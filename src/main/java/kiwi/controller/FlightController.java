@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,26 +32,49 @@ public class FlightController extends HttpServlet {
 		GenericDao<DbLotEntity, Integer> flightDao = new GenericDao<DbLotEntity, Integer>(DbLotEntity.class);
 
 		if (action.equals("editorsave")) {
+			if(request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
+				flight = new FlightsDao().getById(Integer.parseInt(request.getParameter("id")));
+			}
 
-			DbLotEntity flights = new DbLotEntity();
+			Map<String, String> errors = new HashMap<>();
+
 			try {
-				BeanUtils.populate(flights, request.getParameterMap());
+				HttpSession session = request.getSession();
+				if(!request.getParameter("godzinaPrzylotu").matches("\\d{2}:\\d{2}:\\d{2}")) {
+					errors.put("godzinaPrzylotu", "Zły format godziny przylotu");
+				}
+				if(!request.getParameter("godzinaWylotu").matches("\\d{2}:\\d{2}:\\d{2}")) {
+					errors.put("godzinaWylotu", "Zły format godziny wylotu");
+				}
 
+				if(errors.isEmpty()) {
+					BeanUtils.populate(flight, request.getParameterMap());
 
-				if(!new FlightsDao().isFullyFilled(flights)){
-					request.setAttribute("msg","srete");
-					request.getRequestDispatcher("addFlights.jsp").forward(request,response);
+					flight.setLotniskoByPrzylot(new DbLotniskoEntityDao().getById(Integer.parseInt(request.getParameter("przylot"))));
+					flight.setLotniskoByWylot(new DbLotniskoEntityDao().getById(Integer.parseInt(request.getParameter("wylot"))));
+					flight.setPrzewoznikByIdPrzew(((DbUzytkownikEntity)session.getAttribute("user")).getPrzewoznikByIdPrzewoznika());
+
+					request.setAttribute("lot", flight);
+					if(!new FlightsDao().isFullyFilled(flight)){
+						errors.put("all", "Wypełnij wszystkie pola!");
+						request.setAttribute("errors",errors);
+						doGet(request, response);
+						//request.getRequestDispatcher("addFlights.jsp").forward(request,response);
+					} else {
+						if(request.getParameter("id") == null || request.getParameter("id").isEmpty()) flightDao.create(flight);
+						else flightDao.update(flight);
+						response.sendRedirect(request.getContextPath() + "/FlightController");
+					}
 				} else {
-					if(request.getParameter("id") == null) flightDao.create(flights);
-					else flightDao.update(flights);
+					request.setAttribute("errors", errors);
+					doGet(request, response);
 				}
 
 			} catch (Exception e){
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				return;
+				e.printStackTrace();
 			}
-			response.sendRedirect("FlightController");
-			return;
+
 		}
 	}
 
@@ -77,9 +102,10 @@ public class FlightController extends HttpServlet {
 
 			request.setAttribute("lotniska", new DbLotniskoEntityDao().getAll());
 
-			if(request.getParameter("id") != null) {
+			if(request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
 				DbLotEntity lot = new FlightsDao().getById(Integer.parseInt(request.getParameter("id")));
-				request.setAttribute("lot", lot);
+				if(request.getAttribute("lot") == null)
+					request.setAttribute("lot", lot);
 			}
 
 			request.getRequestDispatcher("addFlights.jsp").forward(request, response);

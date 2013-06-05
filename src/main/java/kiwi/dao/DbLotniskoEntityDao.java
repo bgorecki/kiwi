@@ -52,4 +52,9 @@ public class DbLotniskoEntityDao extends GenericDao<DbLotniskoEntity, Integer> {
 	{
 		return Iterables.<DbLotniskoEntity>getFirst(getSession().createQuery("from DbLotniskoEntity where nazwa = :name").setParameter("name", s).list(),null);
 	}
+
+	public DbLotniskoEntity getById(int przylot)
+	{
+		return Iterables.<DbLotniskoEntity>getFirst(getSession().createQuery("from DbLotniskoEntity where idLotniska = :name").setParameter("name", przylot).list(),null);
+	}
 }

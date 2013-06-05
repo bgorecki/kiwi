@@ -6,6 +6,14 @@
     <section class="grid_12">
         <div class="block-border">
             <div class="block-content">
+                <c:if test="${not empty errors}">
+                    <ul class="message error no-margin">
+                        <c:forEach items="${errors}" var="i">
+                            <li>${i.value}</li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
+
                     <h1>Zarządzanie lotniskami</h1>
                 <form action="<c:url value="/FlightController?action=editorsave&id=${param.id}"/>" class="form" method="post">
 

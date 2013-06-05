@@ -2,10 +2,7 @@ package kiwi.controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -83,14 +80,15 @@ public class Reservation extends HttpServlet {
 		Date dataRezerwacji = new Date(Integer.parseInt(dateParts[2])-1900, Integer.parseInt(dateParts[1]) - 1, Integer.parseInt(dateParts[0]));
 		
 		// Walidacja czy wszystkie pola są uzupełnione
-		Iterator<String[]> it = request.getParameterMap().values().iterator();
-
+		Iterator<Map.Entry<String,String[]>> it = request.getParameterMap().entrySet().iterator();
 		while(it.hasNext()) {
-			for(String s : it.next()) {
-				if(s.equals("") && !s.startsWith("ilosc")) {
+			Map.Entry<String, String[]> ss =it.next();
+			if(ss.getKey().startsWith("ilosc") || ss.getKey().equals("choosen")) continue;
+			for(String s: ss.getValue()) {
+				if(s.equals("")) {
+					request.setAttribute("msg", "Wszystkie wymagane pola muszą być uzupełnione!");
 					request.getRequestDispatcher("passengersPersonalDataForm.jsp").forward(request, response);
 					return;
-
 				}
 			}
 		}		
