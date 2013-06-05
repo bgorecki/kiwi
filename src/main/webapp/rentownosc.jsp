@@ -7,6 +7,9 @@
     <section class="grid_12">
         <div class="block-border">
             <div class="block-content">
+
+                <h1>Rentowność lotu</h1>
+
                 <script src="<c:url value="js/charts/Chart.js"/>"></script>
                 <meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
                 <canvas id="canvas" height="450" width="1000"></canvas>
@@ -30,7 +33,16 @@
 
                     var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
 
-                </script>
+                </script>       <br><br>
+                <c:if test="${rent < 50}">
+                    Lot jest nierentowny, powinineś rozważyć likwidację lotu lub zmianę maszyny obsługującej trasę lotu.
+                </c:if>
+                <c:if test="${rent > 50}">
+                    Lot jest rentowny.
+                </c:if>
+                <c:if test="${rent > 90}">
+                    Powinieneś rozważyć na zmianę maszyny obsługującej lot na większą.
+                </c:if>
             </div>
         </div>
     </section>
