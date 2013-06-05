@@ -18,13 +18,15 @@ public class RemoveReservation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("action") != null) {
+		if(request.getParameter("action") != null && request.getParameter("action").equals("submited")) {
 			DatabaseConnector.getInstance().getSession().beginTransaction();
 			new RezerwacjaDao().delete((DbRezerwacjaEntity)request.getSession().getAttribute("r"));
 			DatabaseConnector.getInstance().getSession().getTransaction().commit();
-			response.sendRedirect("index.jsp");
+			request.getSession().removeAttribute("r");
+			request.getRequestDispatcher("reservationRemoveSubmit.jsp?action=ack").forward(request, response);
 			return;
 		}
+		
 		
 		request.getRequestDispatcher("loginReservation.jsp").forward(request, response);
 	}
