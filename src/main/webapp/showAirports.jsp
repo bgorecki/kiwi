@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" errorPage="/WEB-INF/errorPage.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/view-elements/header.jsp" />
-<table class="table" cellspacing="0">
+<table class="table" cellspacing="0" width="100%">
 	<thead>
 		<tr>
 			<th>Państwo</th>
@@ -10,6 +10,9 @@
 			<th>Akcje</th>
 		</tr>
 	</thead>
+	
+	    
+	<tbody>
 	<c:forEach var="airport" items="${airports}">
 		<tr>
 			<td>${airport.panstwo }</td>
@@ -30,5 +33,6 @@
 			</td>
 		</tr>
 	</c:forEach>
+	</tbody>
 </table>
 <jsp:include page="/WEB-INF/view-elements/footer.jsp" />

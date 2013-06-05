@@ -9,14 +9,7 @@
         	<select name="idPracownika">
         	<c:set var="idPracownika" value="${idPracownika }"/>
         		<c:forEach var="employee" items="${employees }">
-	        		<c:choose>
-	        			<c:when test="${employee.idPracownika == idPracownika } ">
-	        				<option selected="true" value="${employee.idPracownika }">${employee.imie} ${ employee.nazwisko } </option>
-	        			</c:when>
-	        			<c:otherwise>
-	        				<option value="${employee.idPracownika }">${employee.imie} ${ employee.nazwisko }</option>
-	        			</c:otherwise>
-	        		</c:choose>
+	        		<option <c:if test="${employee.idPracownika eq idPracownika}">selected="true"</c:if> value="${employee.idPracownika }">${employee.imie} ${ employee.nazwisko } </option>
         		</c:forEach>
         	</select>
             <input type="hidden" value="updateEmployee" name="action"/>

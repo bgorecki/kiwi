@@ -32,6 +32,7 @@ public class LSPController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
 		switch(action) {
 			case "editAirplane": editAirplane(request, response); break;
@@ -70,8 +71,7 @@ public class LSPController extends HttpServlet {
 	private void addEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DbLspEntity lsp = new DbLSPDao().read(Integer.valueOf(request.getParameter("idLsp")));
 		DbPracownikEntity employee = new DbPracownikEntityDao().read(Integer.valueOf(request.getParameter("idPracownika")));
-		lsp.setPracownikByIdPrac(employee);
-		new DbLSPDao().create(lsp);
+		new DbLSPDao().create(new DbLspEntity().withLotByIdLot(lsp.getLotByIdLot()).withSamolotByIdSam(lsp.getSamolotByIdSam()).withPracownikByIdPrac(employee));
 		doGet(request, response);
 	}
 	
