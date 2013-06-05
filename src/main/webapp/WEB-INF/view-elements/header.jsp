@@ -4,7 +4,7 @@
 <html>
 <head>
 
-	<title>Constellation Admin Skin</title>
+	<title>kiwi</title>
 	<meta charset="utf-8">
 	
 	<!-- Global stylesheets -->
@@ -212,6 +212,13 @@
 	<nav id="main-nav">
 		
 		<ul class="container_12">
+		
+	        <li class="search"><a href="search.html" title="Wyszukaj połączenie">Wyszukj połączenie</a>
+            </li>
+            <li class="anulujRezerwacje"><a href="removereservation" title="Anuluj rezerwacje">Anuluj rezerwacje</a>
+            </li>
+			
+			<c:if test="${sessionScope.user.rola eq 'administrator' }">
 			<!-- ELEMENT MENU - ZARZADZANIE PRZEWOZNIKAMI -->
 			<c:choose>
 	        <c:when test="${pageContext.request.servletPath == '/showAirlineCompanies.jsp' or pageContext.request.servletPath == '/addAirlineCompany.jsp' or pageContext.request.servletPath == '/editAirlineCompany.jsp'}">
@@ -239,16 +246,15 @@
 	        		</c:otherwise>
 	        		</c:choose>
                 </ul>
-            <!-- </li> -->
-            <!-- KONIEC ELEMENT MENU - ZARZADZANIE PRZEWOZNIKAMI -->
+            	</li>
             
             <!-- ELEMENT MENU - ZARZADZANIE LOTNISKAMI -->
 			<c:choose>
 	        <c:when test="${pageContext.request.servletPath == '/showAirports.jsp' or pageContext.request.servletPath == '/addAirport.jsp'}">
-	        	<li class="home"><a href="airports" title="Lotniska">Lotniska</a>
+	        	<li class="airport current"><a href="airports" title="Lotniska">Lotniska</a>
 	        </c:when>
 	        <c:otherwise>
-	        	<li class="home"><a href="airports" title="Lotniska">Lotniska</a>
+	        	<li class="airport"><a href="airports" title="Lotniska">Lotniska</a>
 	        </c:otherwise>
 	        </c:choose>
                 <ul>
@@ -269,9 +275,10 @@
 	        		</c:otherwise>
 	        		</c:choose>
                 </ul>
-            <!-- </li> -->
+          		</li>
             <!-- KONIEC ELEMENT MENU - ZARZADZANIE LOTNISKAMI -->
-            
+            </c:if>
+            <c:if test="${sessionScope.user.rola eq 'przewoznik' }">
             <!-- ELEMENT MENU - ZARZADZANIE SAMOLOTAMI -->
 			<c:choose>
 	        <c:when test="${pageContext.request.servletPath == '/showAirplanes.jsp' or pageContext.request.servletPath == '/addAirplane.jsp'}">
@@ -299,18 +306,18 @@
 	        		</c:otherwise>
 	        		</c:choose>
                 </ul>
-            <!-- </li> -->
+            	</li>
             <!-- KONIEC ELEMENT MENU - ZARZADZANIE SAMOLOTAMI --> 
             
             <!-- ELEMENT MENU - ZARZADZANIE LSP -->
 			
 	        	<li class="lsp"><a href="lsp" title="Pracownicy, loty">Pracownicy, loty</a>
-            <!-- </li> -->
+            	</li>
             <!-- KONIEC ELEMENT MENU - ZARZADZANIE LSP --> 
 
             <c:choose>
             <c:when test="${pageContext.request.servletPath == '/showFlights.jsp' or pageContext.request.servletPath == '/addFlights.jsp' or pageContext.request.servletPath == '/editFlights.jsp'}">
-            <li class="flights urrent"><a href="FlightController" title="Połączenia">Połączenia</a>
+            <li class="flights current"><a href="FlightController" title="Połączenia">Połączenia</a>
                 </c:when>
                 <c:otherwise>
             <li class="flights"><a href="FlightController" title="Połączenia">Połączenia</a>
@@ -338,6 +345,7 @@
                 </ul>
 
             </li>
+            </c:if>
 		</ul>
 
 	</nav>

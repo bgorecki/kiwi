@@ -6,11 +6,25 @@ Jeżeli jakieś ścieżki tutaj nie ma, to jest dostępna dla każdego.
 -->
 
 <accessRules>
-	<path value = "/authTest1">
+	<path value = "/airlinecompanies">
 		<user type="administrator" />
+	</path>
+	<path value = "/airports">
+		<user type="administrator" />
+	</path>
+	<path value = "/addAirport.jsp">
+		<user type="administrator" />
+	</path>
+	<path value = "/airplanes">
 		<user type="przewoznik" />
 	</path>
-	<path value = "/authTest2">
-		<user type="administrator" />
+	<path value = "/addAirplane.jsp">
+		<user type="przewoznik" />
+	</path>
+	<path value = "/lsp">
+		<user type="przewoznik" />
+	</path>
+	<path value = "/FlightController">
+		<user type="przewoznik" />
 	</path>
 </accessRules>

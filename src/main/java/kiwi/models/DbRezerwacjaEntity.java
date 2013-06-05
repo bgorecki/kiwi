@@ -18,7 +18,16 @@ public class DbRezerwacjaEntity
 	private Float cenaCalkowita;
 	private Collection<DbPasazerEntity> pasazersByIdRezerwacji;
 	private Collection<DbRekordyLotuEntity> rekordyLotusByIdRezerwacji;
+	private String kodAutoryzacyjny;
 	
+	public String getKodAutoryzacyjny() {
+		return kodAutoryzacyjny;
+	}
+
+	public void setKodAutoryzacyjny(String kodAutoryzacyjny) {
+		this.kodAutoryzacyjny = kodAutoryzacyjny;
+	}
+
 	@javax.persistence.Column(name = "id_rezerwacji", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
 
 	@Id @GeneratedValue

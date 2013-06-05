@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,11 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kiwi.dao.FlightsDao;
+import kiwi.dao.RezerwacjaDao;
 import kiwi.models.DbLotEntity;
 import kiwi.models.DbPasazerEntity;
 import kiwi.models.DbRekordyLotuEntity;
 import kiwi.models.DbRezerwacjaEntity;
 import kiwi.models.SearchForm;
+import kiwi.utils.DatabaseConnector;
 
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -34,9 +37,30 @@ public class Reservation extends HttpServlet {
 				request.getRequestDispatcher("submitReservation.jsp").forward(request, response);
 				return;
 			case "submited":
+				DbRezerwacjaEntity rezerwacja = (DbRezerwacjaEntity) request.getSession().getAttribute("rezerwacjaWToku");
+				if(rezerwacja != null) {
+					new RezerwacjaDao().create(rezerwacja);
+					
+					Random rand = new Random();
+					String kodAutoryzacyjny = rezerwacja.getIdRezerwacji().toString();
+					kodAutoryzacyjny += rand.nextInt(1000000);
+					rezerwacja.setKodAutoryzacyjny(kodAutoryzacyjny);
+					
+					DatabaseConnector.getInstance().getSession().beginTransaction();
+					new RezerwacjaDao().update(rezerwacja);
+					DatabaseConnector.getInstance().getSession().getTransaction().commit();
+					request.getSession().removeAttribute("rezerwacjaWToku");
+				}
+
+				request.getRequestDispatcher("submitReservation.jsp?id="+rezerwacja.getIdRezerwacji()+"&kod="+rezerwacja.getKodAutoryzacyjny()).forward(request, response);
+				return;
 				
+			case "canceled":
+				request.getSession().removeAttribute("rezerwacjaWToku");
+				request.getRequestDispatcher("submitReservation.jsp?cancelled=yes").forward(request, response);
 				return;
 			}
+			
 		}
 		
 		request.getRequestDispatcher("passengersPersonalDataForm.jsp").forward(request, response);
@@ -118,6 +142,7 @@ public class Reservation extends HttpServlet {
 			}
 		}
 		
+		rezerwacja.setPasazersByIdRezerwacji(pasazerowie);
 		rezerwacja.setRekordyLotusByIdRezerwacji(rekordyLotuRezerwacji);
 		rezerwacja.setCenaCalkowita(fdao.getFlightPrice(lotyRezerwacji, sf));
 		
