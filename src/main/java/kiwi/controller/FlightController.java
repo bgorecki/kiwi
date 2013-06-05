@@ -97,6 +97,7 @@ public class FlightController extends HttpServlet {
 
 			request.getRequestDispatcher("showFlights.jsp").forward(request, response);
 			return;
+
 		}
 		if (action.equals("editorsave")) {
 
@@ -110,6 +111,14 @@ public class FlightController extends HttpServlet {
 
 			request.getRequestDispatcher("addFlights.jsp").forward(request, response);
 			return;
+		}
+
+		if(action.equals("deleteFlights")) {
+			if(request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
+				DbLotEntity lot = new FlightsDao().getById(Integer.parseInt(request.getParameter("id")));
+				new FlightsDao().remove(lot);
+				response.sendRedirect(request.getContextPath()+"/FlightController");
+			}
 		}
 
 	}

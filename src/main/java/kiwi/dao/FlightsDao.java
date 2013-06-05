@@ -220,4 +220,11 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 	{
 		return Iterables.<DbLotEntity>getFirst(getSession().createQuery("from DbLotEntity where idLotu = :id").setParameter("id", id).list(), null);
 	}
+
+	public void remove(DbLotEntity lot) {
+		//lot.getPrzewoznikByIdPrzew().getLotsByIdPrzewoznika().remove(lot);
+		getSession().beginTransaction();
+		delete(lot);
+		getSession().getTransaction().commit();
+	}
 }

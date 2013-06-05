@@ -4,13 +4,7 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.Collection;
 
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -174,7 +168,7 @@ public class DbLotEntity
 
 	private DbPrzewoznikEntity przewoznikByIdPrzew;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@javax.persistence.JoinColumn(name = "id_przew", referencedColumnName = "id_przewoznika", nullable = false)
 	public DbPrzewoznikEntity getPrzewoznikByIdPrzew()
 	{

@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/WEB-INF/view-elements/header.jsp"/>
-<script src="/js/jquery-ui-1.10.3/js/jquery-ui-1.10.3.custom.min.js"></script>
-<link rel="stylesheet" href="/js/jquery-ui-1.10.3/css/ui-lightness/jquery-ui-1.10.3.custom.min.css"/>
+<script src="<c:url value="/js/ui/js/jquery-ui-1.10.3.custom.js"/>"></script>
+<link rel="stylesheet" href="<c:url value="/js/ui/css/ui-lightness/ui.css"/>"/>
 <style>
     .ui-autocomplete-category {
         font-weight: bold;

@@ -11,9 +11,9 @@
 
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="jdbcUrl" value="jdbc:mysql://www.knit.pk.edu.pl:3306/kiwi?useUnicode=true&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=utf8&amp;characterEncoding=utf8"/>
-        <property name="user" value="kiwiUser"/>
-        <property name="password" value="kiwiPassword"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/kiwi?useUnicode=true&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=utf8&amp;characterEncoding=utf8"/>
+        <property name="user" value="root"/>
+        <property name="password" value=""/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="acquireRetryAttempts" value="5"/>
         <property name="acquireRetryDelay" value="0"/>
