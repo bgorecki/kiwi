@@ -335,11 +335,11 @@
                     </c:choose>
                     <c:choose>
                         <c:when test="${pageContext.request.servletPath == '/addFlights.jsp'}">
-                            <li class="current"><a href="FlightController?action=addFlights" title="Dodaj połączenie">Dodaj połączenie</a>
+                            <li class="current"><a href="FlightController?action=editorsave" title="Dodaj połączenie">Dodaj połączenie</a>
                             </li>
                         </c:when>
                         <c:otherwise>
-                            <li><a href="FlightController?action=addFlights" title="Dodaj połączenie">Dodaj połączenie</a></li>
+                            <li><a href="FlightController?action=editorsave" title="Dodaj połączenie">Dodaj połączenie</a></li>
                         </c:otherwise>
                     </c:choose>
                 </ul>

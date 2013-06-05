@@ -1,5 +1,6 @@
 package kiwi.controller;
 
+import kiwi.dao.DbLotniskoEntityDao;
 import kiwi.dao.FlightsDao;
 import kiwi.dao.GenericDao;
 import kiwi.models.DbLotEntity;
@@ -21,14 +22,14 @@ import java.io.IOException;
  * Time: 21:27
  * To change this template use File | Settings | File Templates.
  */
-@WebServlet(name = "FlightController", urlPatterns = {"/FlightController"})
+@WebServlet(name = "FlightController101", urlPatterns = {"/FlightController"})
 public class FlightController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		DbLotEntity flight = new DbLotEntity();
 		GenericDao<DbLotEntity, Integer> flightDao = new GenericDao<DbLotEntity, Integer>(DbLotEntity.class);
 
-		if (action.equals("addFlights")) {
+		if (action.equals("editorsave")) {
 			if(!new FlightsDao().isFullyFilled(flight)){
 				request.setAttribute("msg","srete");
 				request.getRequestDispatcher("addFlights.jsp").forward(request,response);
@@ -36,7 +37,10 @@ public class FlightController extends HttpServlet {
 			DbLotEntity flights = new DbLotEntity();
 			try {
 				BeanUtils.populate(flights, request.getParameterMap());
-				flightDao.create(flights);
+
+				if(request.getParameter("id") == null) flightDao.create(flights);
+				else flightDao.update(flights);
+
 			} catch (Exception e){
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				return;
@@ -66,13 +70,17 @@ public class FlightController extends HttpServlet {
 			request.getRequestDispatcher("showFlights.jsp").forward(request, response);
 			return;
 		}
-		if (action.equals("addFlights")) {
+		if (action.equals("editorsave")) {
+
+			request.setAttribute("lotniska", new DbLotniskoEntityDao().getAll());
+
+			if(request.getParameter("id") != null) {
+				DbLotEntity lot = new FlightsDao().getById(Integer.parseInt(request.getParameter("id")));
+				request.setAttribute("lot", lot);
+			}
+
 			request.getRequestDispatcher("addFlights.jsp").forward(request, response);
 			return;
-		}
-
-		if (action.equals("editFlight")) {
-
 		}
 
 	}

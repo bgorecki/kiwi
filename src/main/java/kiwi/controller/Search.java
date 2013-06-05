@@ -77,27 +77,30 @@ public class Search extends HttpServlet
 
 				FlightsDao flightsDao = new FlightsDao();
 				List<List<DbLotEntity>> remove = new ArrayList<List<DbLotEntity>>();
-				for(List<DbLotEntity> i: loty) {
-					for(DbLotEntity j: i) {
-						int ilosc = flightsDao.getFreeSeatsCountInClass(j, sf.getKlasaDb());
+				if(loty != null) {
+					for(List<DbLotEntity> i: loty) {
+						for(DbLotEntity j: i) {
+							int ilosc = flightsDao.getFreeSeatsCountInClass(j, sf.getKlasaDb());
 
-						if(flightsDao.getFreeSeatsCountInClass(j, sf.getKlasaDb()) < iloscMiejsc) {
-							remove.add(i); break;
+							if(flightsDao.getFreeSeatsCountInClass(j, sf.getKlasaDb()) < iloscMiejsc) {
+								remove.add(i); break;
+							}
 						}
 					}
-				}
-				for(List<DbLotEntity> i: remove) {
-					loty.remove(i);
-				}
+					for(List<DbLotEntity> i: remove) {
+						loty.remove(i);
+					}
 
-				List<Float> prices = new ArrayList<>();
-				for(List<DbLotEntity> i: loty) {
-					prices.add(flightsDao.getFlightPrice(i, sf));
+					List<Float> prices = new ArrayList<>();
+					for(List<DbLotEntity> i: loty) {
+						prices.add(flightsDao.getFlightPrice(i, sf));
+					}
+					request.setAttribute("foundFlightsPrices", prices);
 				}
 
 				request.setAttribute("foundFlights", loty);
 				session.setAttribute("foundFlights", loty);
-				request.setAttribute("foundFlightsPrices", prices);
+
 			}
 		}
 
