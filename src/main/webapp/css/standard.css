@@ -245,7 +245,8 @@ nav {
 			nav > ul > li.settings, nav > ul > li.settings > a { background-image: url(../images/icons/settings_2states.png); }
 			nav > ul > li.backup, nav > ul > li.backup > a { background-image: url(../images/icons/backup_2states.png); }
 			nav > ul > li.przewoznicy, nav > ul > li.przewoznicy > a { background-image: url(../images/icons/przewoznicy_2states.png); }
-			
+			nav > ul > li.lsp, nav > ul > li.lsp > a { background-image: url(../images/icons/users_2states.png); }
+			nav > ul > li.airplane, nav > ul > li.airplane > a { background-image: url(../images/icons/airplane.png); }
 			nav > ul > li.current {
 				padding: 0 8px 13px 8px;
 				margin: 0 -8px -13px -8px;

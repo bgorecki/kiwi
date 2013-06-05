@@ -241,10 +241,8 @@
                 </ul>
             <!-- </li> -->
             <!-- KONIEC ELEMENT MENU - ZARZADZANIE PRZEWOZNIKAMI -->
-		</ul>
-		
-		<ul class="container_12">
-			<!-- ELEMENT MENU - ZARZADZANIE LOTNISKAMI -->
+            
+            <!-- ELEMENT MENU - ZARZADZANIE LOTNISKAMI -->
 			<c:choose>
 	        <c:when test="${pageContext.request.servletPath == '/showAirports.jsp' or pageContext.request.servletPath == '/addAirport.jsp'}">
 	        	<li class="home"><a href="airports" title="Lotniska">Lotniska</a>
@@ -273,8 +271,43 @@
                 </ul>
             <!-- </li> -->
             <!-- KONIEC ELEMENT MENU - ZARZADZANIE LOTNISKAMI -->
+            
+            <!-- ELEMENT MENU - ZARZADZANIE SAMOLOTAMI -->
+			<c:choose>
+	        <c:when test="${pageContext.request.servletPath == '/showAirplanes.jsp' or pageContext.request.servletPath == '/addAirplane.jsp'}">
+	        	<li class="airplane"><a href="airplanes" title="Samoloty">Samoloty</a>
+	        </c:when>
+	        <c:otherwise>
+	        	<li class="airplane"><a href="airplanes" title="Samoloty">Samoloty</a>
+	        </c:otherwise>
+	        </c:choose>
+                <ul>
+                	<c:choose>
+	        		<c:when test="${pageContext.request.servletPath == '/showAirplanes.jsp'}">
+	        			<li class="current"><a href="airplanes" title="Lista samolotów">Lista samolotów</a></li>
+	        		</c:when>
+	        		<c:otherwise>
+	        			<li><a href="airplanes" title="Lista samolotów">Lista samolotów</a></li>
+	        		</c:otherwise>
+	        		</c:choose>
+                    <c:choose>
+	        		<c:when test="${pageContext.request.servletPath == '/addAirplane.jsp'}">
+	        			<li class="current"><a href="<c:url value="addAirplane.jsp"/>" title="Dodaj samolot">Dodaj samolot</a></li>
+	        		</c:when>
+	        		<c:otherwise>
+	        			<li><a href="<c:url value="addAirplane.jsp"/>" title="Dodaj samolot">Dodaj samolot</a></li>
+	        		</c:otherwise>
+	        		</c:choose>
+                </ul>
+            <!-- </li> -->
+            <!-- KONIEC ELEMENT MENU - ZARZADZANIE SAMOLOTAMI --> 
+            
+            <!-- ELEMENT MENU - ZARZADZANIE LSP -->
+			
+	        	<li class="lsp"><a href="lsp" title="Pracownicy, loty">Pracownicy, loty</a>
+            <!-- </li> -->
+            <!-- KONIEC ELEMENT MENU - ZARZADZANIE LSP --> 
 		</ul>
-		
 
 	</nav>
 	<!-- End main nav -->
