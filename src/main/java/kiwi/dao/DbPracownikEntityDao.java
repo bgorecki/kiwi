@@ -12,10 +12,7 @@ public class DbPracownikEntityDao extends GenericDao<DbPracownikEntity, Integer>
 	
 	@SuppressWarnings("unchecked")
 	public List<DbPracownikEntity> getAll() {
-		getSession().beginTransaction();
 		List<DbPracownikEntity> employees = (List<DbPracownikEntity>)getSession().createQuery("from kiwi.models.DbPracownikEntity").list();
-		getSession().getTransaction().commit();
-		getSession().clear();
     	return employees;
 	}
 

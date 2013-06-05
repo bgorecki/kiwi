@@ -13,10 +13,7 @@ public class DbSamolotEntityDao extends GenericDao<DbSamolotEntity, Integer>{
 	
 	@SuppressWarnings("unchecked")
 	public List<DbSamolotEntity> getAll() {
-		getSession().beginTransaction();
 		List<DbSamolotEntity> airplanes = (List<DbSamolotEntity>)getSession().createQuery("from kiwi.models.DbSamolotEntity").list();
-		getSession().getTransaction().commit();
-		getSession().clear();
     	return airplanes;
 	}
 	
