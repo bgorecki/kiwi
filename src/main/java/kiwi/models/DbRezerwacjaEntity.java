@@ -20,6 +20,7 @@ public class DbRezerwacjaEntity
 	private Collection<DbRekordyLotuEntity> rekordyLotusByIdRezerwacji;
 	
 	@javax.persistence.Column(name = "id_rezerwacji", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+
 	@Id @GeneratedValue
 	public Integer getIdRezerwacji()
 	{
@@ -87,4 +88,29 @@ public class DbRezerwacjaEntity
 	{
 		this.rekordyLotusByIdRezerwacji = rekordyLotusByIdRezerwacji;
 	}
+
+	public DbRezerwacjaEntity withIdRezerwacji(final Integer idRezerwacji)
+	{
+		this.idRezerwacji = idRezerwacji;
+		return this;
+	}
+
+	public DbRezerwacjaEntity withCenaCalkowita(final Float cenaCalkowita)
+	{
+		this.cenaCalkowita = cenaCalkowita;
+		return this;
+	}
+
+	public DbRezerwacjaEntity withPasazersByIdRezerwacji(final Collection<DbPasazerEntity> pasazersByIdRezerwacji)
+	{
+		this.pasazersByIdRezerwacji = pasazersByIdRezerwacji;
+		return this;
+	}
+
+	public DbRezerwacjaEntity withRekordyLotusByIdRezerwacji(final Collection<DbRekordyLotuEntity> rekordyLotusByIdRezerwacji)
+	{
+		this.rekordyLotusByIdRezerwacji = rekordyLotusByIdRezerwacji;
+		return this;
+	}
+
 }

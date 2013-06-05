@@ -24,6 +24,7 @@ public class DbPasazerEntity
 	private Collection<DbRekordyLotuEntity> rekordyLotusByIdPasazera;
 
 	@javax.persistence.Column(name = "id_pasazera", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+
 	@Id @GeneratedValue
 	public Integer getIdPasazera()
 	{
@@ -132,5 +133,47 @@ public class DbPasazerEntity
 	public void setRekordyLotusByIdPasazera(Collection<DbRekordyLotuEntity> rekordyLotusByIdPasazera)
 	{
 		this.rekordyLotusByIdPasazera = rekordyLotusByIdPasazera;
+	}
+
+	public DbPasazerEntity withIdPasazera(final Integer idPasazera)
+	{
+		this.idPasazera = idPasazera;
+		return this;
+	}
+
+	public DbPasazerEntity withImie(final String imie)
+	{
+		this.imie = imie;
+		return this;
+	}
+
+	public DbPasazerEntity withNazwisko(final String nazwisko)
+	{
+		this.nazwisko = nazwisko;
+		return this;
+	}
+
+	public DbPasazerEntity withWiek(final String wiek)
+	{
+		this.wiek = wiek;
+		return this;
+	}
+
+	public DbPasazerEntity withDataUr(final Date dataUr)
+	{
+		this.dataUr = dataUr;
+		return this;
+	}
+
+	public DbPasazerEntity withRezerwacjaByIdRezerw(final DbRezerwacjaEntity rezerwacjaByIdRezerw)
+	{
+		this.rezerwacjaByIdRezerw = rezerwacjaByIdRezerw;
+		return this;
+	}
+
+	public DbPasazerEntity withRekordyLotusByIdPasazera(final Collection<DbRekordyLotuEntity> rekordyLotusByIdPasazera)
+	{
+		this.rekordyLotusByIdPasazera = rekordyLotusByIdPasazera;
+		return this;
 	}
 }

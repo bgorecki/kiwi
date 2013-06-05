@@ -91,6 +91,7 @@ public class Reservation extends HttpServlet {
 		DbRekordyLotuEntity rekord;
 		// Dla kazdego pasazera utworz rekordy lotów
 		for(DbPasazerEntity p : pasazerowie) {
+			p.setRezerwacjaByIdRezerw(rezerwacja);
 			for(DbLotEntity l : lotyRezerwacji) {
 				rekord = new DbRekordyLotuEntity();
 				rekord.setRezerwacjaByIdRez(rezerwacja);
@@ -107,6 +108,7 @@ public class Reservation extends HttpServlet {
 		rezerwacja.setRekordyLotusByIdRezerwacji(rekordyLotuRezerwacji);
 		rezerwacja.setCenaCalkowita(cenaRezerwacji);
 		
+		// TODO Jeszcze nie powinno się dodawać do bazy ale test
 		GenericDao<DbRezerwacjaEntity, Integer> daoTest = new GenericDao<>(DbRezerwacjaEntity.class);
 		daoTest.create(rezerwacja);
 		
