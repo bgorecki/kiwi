@@ -12,7 +12,7 @@
         		</c:forEach>
         	</select>
             <input type="hidden" value="updateAirplane" name="action"/>
-            <input type="hidden" value="${idLsp }" name="idLsp"/>
+            <input type="hidden" value="${idLsp}" name="idLsp"/>
         </p>
         <input type="submit" value="Zapisz">
     </fieldset>

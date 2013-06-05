@@ -241,9 +241,7 @@
                 </ul>
             <!-- </li> -->
             <!-- KONIEC ELEMENT MENU - ZARZADZANIE PRZEWOZNIKAMI -->
-		</ul>
-		
-		<ul class="container_12">
+
 			<!-- ELEMENT MENU - ZARZADZANIE LOTNISKAMI -->
 			<c:choose>
 	        <c:when test="${pageContext.request.servletPath == '/showAirports.jsp' or pageContext.request.servletPath == '/addAirport.jsp'}">
@@ -273,6 +271,36 @@
                 </ul>
             <!-- </li> -->
             <!-- KONIEC ELEMENT MENU - ZARZADZANIE LOTNISKAMI -->
+            <c:choose>
+            <c:when test="${pageContext.request.servletPath == '/showFlights.jsp' or pageContext.request.servletPath == '/addFlights.jsp' or pageContext.request.servletPath == '/editFlights.jsp'}">
+            <li class="flights urrent"><a href="FlightController" title="Połączenia">Połączenia</a>
+                </c:when>
+                <c:otherwise>
+            <li class="flights"><a href="FlightController" title="Połączenia">Połączenia</a>
+                </c:otherwise>
+                </c:choose>
+                <ul>
+                    <c:choose>
+                        <c:when test="${pageContext.request.servletPath == '/showFlights.jsp'}">
+                            <li class="current"><a href="FlightController" title="Lista połączeń">Lista połączeń</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a href="FlightController" title="Lista połączeń">Lista połączeń</a></li>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${pageContext.request.servletPath == '/addFlights.jsp'}">
+                            <li class="current"><a href="FlightController?action=addFlights" title="Dodaj połączenie">Dodaj połączenie</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a href="FlightController?action=addFlights" title="Dodaj połączenie">Dodaj połączenie</a></li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+
+            </li>
 		</ul>
 		
 
