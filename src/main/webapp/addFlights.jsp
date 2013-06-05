@@ -7,7 +7,7 @@
         <div class="block-border">
             <div class="block-content">
                     <h1>Zarządzanie lotniskami</h1>
-                <form action="<c:url value="/FlightController?action=editorsave"/>" class="form">
+                <form action="<c:url value="/FlightController?action=editorsave&id=${param.id}"/>" class="form" method="post">
 
                     <fieldset class="grey-bg required">
                         <legend>Dane wymagane</legend>
@@ -24,20 +24,20 @@
                             <c:if test="${not empty errors.czasPodrozy}"><span class="check-error"></span></span></c:if>
                         </p>
 
-                        <p class="grid_4">
-                            <label for="wylot">Lotnisko startowe</label>
-                            <c:if test="${not empty errors.wylot}">
+                     <p class="grid_4">
+                        <label for="wylot">Lotnisko startowe</label>
+                        <c:if test="${not empty errors.wylot}">
                                 <span class="input-type-text error relative">
                             </c:if>
                                 <select name="wylot" id="wylot" class="full-width">
-                                <c:forEach var="i" items="${lotniska}">
-                                    <option value="${i.idLotniska}" <c:if test="${lot.wylotByIdLotniska.id == i.idLotniska}">selected="selected"</c:if>>${i.nazwa} ${i.miasto}</option>
-                                </c:forEach>
-                            </select>
+                                    <c:forEach var="i" items="${lotniska}">
+                                        <option value="${i.idLotniska}" <c:if test="${lot.lotniskoByWylot.idLotniska == i.idLotniska}">selected="selected"</c:if>>${i.nazwa} ${i.miasto}</option>
+                                    </c:forEach>
+                                </select>
                             <c:if test="${not empty errors.wylot}">
                                 <span class="check-error"></span></span>
-                            </c:if>
-                        </p>
+                        </c:if>
+                    </p>
                         <p class="grid_4">
                             <label for="przylot">Lotnisko końcowe</label>
                             <c:if test="${not empty errors.przylot}">
@@ -45,7 +45,7 @@
                             </c:if>
                                 <select name="przylot" id="przylot" class="full-width">
                                     <c:forEach var="i" items="${lotniska}">
-                                        <option value="${i.idLotniska}" <c:if test="${lot.przylotByIdLotniska.id == i.idLotniska}">selected="selected"</c:if>>${i.nazwa} ${i.miasto}</option>
+                                        <option value="${i.idLotniska}" <c:if test="${lot.lotniskoByPrzylot.idLotniska == i.idLotniska}">selected="selected"</c:if>>${i.nazwa} ${i.miasto}</option>
                                     </c:forEach>
                                 </select>
                             <c:if test="${not empty errors.przylot}">
@@ -83,6 +83,10 @@
                             <input type="text" name="godzinaWylotu" id="godzinaWylotu" value="${lot.godzinaWylotu}" class="full-width">
                             <c:if test="${not empty errors.godzinaWylotu}"><span class="check-error"></span></span></c:if>
                         </p>
+
+                        <div class="float-right">
+                            <button type="submit">Zapisz</button>
+                        </div>
 
                         <div class="clearfix"></div>
                     </fieldset>

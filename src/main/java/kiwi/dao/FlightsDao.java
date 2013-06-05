@@ -31,18 +31,20 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 		return getSession().createQuery("from DbLotEntity").list();
 	}
 
-	public List<DbLotEntity> getAllByUser(DbUzytkownikEntity user){
+	public List<DbLotEntity> getAllByUser(DbUzytkownikEntity user)
+	{
 
-		List<DbLotEntity> flights= (List<DbLotEntity>)getSession().createQuery("select lot from kiwi.models.DbLotEntity lot join lot.przewoznikByIdPrzew p join p.uzytkowniksByIdPrzewoznika where p = :prz").setParameter("prz", user.getPrzewoznikByIdPrzewoznika()).list();
+		List<DbLotEntity> flights = (List<DbLotEntity>) getSession().createQuery("select lot from kiwi.models.DbLotEntity lot join lot.przewoznikByIdPrzew p join p.uzytkowniksByIdPrzewoznika where p = :prz").setParameter("prz", user.getPrzewoznikByIdPrzewoznika()).list();
 		return flights;
 	}
+
 	public List<List<DbLotEntity>> findFlightsByAttributes(SearchForm sf)
 	{
 		Date result = null;
 		DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy");
 		DateTime date = DateTime.parse(sf.getData(), fmt);
 
-		Finder finder = new Finder(getAll());
+		Finder finder = new Finder(getAllinDay(date));
 
 		List<Vertex> path = finder.Find(sf.getFromLotnisko(), sf.getToLotnisko());
 		if (path == null) return null;
@@ -115,9 +117,18 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 		return loty;
 	}
 
+	@SuppressWarnings("unchecked")
+	private List<DbLotEntity> getAllinDay(DateTime date)
+	{
+		return getSession().createQuery("from DbLotEntity where dzienTygodnia = :dzien").setParameter("dzien", date.getDayOfWeek()).list();
+	}
+
 	public DbLotEntity findFlightsByAirportNames(SearchForm sf)
 	{
-		return Iterables.<DbLotEntity>getFirst(getSession().createQuery("from DbLotEntity where lotniskoByPrzylot = :lotniskoByPrzylot and lotniskoByWylot = :lotniskoByWylot").setParameter("lotniskoByPrzylot", sf.getToLotnisko()).setParameter("lotniskoByWylot", sf.getFromLotnisko()).list(), null);
+		DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy");
+		DateTime date = DateTime.parse(sf.getData(), fmt);
+
+		return Iterables.<DbLotEntity>getFirst(getSession().createQuery("from DbLotEntity where lotniskoByPrzylot = :lotniskoByPrzylot and lotniskoByWylot = :lotniskoByWylot and dzienTygodnia = : dzien").setParameter("dzien", date.getDayOfWeek()).setParameter("lotniskoByPrzylot", sf.getToLotnisko()).setParameter("lotniskoByWylot", sf.getFromLotnisko()).list(), null);
 	}
 
 	public Integer getFreeSeatsCountInClass(DbLotEntity lot, DbKlasaEntity klasa)
@@ -128,69 +139,78 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 		Integer posiadane = (Integer) getSession().createQuery("select m.ilosc from DbMiejscaEntity m join m.samolotByIdSam s join s.lspsByIdSamolotu lsp where lsp.samolotByIdSam = s and lsp.lotByIdLot = :lot and m.klasaByIdKlas = :klasa")
 				                              .setParameter("klasa", klasa).setParameter("lot", lot).uniqueResult();
 
-		return posiadane-zajete;
+		return posiadane - zajete;
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer getSeatsCount(DbLotEntity lot) {
+	public Integer getSeatsCount(DbLotEntity lot)
+	{
 		Integer count = 0;
-		for(Integer i: (List<Integer>)getSession().createQuery("select m.ilosc from DbMiejscaEntity m join m.samolotByIdSam s join s.lspsByIdSamolotu lsp where lsp.samolotByIdSam = s and lsp.lotByIdLot = :lot group by m.idMiejsca").setParameter("lot", lot).list()) {
+		for (Integer i : (List<Integer>) getSession().createQuery("select m.ilosc from DbMiejscaEntity m join m.samolotByIdSam s join s.lspsByIdSamolotu lsp where lsp.samolotByIdSam = s and lsp.lotByIdLot = :lot group by m.idMiejsca").setParameter("lot", lot).list())
+		{
 			count += i.intValue();
 		}
 
 		return count;
 	}
 
-	public boolean isFullyFilled(DbLotEntity flight) {
-		if(flight.getCenaStatyczna()==null || flight.getCenaStatyczna().equals(""))
+	public boolean isFullyFilled(DbLotEntity flight)
+	{
+		if (flight.getCenaStatyczna() == null || flight.getCenaStatyczna().equals(""))
 			return false;
-		if(flight.getCzasPodrozy()==null || flight.getCzasPodrozy().equals(""))
+		if (flight.getCzasPodrozy() == null || flight.getCzasPodrozy().equals(""))
 			return false;
-		if(flight.getDzienTygodnia()==null || flight.getDzienTygodnia().equals(""))
+		if (flight.getDzienTygodnia() == null || flight.getDzienTygodnia().equals(""))
 			return false;
-		if(flight.getGodzinaPrzylotu()==null || flight.getGodzinaPrzylotu().equals(""))
+		if (flight.getGodzinaPrzylotu() == null || flight.getGodzinaPrzylotu().equals(""))
 			return false;
-		if (flight.getGodzinaWylotu()==null || flight.getGodzinaWylotu().equals(""))
+		if (flight.getGodzinaWylotu() == null || flight.getGodzinaWylotu().equals(""))
 			return false;
-		if(flight.getLotniskoByWylot()==null || flight.getLotniskoByWylot().equals(""))
+		if (flight.getLotniskoByWylot() == null || flight.getLotniskoByWylot().equals(""))
 			return false;
-		if(flight.getLotniskoByPrzylot()==null || flight.getLotniskoByPrzylot().equals(""))
+		if (flight.getLotniskoByPrzylot() == null || flight.getLotniskoByPrzylot().equals(""))
 			return false;
-		if(flight.getPrzewoznikByIdPrzew()==null || flight.getPrzewoznikByIdPrzew().equals(""))
+		if (flight.getPrzewoznikByIdPrzew() == null || flight.getPrzewoznikByIdPrzew().equals(""))
 			return false;
 		return true;
 	}
 
-	public Integer getReservationsCountForDate(DbLotEntity lot, java.sql.Date date) {
-		return ((Long)getSession().createQuery("select count(rekordy)from DbRekordyLotuEntity rekordy where dataWylotu = :data").setParameter("data", date).uniqueResult()).intValue();
+	public Integer getReservationsCountForDate(DbLotEntity lot, java.sql.Date date)
+	{
+		return ((Long) getSession().createQuery("select count(rekordy)from DbRekordyLotuEntity rekordy where dataWylotu = :data").setParameter("data", date).uniqueResult()).intValue();
 	}
 
-	public DateTime getErliestFlight(DbLotEntity flight) {
-		return new DateTime((Date)getSession().createQuery("select rekordy.dataWylotu from DbRekordyLotuEntity rekordy where dataWylotu = min(dataWylotu)").uniqueResult());
+	public DateTime getErliestFlight(DbLotEntity flight)
+	{
+		return new DateTime((Date) getSession().createQuery("select rekordy.dataWylotu from DbRekordyLotuEntity rekordy where dataWylotu = min(dataWylotu)").uniqueResult());
 	}
 
 	@SuppressWarnings("unchecked")
-	public Float[] getPrices(DbLotEntity lot, DbKlasaEntity klasa) {
+	public Float[] getPrices(DbLotEntity lot, DbKlasaEntity klasa)
+	{
 		Float[] prices = new Float[2];
 		DbModyfikatorEntity mod = Iterables.<DbModyfikatorEntity>getFirst(getSession().createQuery("select modyfikator from DbModyfikatorEntity modyfikator join modyfikator.klasaByIdKlas klasa join klasa.miejscasByIdKlasy miejsca join miejsca.samolotByIdSam sam join sam.lspsByIdSamolotu lsp join lsp.lotByIdLot where modyfikator.klasaByIdKlas = :klasa and lsp.lotByIdLot = :lot").setParameter("klasa", klasa).setParameter("lot", lot).list(), null);
 		System.out.println("mod=" + mod + " lot=" + lot + "klasa=" + klasa);
-		prices[0] = lot.getCenaStatyczna()+mod.getWartoscMod();
-		prices[1] = lot.getCenaStatyczna()+mod.getDziecko();
+		prices[0] = lot.getCenaStatyczna() + mod.getWartoscMod();
+		prices[1] = lot.getCenaStatyczna() + mod.getDziecko();
 
 		return prices;
 	}
 
-	public Float getPrice(DbLotEntity lot, SearchForm sf) {
+	public Float getPrice(DbLotEntity lot, SearchForm sf)
+	{
 		Float[] prices = getPrices(lot, sf.getKlasaDb());
-		Float price = sf.getIlosc()*prices[0] + sf.getIlosc_dz()*prices[1] + sf.getIlosc_inf()*prices[1];
+		Float price = sf.getIlosc() * prices[0] + sf.getIlosc_dz() * prices[1] + sf.getIlosc_inf() * prices[1];
 		return price;
 	}
 
-	public Float getFlightPrice(List<DbLotEntity> lot, SearchForm sf) {
+	public Float getFlightPrice(List<DbLotEntity> lot, SearchForm sf)
+	{
 
 		Float price = 0F;
-		for(DbLotEntity i: lot) {
-			price += getPrice(i,sf)*(1F-.05F*lot.size());
+		for (DbLotEntity i : lot)
+		{
+			price += getPrice(i, sf) * (1F - .05F * lot.size());
 		}
 		return price;
 	}

@@ -2,6 +2,7 @@ package kiwi.models;
 
 import kiwi.dao.DbKlasaDao;
 import kiwi.dao.DbLotniskoEntityDao;
+import org.joda.time.DateTime;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +25,7 @@ public class SearchForm
 	Integer ilosc_dz;
 	Integer ilosc_inf;
 	String data;
+	DateTime dataParsed;
 	Boolean direct;
 	Map<String, String> errors = new HashMap<String, String>();
 

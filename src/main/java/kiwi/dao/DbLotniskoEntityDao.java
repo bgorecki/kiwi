@@ -21,10 +21,8 @@ public class DbLotniskoEntityDao extends GenericDao<DbLotniskoEntity, Integer> {
      */
     @SuppressWarnings("unchecked")
 	public List<DbLotniskoEntity> getAll() {
-    	getSession().beginTransaction();
     	List<DbLotniskoEntity> airports = (List<DbLotniskoEntity>)getSession().createQuery("from kiwi.models.DbLotniskoEntity").list();
-    	getSession().getTransaction().commit();
-    	getSession().clear();
+
     	return airports;
     }
     

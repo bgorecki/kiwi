@@ -51,6 +51,7 @@ public class Finder
 
 	public List<Vertex> Find(DbLotniskoEntity from, DbLotniskoEntity to) {
 		Vertex start = vertex.get(from.getNazwa());
+		if(start == null) return null;
 		List<Vertex> visit = new ArrayList<Vertex>();
 		start.withVisited(true);
 

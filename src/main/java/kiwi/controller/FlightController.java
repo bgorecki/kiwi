@@ -30,16 +30,19 @@ public class FlightController extends HttpServlet {
 		GenericDao<DbLotEntity, Integer> flightDao = new GenericDao<DbLotEntity, Integer>(DbLotEntity.class);
 
 		if (action.equals("editorsave")) {
-			if(!new FlightsDao().isFullyFilled(flight)){
-				request.setAttribute("msg","srete");
-				request.getRequestDispatcher("addFlights.jsp").forward(request,response);
-			}
+
 			DbLotEntity flights = new DbLotEntity();
 			try {
 				BeanUtils.populate(flights, request.getParameterMap());
 
-				if(request.getParameter("id") == null) flightDao.create(flights);
-				else flightDao.update(flights);
+
+				if(!new FlightsDao().isFullyFilled(flights)){
+					request.setAttribute("msg","srete");
+					request.getRequestDispatcher("addFlights.jsp").forward(request,response);
+				} else {
+					if(request.getParameter("id") == null) flightDao.create(flights);
+					else flightDao.update(flights);
+				}
 
 			} catch (Exception e){
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

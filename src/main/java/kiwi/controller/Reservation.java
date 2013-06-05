@@ -84,12 +84,13 @@ public class Reservation extends HttpServlet {
 		
 		// Walidacja czy wszystkie pola są uzupełnione
 		Iterator<String[]> it = request.getParameterMap().values().iterator();
+
 		while(it.hasNext()) {
 			for(String s : it.next()) {
-				if(s.equals("")) {
-					request.setAttribute("msg", "Wszystkie wymagane pola muszą być uzupełnione!");
+				if(s.equals("") && !s.startsWith("ilosc")) {
 					request.getRequestDispatcher("passengersPersonalDataForm.jsp").forward(request, response);
 					return;
+
 				}
 			}
 		}		
