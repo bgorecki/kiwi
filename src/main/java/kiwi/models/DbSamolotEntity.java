@@ -142,7 +142,7 @@ public class DbSamolotEntity
 
 	private DbPrzewoznikEntity przewoznikByIdPrzew;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name = "id_przew", referencedColumnName = "id_przewoznika", nullable = false)
 	public DbPrzewoznikEntity getPrzewoznikByIdPrzew()
 	{

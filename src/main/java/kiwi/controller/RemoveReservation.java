@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kiwi.dao.RezerwacjaDao;
 import kiwi.models.DbRezerwacjaEntity;
+import kiwi.utils.DatabaseConnector;
 
 
 @WebServlet("/removereservation")
@@ -18,7 +19,9 @@ public class RemoveReservation extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("action") != null) {
-			//new RezerwacjaDao().delete((DbRezerwacjaEntity)request.getSession().getAttribute("r"));
+			DatabaseConnector.getInstance().getSession().beginTransaction();
+			new RezerwacjaDao().delete((DbRezerwacjaEntity)request.getSession().getAttribute("r"));
+			DatabaseConnector.getInstance().getSession().getTransaction().commit();
 			response.sendRedirect("index.jsp");
 			return;
 		}

@@ -99,7 +99,7 @@ public class DbRekordyLotuEntity
 		return result;
 	}
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@javax.persistence.JoinColumn(name = "id_lot", referencedColumnName = "id_lotu", nullable = false)
 	public DbLotEntity getLotByIdLot()
 	{
@@ -135,7 +135,7 @@ public class DbRekordyLotuEntity
 		this.rezerwacjaByIdRez = rezerwacjaByIdRez;
 	}
 
-	@ManyToOne(cascade= CascadeType.ALL)
+	@ManyToOne(cascade= CascadeType.PERSIST)
 	@javax.persistence.JoinColumn(name = "id_klas", referencedColumnName = "id_klasy", nullable = false)
 	public DbKlasaEntity getKlasaByIdKlas()
 	{

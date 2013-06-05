@@ -67,7 +67,7 @@ public class DbMiejscaEntity
 
 	private DbSamolotEntity samolotByIdSam;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@javax.persistence.JoinColumn(name = "id_sam", referencedColumnName = "id_samolotu", nullable = false)
 	public DbSamolotEntity getSamolotByIdSam()
 	{
@@ -81,7 +81,7 @@ public class DbMiejscaEntity
 
 	private DbKlasaEntity klasaByIdKlas;
 
-	@ManyToOne(cascade= CascadeType.ALL)
+	@ManyToOne(cascade= CascadeType.PERSIST)
 	@javax.persistence.JoinColumn(name = "id_klas", referencedColumnName = "id_klasy", nullable = false)
 	public DbKlasaEntity getKlasaByIdKlas()
 	{
