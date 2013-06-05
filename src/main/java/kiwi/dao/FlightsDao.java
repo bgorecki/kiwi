@@ -133,8 +133,9 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 	public Integer getSeatsCount(DbLotEntity lot) {
 		Integer count = 0;
 		for(Integer i: (List<Integer>)getSession().createQuery("select m.ilosc from DbMiejscaEntity m join m.samolotByIdSam s join s.lspsByIdSamolotu lsp where lsp.samolotByIdSam = s and lsp.lotByIdLot = :lot group by m.idMiejsca").setParameter("lot", lot).list()) {
-			count += i;
+			count += i.intValue();
 		}
+
 		return count;
 	}
 
