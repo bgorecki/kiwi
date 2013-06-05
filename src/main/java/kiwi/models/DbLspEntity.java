@@ -50,7 +50,7 @@ public class DbLspEntity
 
 	private DbLotEntity lotByIdLot;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@javax.persistence.JoinColumn(name = "id_lot", referencedColumnName = "id_lotu", nullable = false)
 	public DbLotEntity getLotByIdLot()
 	{
@@ -64,7 +64,7 @@ public class DbLspEntity
 
 	private DbPracownikEntity pracownikByIdPrac;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@javax.persistence.JoinColumn(name = "id_prac", referencedColumnName = "id_pracownika", nullable = false)
 	public DbPracownikEntity getPracownikByIdPrac()
 	{
@@ -78,7 +78,7 @@ public class DbLspEntity
 
 	private DbSamolotEntity samolotByIdSam;
 
-	@ManyToOne(cascade= CascadeType.ALL)
+	@ManyToOne(cascade= CascadeType.PERSIST)
 	@javax.persistence.JoinColumn(name = "id_sam", referencedColumnName = "id_samolotu", nullable = false)
 	public DbSamolotEntity getSamolotByIdSam()
 	{
