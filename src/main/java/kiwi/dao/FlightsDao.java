@@ -1,12 +1,12 @@
 package kiwi.dao;
 
 import com.google.common.collect.Iterables;
-import kiwi.controller.Search;
 import kiwi.dijkstra.Finder;
 import kiwi.dijkstra.Vertex;
 import kiwi.models.DbKlasaEntity;
 import kiwi.models.DbLotEntity;
 import kiwi.models.DbModyfikatorEntity;
+import kiwi.models.SearchForm;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -34,7 +34,7 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 		return getSession().createQuery("from DbLotEntity").list();
 	}
 
-	public List<List<DbLotEntity>> findFlightsByAttributes(Search.SearchForm sf)
+	public List<List<DbLotEntity>> findFlightsByAttributes(SearchForm sf)
 	{
 		Date result = null;
 		DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy");
@@ -113,12 +113,12 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 		return loty;
 	}
 
-	public DbLotEntity findFlightsByAirportNames(Search.SearchForm sf)
+	public DbLotEntity findFlightsByAirportNames(SearchForm sf)
 	{
 		return Iterables.<DbLotEntity>getFirst(getSession().createQuery("from DbLotEntity where lotniskoByPrzylot = :lotniskoByPrzylot and lotniskoByWylot = :lotniskoByWylot").setParameter("lotniskoByPrzylot", sf.getToLotnisko()).setParameter("lotniskoByWylot", sf.getFromLotnisko()).list(), null);
 	}
 
-	public Integer getFreeSeatsCount(DbLotEntity lot, DbKlasaEntity klasa)
+	public Integer getFreeSeatsCountInClass(DbLotEntity lot, DbKlasaEntity klasa)
 	{
 		Integer zajete = ((Long) getSession().createQuery("select count(*) from DbRekordyLotuEntity where lotByIdLot = :lot and klasaByIdKlas = :klasa")
 				                 .setParameter("lot", lot).setParameter("klasa", klasa).uniqueResult()).intValue();
@@ -127,6 +127,24 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 				                              .setParameter("klasa", klasa).setParameter("lot", lot).uniqueResult();
 
 		return posiadane-zajete;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Integer getSeatsCount(DbLotEntity lot) {
+		Integer count = 0;
+		for(Integer i: (List<Integer>)getSession().createQuery("select m.ilosc from DbMiejscaEntity m join m.samolotByIdSam s join s.lspsByIdSamolotu lsp where lsp.samolotByIdSam = s and lsp.lotByIdLot = :lot group by m.idMiejsca").setParameter("lot", lot).list()) {
+			count += i.intValue();
+		}
+
+		return count;
+	}
+
+	public Integer getReservationsCountForDate(DbLotEntity lot, java.sql.Date date) {
+		return ((Long)getSession().createQuery("select count(rekordy)from DbRekordyLotuEntity rekordy where dataWylotu = :data").setParameter("data", date).uniqueResult()).intValue();
+	}
+
+	public DateTime getErliestFlight(DbLotEntity flight) {
+		return new DateTime((Date)getSession().createQuery("select rekordy.dataWylotu from DbRekordyLotuEntity rekordy where dataWylotu = min(dataWylotu)").uniqueResult());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -140,18 +158,23 @@ public class FlightsDao extends GenericDao<DbLotEntity, Integer>
 		return prices;
 	}
 
-	public Float getPrice(DbLotEntity lot, Search.SearchForm sf) {
+	public Float getPrice(DbLotEntity lot, SearchForm sf) {
 		Float[] prices = getPrices(lot, sf.getKlasaDb());
 		Float price = sf.getIlosc()*prices[0] + sf.getIlosc_dz()*prices[1] + sf.getIlosc_inf()*prices[1];
 		return price;
 	}
 
-	public Float getFlightPrice(List<DbLotEntity> lot, Search.SearchForm sf) {
+	public Float getFlightPrice(List<DbLotEntity> lot, SearchForm sf) {
 
 		Float price = 0F;
 		for(DbLotEntity i: lot) {
 			price += getPrice(i,sf)*(1F-.05F*lot.size());
 		}
 		return price;
+	}
+
+	public DbLotEntity getById(int id)
+	{
+		return Iterables.<DbLotEntity>getFirst(getSession().createQuery("from DbLotEntity where idLotu = :id").setParameter("id", id).list(), null);
 	}
 }

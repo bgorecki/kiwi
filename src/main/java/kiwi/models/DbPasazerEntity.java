@@ -15,11 +15,17 @@ import java.util.Collection;
 @Entity
 public class DbPasazerEntity
 {
-
 	private Integer idPasazera;
+	private String imie;
+	private String nazwisko;
+	private String wiek;
+	private Date dataUr;
+	private DbRezerwacjaEntity rezerwacjaByIdRezerw;
+	private Collection<DbRekordyLotuEntity> rekordyLotusByIdPasazera;
 
 	@javax.persistence.Column(name = "id_pasazera", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
-	@Id
+
+	@Id @GeneratedValue
 	public Integer getIdPasazera()
 	{
 		return idPasazera;
@@ -29,8 +35,6 @@ public class DbPasazerEntity
 	{
 		this.idPasazera = idPasazera;
 	}
-
-	private String imie;
 
 	@javax.persistence.Column(name = "imie", nullable = false, insertable = true, updatable = true, length = 250, precision = 0)
 	@Basic
@@ -44,8 +48,6 @@ public class DbPasazerEntity
 		this.imie = imie;
 	}
 
-	private String nazwisko;
-
 	@javax.persistence.Column(name = "nazwisko", nullable = false, insertable = true, updatable = true, length = 250, precision = 0)
 	@Basic
 	public String getNazwisko()
@@ -57,8 +59,6 @@ public class DbPasazerEntity
 	{
 		this.nazwisko = nazwisko;
 	}
-
-	private String wiek;
 
 	@javax.persistence.Column(name = "wiek", nullable = false, insertable = true, updatable = true, length = 18, precision = 0)
 	@Basic
@@ -72,9 +72,7 @@ public class DbPasazerEntity
 		this.wiek = wiek;
 	}
 
-	private Date dataUr;
-
-	@javax.persistence.Column(name = "data_ur", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+	@javax.persistence.Column(name = "data_ur", nullable = true, insertable = true, updatable = true, length = 10, precision = 0)
 	@Basic
 	public Date getDataUr()
 	{
@@ -114,8 +112,6 @@ public class DbPasazerEntity
 		return result;
 	}
 
-	private DbRezerwacjaEntity rezerwacjaByIdRezerw;
-
 	@ManyToOne(cascade=CascadeType.ALL)
 	@javax.persistence.JoinColumn(name = "id_rezerw", referencedColumnName = "id_rezerwacji", nullable = false)
 	public DbRezerwacjaEntity getRezerwacjaByIdRezerw()
@@ -128,8 +124,6 @@ public class DbPasazerEntity
 		this.rezerwacjaByIdRezerw = rezerwacjaByIdRezerw;
 	}
 
-	private Collection<DbRekordyLotuEntity> rekordyLotusByIdPasazera;
-
 	@OneToMany(mappedBy = "pasazerByIdOs",cascade=CascadeType.ALL)
 	public Collection<DbRekordyLotuEntity> getRekordyLotusByIdPasazera()
 	{
@@ -139,5 +133,47 @@ public class DbPasazerEntity
 	public void setRekordyLotusByIdPasazera(Collection<DbRekordyLotuEntity> rekordyLotusByIdPasazera)
 	{
 		this.rekordyLotusByIdPasazera = rekordyLotusByIdPasazera;
+	}
+
+	public DbPasazerEntity withIdPasazera(final Integer idPasazera)
+	{
+		this.idPasazera = idPasazera;
+		return this;
+	}
+
+	public DbPasazerEntity withImie(final String imie)
+	{
+		this.imie = imie;
+		return this;
+	}
+
+	public DbPasazerEntity withNazwisko(final String nazwisko)
+	{
+		this.nazwisko = nazwisko;
+		return this;
+	}
+
+	public DbPasazerEntity withWiek(final String wiek)
+	{
+		this.wiek = wiek;
+		return this;
+	}
+
+	public DbPasazerEntity withDataUr(final Date dataUr)
+	{
+		this.dataUr = dataUr;
+		return this;
+	}
+
+	public DbPasazerEntity withRezerwacjaByIdRezerw(final DbRezerwacjaEntity rezerwacjaByIdRezerw)
+	{
+		this.rezerwacjaByIdRezerw = rezerwacjaByIdRezerw;
+		return this;
+	}
+
+	public DbPasazerEntity withRekordyLotusByIdPasazera(final Collection<DbRekordyLotuEntity> rekordyLotusByIdPasazera)
+	{
+		this.rekordyLotusByIdPasazera = rekordyLotusByIdPasazera;
+		return this;
 	}
 }
